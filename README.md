@@ -12,7 +12,6 @@
 <p align="center">
   <a href="https://arxiv.org/pdf/2611.17309"><img src="https://img.shields.io/badge/arXiv-2611.17309-b31b1b?logo=arxiv&logoColor=white" alt="Paper on arXiv"></a>
   <a href="https://prefrontal.ai/news/cram/"><img src="https://img.shields.io/badge/Blog-Reasoning%20at%20Hyperspeed-256abf?logo=rss&logoColor=white" alt="Blog post"></a>
-  <img src="https://img.shields.io/badge/Code-coming%20soon-8a8f98?logo=github&logoColor=white" alt="Code coming soon">
 </p>
 
 <p align="center">
