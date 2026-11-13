@@ -54,7 +54,7 @@ On these puzzles, CRAM gives:
 
 ```bibtex
 @article{hoover2026cram,
-  title         = {Classical Energies Learn to Reason 1,000$\times$ Faster than Looped Models},
+  title         = {Classical Energies Learn to Reason 1,000x Faster than Looped Models},
   author        = {Hoover, Benjamin and Blayney, Hugh and Whittington, James C. R.},
   year          = {2026},
   journal       = {arXiv preprint arXiv:2611.17309},
