@@ -4,7 +4,8 @@
 
 This repository will hold the code, trained models and results for the paper "Classical Energies Learn to Reason 1,000× Faster than Looped Models" by Benjamin Hoover, Hugh Blayney and James C. R. Whittington (Prefrontal).
 
-Read the blog post: https://prefrontal.ai/news/cram/
+- Paper (arXiv): https://arxiv.org/pdf/2611.17309
+- Blog post: https://prefrontal.ai/news/cram/
 
 ## What is CRAM?
 
@@ -24,7 +25,3 @@ On these puzzles, CRAM gives:
 - **Training without differentiating through a solver.**
 - **Built-in early stopping**, with compute that adapts to the difficulty of the problem.
 - **Interpretable weights** that learn the constraints of the puzzle.
-
-## Contact
-
-Benjamin Hoover (ben@prefrontal.ai) and James C. R. Whittington (james@prefrontal.ai).
