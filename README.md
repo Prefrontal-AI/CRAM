@@ -7,6 +7,13 @@ This repository will hold the code, trained models and results for the paper "Cl
 - Paper (arXiv): https://arxiv.org/pdf/2611.17309
 - Blog post: https://prefrontal.ai/news/cram/
 
+![CRAM overview: training pulls down the energy of solutions and pushes up the energy of negative samples; reasoning descends the energy from random starts until a stopping threshold](assets/overview.png)
+
+**CRAM learns an energy from solved puzzles in milliseconds, and the energy tells the search when to stop.**
+*Training* (left) pulls down the energy of each solution and pushes up the energy of negative samples, without differentiating through a reasoning trajectory.
+*Reasoning* (right) clamps the clues of a new puzzle, starts several chains from random fills of the other cells, and minimizes the energy one cell at a time.
+The search stops when the energy of any chain falls below a stopping threshold fitted from the training solutions.
+
 ## What is CRAM?
 
 CRAM is a small trainable energy function, together with the recurrent dynamics that descend it at inference time.
