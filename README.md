@@ -1,11 +1,29 @@
-# CRAM: Compact Reasoning Associative Memory
+<p align="center">
+  <a href="https://prefrontal.ai">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/prefrontal-logo-dark.svg">
+      <img src="assets/prefrontal-logo-light.svg" alt="Prefrontal" width="300">
+    </picture>
+  </a>
+</p>
+
+<h1 align="center">CRAM: Compact Reasoning Associative Memory</h1>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2611.17309"><img src="https://img.shields.io/badge/arXiv-2611.17309-b31b1b?logo=arxiv&logoColor=white" alt="Paper on arXiv"></a>
+  <a href="https://prefrontal.ai/news/cram/"><img src="https://img.shields.io/badge/Blog-Reasoning%20at%20Hyperspeed-256abf?logo=rss&logoColor=white" alt="Blog post"></a>
+  <img src="https://img.shields.io/badge/Code-coming%20soon-8a8f98?logo=github&logoColor=white" alt="Code coming soon">
+</p>
+
+<p align="center">
+  📄 <a href="https://arxiv.org/pdf/2611.17309"><b>Paper</b></a> &nbsp;·&nbsp;
+  📝 <a href="https://prefrontal.ai/news/cram/"><b>Blog post</b></a> &nbsp;·&nbsp;
+  🔖 <a href="#citation"><b>Cite</b></a>
+</p>
 
 **Code coming soon.**
 
 This repository will hold the code, trained models and results for the paper "Classical Energies Learn to Reason 1,000× Faster than Looped Models" by Benjamin Hoover, Hugh Blayney and James C. R. Whittington (Prefrontal).
-
-- Paper (arXiv): https://arxiv.org/pdf/2611.17309
-- Blog post: https://prefrontal.ai/news/cram/
 
 ![CRAM overview: training pulls down the energy of solutions and pushes up the energy of negative samples; reasoning descends the energy from random starts until a stopping threshold](assets/overview.png)
 
@@ -32,3 +50,17 @@ On these puzzles, CRAM gives:
 - **Training without differentiating through a solver.**
 - **Built-in early stopping**, with compute that adapts to the difficulty of the problem.
 - **Interpretable weights** that learn the constraints of the puzzle.
+
+## Citation
+
+```bibtex
+@article{hoover2026cram,
+  title         = {Classical Energies Learn to Reason 1,000$\times$ Faster than Looped Models},
+  author        = {Hoover, Benjamin and Blayney, Hugh and Whittington, James C. R.},
+  year          = {2026},
+  journal       = {arXiv preprint arXiv:2611.17309},
+  eprint        = {2611.17309},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2611.17309}
+}
+```
