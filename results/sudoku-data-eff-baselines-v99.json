@@ -1,0 +1,7048 @@
+{
+ "source": "experiments/data_efficiency_baselines.py",
+ "variants": 99,
+ "partial": false,
+ "missing": [],
+ "note": "TRM and EBR test10k solve rates per k (unique training puzzles) and seed.\n\ntest10k is full-all rows 10,000-19,999; baselines/ebr/report.py sweep_official_rows() gives their official test rows.\nTRM: score.right.npy holds one flag per official test row (422,786), so test10k is its mean over those rows.\n  k = 1,000: baselines/runs/trm/sudoku-s<s>; other k: experiments/runs/trm/smalldata/n<k>-s<s>.\nEBR: baselines/ebr/de1_report.py on baselines/runs/ebr/de1/n<k>-s<s>/score10k (evaluate.py on the same 10,000 puzzles), setting\n  gtan0.2-cap64-N5 (the setting of the paper's main table); D64-N1 and D64-N5 are kept beside it.\n\n  python data_efficiency_baselines.py   # writes ../results/sudoku-data-eff-baselines.json\n\nWith DE_VARIANTS=99: the 100-board runs, TRM in experiments/runs/trm/de2-v99/n<k>-s<s> (every k), EBR in\nbaselines/runs/ebr/de2-v99/n<k>-s<s>, k up to 100,000; writes ../results/sudoku-data-eff-baselines-v99.json.\nFRM: baselines/runs/frm/de2-v99/n<k>-s<s>/runs/s<s>/test10k.json (baselines/frm/de2_adapter.py finish), every k.\nDE_PARTIAL=1 leaves out runs that have not finished and records them under 'missing' (a preview export).\nTRM at k = 30,000 makes 65,117 updates (E3-trm.sbatch EP = EI = 1,667: int(1667 * 30000 / 768); no epoch setting gives 65,100).\n",
+ "script_sha256": "13513ff324dc4e9703853dbb58a6ba7cd059fa710b15d714b535c5c634181b24",
+ "rows": [
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n1-s0",
+   "score_right_sha256": "846b6d4a61b4f82fa09d8560158906043449c18845bdc24d57b292d21cc29630",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8965.449298908934,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 346,
+    "rate": 0.0346
+   },
+   "test": {
+    "n": 422786,
+    "solved": 12597,
+    "rate": 0.02979521554639936
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n1-s0",
+   "report": "baselines/runs/ebr/de2-v99/n1-s0/score10k.report.json",
+   "report_sha256": "816844425994a526b2892ed8ad50d45f2fe64d8ea6d3bb0106c6cefd2f9be891",
+   "steps": 60000,
+   "fit_seconds": 10037.59472197434,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4038026338379.534
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n1-s1",
+   "score_right_sha256": "be31c5da57a97bbf675dd6cae586e34f6b155a22a8b34e0d1a7f0e8997b454ca",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9155.05807622103,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 316,
+    "rate": 0.0316
+   },
+   "test": {
+    "n": 422786,
+    "solved": 11287,
+    "rate": 0.02669672127270061
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n1-s1",
+   "report": "baselines/runs/ebr/de2-v99/n1-s1/score10k.report.json",
+   "report_sha256": "187616230853c40cf3448a1027feb048aa87a8f81dd9399b957e65b5b526fa0c",
+   "steps": 60000,
+   "fit_seconds": 10237.62249416532,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n1-s2",
+   "score_right_sha256": "e3e1bc453d9f45d2e71a70f4940c92eb4e93e1c0fd4fb6fcc380c4078decdf5a",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9085.703401612118,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 296,
+    "rate": 0.0296
+   },
+   "test": {
+    "n": 422786,
+    "solved": 10757,
+    "rate": 0.025443131986395008
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n1-s2",
+   "report": "baselines/runs/ebr/de2-v99/n1-s2/score10k.report.json",
+   "report_sha256": "0cef28fb184d125a42a6d3c721271abac83955ac8763557e448a452b25613ca5",
+   "steps": 60000,
+   "fit_seconds": 10046.455975156277,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n1-s3",
+   "score_right_sha256": "a4ac554dc791fdf49f38e1a0d6b4b6b8721df12b7dbb97f42228fd818d28e3c8",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9002.822813325009,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 282,
+    "rate": 0.0282
+   },
+   "test": {
+    "n": 422786,
+    "solved": 9933,
+    "rate": 0.02349415543561045
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n1-s3",
+   "report": "baselines/runs/ebr/de2-v99/n1-s3/score10k.report.json",
+   "report_sha256": "3ab7856671e73fb968470eab54c654a9e658ecca553d1fe23800f0f1d93810cf",
+   "steps": 60000,
+   "fit_seconds": 10133.550703834997,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n1-s4",
+   "score_right_sha256": "2b5daa7db62ec4ae63cb43f417c78b07384248ece2fedd2eb05cce38dc824baa",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9117.329667373006,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 289,
+    "rate": 0.0289
+   },
+   "test": {
+    "n": 422786,
+    "solved": 10336,
+    "rate": 0.024447356345763577
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n1-s4",
+   "report": "baselines/runs/ebr/de2-v99/n1-s4/score10k.report.json",
+   "report_sha256": "3d49a9694c6a2341934311390f510049f7f8b62b50d8bc4805be250ab25287cd",
+   "steps": 60000,
+   "fit_seconds": 10038.521205010002,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n1-s5",
+   "score_right_sha256": "11fb566adbd68c9b3a9cdcd1b6eefef0d9ccc035657ce9caf1c7e0429275e6bd",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8903.221324149004,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 293,
+    "rate": 0.0293
+   },
+   "test": {
+    "n": 422786,
+    "solved": 10807,
+    "rate": 0.025561395126612516
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n1-s5",
+   "report": "baselines/runs/ebr/de2-v99/n1-s5/score10k.report.json",
+   "report_sha256": "2ac7300cc20f0da9704ae1df5de1a77b07d188d779a2d05a4a3f66815a4e5b7f",
+   "steps": 60000,
+   "fit_seconds": 10195.056859092992,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 3860337725236.9663
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n3-s0",
+   "score_right_sha256": "4a08f69a0b0595f9215c2a3344b186de78e6afe6f333578b311b1d141ef3f18b",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8959.42907748092,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 771,
+    "rate": 0.0771
+   },
+   "test": {
+    "n": 422786,
+    "solved": 32076,
+    "rate": 0.07586816971233674
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n3-s0",
+   "report": "baselines/runs/ebr/de2-v99/n3-s0/score10k.report.json",
+   "report_sha256": "751711761087997267a0cc52fe12c336f2a4f88f280b43881d5793936f0d3862",
+   "steps": 60000,
+   "fit_seconds": 10007.104723303113,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n3-s1",
+   "score_right_sha256": "dafa9b46b53e97e33e91c5cbc77ad8e30db840d42df5d32565b6afe275661687",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8952.236096890178,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 732,
+    "rate": 0.0732
+   },
+   "test": {
+    "n": 422786,
+    "solved": 27318,
+    "rate": 0.06461424928923852
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n3-s1",
+   "report": "baselines/runs/ebr/de2-v99/n3-s1/score10k.report.json",
+   "report_sha256": "1dcc7cdfa3b76dfaf48cecb2c4fe6b82705bb4000a4eb036825734efd7e16b1f",
+   "steps": 60000,
+   "fit_seconds": 10014.15359810507,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4331521633439.7886
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n3-s2",
+   "score_right_sha256": "4f9bfddf9d524dc967d0b585d8dd89b1acc954892f767dd5784b742fadfaffcc",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8925.78033820074,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 779,
+    "rate": 0.0779
+   },
+   "test": {
+    "n": 422786,
+    "solved": 29902,
+    "rate": 0.07072608837567942
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n3-s2",
+   "report": "baselines/runs/ebr/de2-v99/n3-s2/score10k.report.json",
+   "report_sha256": "10e544e9df3a11e089909b6ead81c74b2fe5bea522277ff33be9b82002f2939f",
+   "steps": 60000,
+   "fit_seconds": 10193.267678122036,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 3878704632632.9014
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n3-s3",
+   "score_right_sha256": "0b7e841615aefe4a239f00fc9e29d40ab7ad2af49d509a23e9cca5cf1b10a873",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9100.95454728201,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 964,
+    "rate": 0.0964
+   },
+   "test": {
+    "n": 422786,
+    "solved": 37731,
+    "rate": 0.08924373087093707
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n3-s3",
+   "report": "baselines/runs/ebr/de2-v99/n3-s3/score10k.report.json",
+   "report_sha256": "13f99a2141285564b26707cd24763f97ff689115b5c30cd7a12861c0cdad3953",
+   "steps": 60000,
+   "fit_seconds": 9991.452184585001,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 2045015679237.0496
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n3-s4",
+   "score_right_sha256": "2d8c54d61418b58ccc2d9664247bd9adb4589010b125437427d24073399d5f1c",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8919.646989253999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 980,
+    "rate": 0.098
+   },
+   "test": {
+    "n": 422786,
+    "solved": 38791,
+    "rate": 0.09175090944354827
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n3-s4",
+   "report": "baselines/runs/ebr/de2-v99/n3-s4/score10k.report.json",
+   "report_sha256": "4ce43b97eb18138c4c21ead4b5b7298df5e5f50c3bfa3c89517d9dc1752eacd9",
+   "steps": 60000,
+   "fit_seconds": 10072.948997011004,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 1452547645008.605
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n3-s5",
+   "score_right_sha256": "16fc9ac40113f0765563962334f200b6bed67fb437b91682747f91c325f9e0c4",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9232.250012713,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 741,
+    "rate": 0.0741
+   },
+   "test": {
+    "n": 422786,
+    "solved": 28106,
+    "rate": 0.06647807637906648
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n3-s5",
+   "report": "baselines/runs/ebr/de2-v99/n3-s5/score10k.report.json",
+   "report_sha256": "bd71f81e14d3e3a12f24281280748cb33da24b62d944ec59ee34134e7ca32eef",
+   "steps": 60000,
+   "fit_seconds": 10021.102246586008,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 3,
+     "rate": 0.0003,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 3,
+     "rate": 0.0003,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n10-s0",
+   "score_right_sha256": "c4ba6abfdb5ecf3a3489df540ca1663a7eb7ed65df8f14d9666c0c7d8c144141",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8899.561040720437,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 907,
+    "rate": 0.0907
+   },
+   "test": {
+    "n": 422786,
+    "solved": 36385,
+    "rate": 0.08606008713628172
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n10-s0",
+   "report": "baselines/runs/ebr/de2-v99/n10-s0/score10k.report.json",
+   "report_sha256": "f3bb0a83969a2a998f029a8cd455c115bcc884894546649a8cc57b18ada6495f",
+   "steps": 60000,
+   "fit_seconds": 10188.116280936636,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n10-s1",
+   "score_right_sha256": "90114827eb3a3fe8574f51d8daf16107a4316047f59a16e6803d592ce4d1606d",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8879.134733826388,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1220,
+    "rate": 0.122
+   },
+   "test": {
+    "n": 422786,
+    "solved": 46849,
+    "rate": 0.11081019712100211
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n10-s1",
+   "report": "baselines/runs/ebr/de2-v99/n10-s1/score10k.report.json",
+   "report_sha256": "905e7c01054c91de2dc7e5b167dfdf9d464fb9d328df3d16017ed874ee57142e",
+   "steps": 60000,
+   "fit_seconds": 10033.088210486341,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 174569799470.813
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n10-s2",
+   "score_right_sha256": "3d59c4be526adf16e1ad09a175c2e438b62f6fe4cc2c9fa296f7d0fd327aefbb",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8970.202965654433,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1549,
+    "rate": 0.1549
+   },
+   "test": {
+    "n": 422786,
+    "solved": 60917,
+    "rate": 0.1440847142526006
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n10-s2",
+   "report": "baselines/runs/ebr/de2-v99/n10-s2/score10k.report.json",
+   "report_sha256": "9a2d11d3312cd7e4343de3b4220f4bfe79721f36e53bdfcf238df77b2a099fe7",
+   "steps": 60000,
+   "fit_seconds": 10168.459217992146,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4325721986737.267
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n10-s3",
+   "score_right_sha256": "8d41a3e7bc10dd5e00795d5be73db94dd8f840e2a41d0a50c70de2d47052d84e",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8966.905539783998,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1158,
+    "rate": 0.1158
+   },
+   "test": {
+    "n": 422786,
+    "solved": 45403,
+    "rate": 0.10739002710591174
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n10-s3",
+   "report": "baselines/runs/ebr/de2-v99/n10-s3/score10k.report.json",
+   "report_sha256": "c18bb7d98fb9cd4c03618ca7476ae28ff9833d276021f57d4a5158b469bce497",
+   "steps": 60000,
+   "fit_seconds": 10071.925744860995,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n10-s4",
+   "score_right_sha256": "9f1d82abf592ba236e5ac3fa68ca7741e0042f76f9d325a65a19ac9ae8e10a69",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8927.271874594999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1012,
+    "rate": 0.1012
+   },
+   "test": {
+    "n": 422786,
+    "solved": 40464,
+    "rate": 0.09570799411522614
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n10-s4",
+   "report": "baselines/runs/ebr/de2-v99/n10-s4/score10k.report.json",
+   "report_sha256": "d9d87fea1c100b97905ebb58c2411e84b62e90664610c67ea1c46da777c36f43",
+   "steps": 60000,
+   "fit_seconds": 10056.857841993995,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 76,
+     "rate": 0.0076,
+     "mean_flop": 2128322043744.874
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 47,
+     "rate": 0.0047,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 81,
+     "rate": 0.0081,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n10-s5",
+   "score_right_sha256": "8ed0f1648d6ea2231e1c8c1539b126bdd7208e7706d464e7c5175820b8c2bb56",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8927.52055493,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1338,
+    "rate": 0.1338
+   },
+   "test": {
+    "n": 422786,
+    "solved": 51065,
+    "rate": 0.12078214510414252
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n10-s5",
+   "report": "baselines/runs/ebr/de2-v99/n10-s5/score10k.report.json",
+   "report_sha256": "f547d08c384ee9fe1945fa049179a987496603c86365c3bc005425575a142ca3",
+   "steps": 60000,
+   "fit_seconds": 10079.564173850995,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 4,
+     "rate": 0.0004,
+     "mean_flop": 4125528134140.0503
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 0,
+     "rate": 0.0,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 4,
+     "rate": 0.0004,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n30-s0",
+   "score_right_sha256": "042f0acf020a45bfb8d27c15254fcc95ca322ed85039693233420df537263567",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8997.412357869034,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1348,
+    "rate": 0.1348
+   },
+   "test": {
+    "n": 422786,
+    "solved": 52991,
+    "rate": 0.125337641265321
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n30-s0",
+   "report": "baselines/runs/ebr/de2-v99/n30-s0/score10k.report.json",
+   "report_sha256": "61150a6191623c031b9e6551dcd6e0255e6a92308f97893c10836b06977fa3a6",
+   "steps": 60000,
+   "fit_seconds": 10169.688124945853,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 633,
+     "rate": 0.0633,
+     "mean_flop": 3119523266047.039
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 419,
+     "rate": 0.0419,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 635,
+     "rate": 0.0635,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n30-s1",
+   "score_right_sha256": "45453136a3e551f0786a4606740cf66fc61ccedca643e2f4662f4eebaf29ae8b",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8905.76754723402,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1609,
+    "rate": 0.1609
+   },
+   "test": {
+    "n": 422786,
+    "solved": 64083,
+    "rate": 0.1515731362911733
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n30-s1",
+   "report": "baselines/runs/ebr/de2-v99/n30-s1/score10k.report.json",
+   "report_sha256": "e10d0b8ffce069510c471ad071ca25f91ad02e3b54945e8beda96e723f59a772",
+   "steps": 60000,
+   "fit_seconds": 10089.470547858626,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 93,
+     "rate": 0.0093,
+     "mean_flop": 4345172419314.147
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 57,
+     "rate": 0.0057,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 93,
+     "rate": 0.0093,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n30-s2",
+   "score_right_sha256": "83048bbb6a19a562a2de0f34ab09bac22bd35756038dbbb9c40e55be93851c4e",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8834.949129112996,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1716,
+    "rate": 0.1716
+   },
+   "test": {
+    "n": 422786,
+    "solved": 65839,
+    "rate": 0.15572653777561224
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n30-s2",
+   "report": "baselines/runs/ebr/de2-v99/n30-s2/score10k.report.json",
+   "report_sha256": "07a305a7d1314aa6850320e1ca0d6fd2969d13e08c8f618385b5fd7272b38725",
+   "steps": 60000,
+   "fit_seconds": 10125.9517468079,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 530,
+     "rate": 0.053,
+     "mean_flop": 3205940177121.9917
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 310,
+     "rate": 0.031,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 538,
+     "rate": 0.0538,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n30-s3",
+   "score_right_sha256": "e97eb060aa608f371ddcd5ced2bc2267a36abe5488037aded136f292d90741c6",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8899.095529021008,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1888,
+    "rate": 0.1888
+   },
+   "test": {
+    "n": 422786,
+    "solved": 76624,
+    "rate": 0.18123589712052907
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n30-s3",
+   "report": "baselines/runs/ebr/de2-v99/n30-s3/score10k.report.json",
+   "report_sha256": "6e786569fee8bf80e16d9c7dabbfa935ef008255db586db59b384ee0c8047ca1",
+   "steps": 60000,
+   "fit_seconds": 10146.174656940006,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 127,
+     "rate": 0.0127,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 77,
+     "rate": 0.0077,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 127,
+     "rate": 0.0127,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n30-s4",
+   "score_right_sha256": "ebd5098318a86a664cd95848410a11bfea8dc664f1e905fb25a939f506bbccc1",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9009.075093804002,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1613,
+    "rate": 0.1613
+   },
+   "test": {
+    "n": 422786,
+    "solved": 63507,
+    "rate": 0.1502107449158676
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n30-s4",
+   "report": "baselines/runs/ebr/de2-v99/n30-s4/score10k.report.json",
+   "report_sha256": "e7e6f5ff43f0dde231db928078fd37de48f4808358eefd2376277b52c16b6ef2",
+   "steps": 60000,
+   "fit_seconds": 10016.568420625004,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 204,
+     "rate": 0.0204,
+     "mean_flop": 4292274094608.312
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 199,
+     "rate": 0.0199,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 207,
+     "rate": 0.0207,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n30-s5",
+   "score_right_sha256": "e9408a5f4d74173c44e95bfe973134ca67df7a3cdbe8df8ca8aefe74dd9ae880",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8970.511349875,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2115,
+    "rate": 0.2115
+   },
+   "test": {
+    "n": 422786,
+    "solved": 85283,
+    "rate": 0.20171670774339737
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n30-s5",
+   "report": "baselines/runs/ebr/de2-v99/n30-s5/score10k.report.json",
+   "report_sha256": "69c4b778f7ceb300388cf0d0c1d747ebbcb365c0d654a58e39d4555097279179",
+   "steps": 60000,
+   "fit_seconds": 10008.215460997006,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 529,
+     "rate": 0.0529,
+     "mean_flop": 3561089006631.2207
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 368,
+     "rate": 0.0368,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 530,
+     "rate": 0.053,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n50-s0",
+   "score_right_sha256": "23b01d54745235c0d6c83ffeb3b26ea0c0531ab50ee0ca1413bcc7ad58afaa46",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8956.500276687024,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1811,
+    "rate": 0.1811
+   },
+   "test": {
+    "n": 422786,
+    "solved": 72165,
+    "rate": 0.17068919027593155
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n50-s0",
+   "report": "baselines/runs/ebr/de2-v99/n50-s0/score10k.report.json",
+   "report_sha256": "f576191061da6b4c646c6932ce4813b8b6b6c254fcca33e0e9ec7a9de8b15933",
+   "steps": 60000,
+   "fit_seconds": 10101.88597595911,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 4999,
+     "rate": 0.4999,
+     "mean_flop": 3311584562016.3896
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 2635,
+     "rate": 0.2635,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 4968,
+     "rate": 0.4968,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n50-s1",
+   "score_right_sha256": "b36ecf7da76275786eafafe67144a2e39e83f92a235cf18d4ddab50afeaf7779",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8916.546896072197,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1918,
+    "rate": 0.1918
+   },
+   "test": {
+    "n": 422786,
+    "solved": 76860,
+    "rate": 0.1817940991423557
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n50-s1",
+   "report": "baselines/runs/ebr/de2-v99/n50-s1/score10k.report.json",
+   "report_sha256": "910bd53c692c4bf2ec95ced4e45bd0d07c9a4cc7d02dc789ff0da3cd99d49df8",
+   "steps": 60000,
+   "fit_seconds": 10098.005157692638,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5307,
+     "rate": 0.5307,
+     "mean_flop": 3365469887075.2554
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 2781,
+     "rate": 0.2781,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 5304,
+     "rate": 0.5304,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n50-s2",
+   "score_right_sha256": "b07bcf2c889535f717314d91af34e6b4b7eaeba966a117c4d4e6b7e6a4c52aa0",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9004.139819871347,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2176,
+    "rate": 0.2176
+   },
+   "test": {
+    "n": 422786,
+    "solved": 85910,
+    "rate": 0.20319972752172494
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n50-s2",
+   "report": "baselines/runs/ebr/de2-v99/n50-s2/score10k.report.json",
+   "report_sha256": "9dedb5d5e3af2ea8846117e52d480ce148728c1695674101215539c804ad45e2",
+   "steps": 60000,
+   "fit_seconds": 10058.62833123887,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 2353,
+     "rate": 0.2353,
+     "mean_flop": 4018343430512.892
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 1771,
+     "rate": 0.1771,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 2281,
+     "rate": 0.2281,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n50-s3",
+   "score_right_sha256": "f051f81b48e933c37cd339a011c738b51667c0862c92598c8b2786ab24820ef5",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8711.118617842003,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1951,
+    "rate": 0.1951
+   },
+   "test": {
+    "n": 422786,
+    "solved": 78254,
+    "rate": 0.18509127549161988
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n50-s3",
+   "report": "baselines/runs/ebr/de2-v99/n50-s3/score10k.report.json",
+   "report_sha256": "b51f77d6bd3fb3904834d3155435a9f13c88aec7ee0e72757c341a2f6c0f80df",
+   "steps": 60000,
+   "fit_seconds": 9991.070971794,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5077,
+     "rate": 0.5077,
+     "mean_flop": 3820977347522.1553
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 2592,
+     "rate": 0.2592,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 4987,
+     "rate": 0.4987,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n50-s4",
+   "score_right_sha256": "b8c614a757078d377baf555505c3582d556b99b4d7346b87f01bd908165afc8f",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8562.545365620996,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1872,
+    "rate": 0.1872
+   },
+   "test": {
+    "n": 422786,
+    "solved": 75375,
+    "rate": 0.17828168387789567
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n50-s4",
+   "report": "baselines/runs/ebr/de2-v99/n50-s4/score10k.report.json",
+   "report_sha256": "715c2cef73c88fce3a110e28acb64e8c4a19129398ec0f75020e92a55b69555f",
+   "steps": 60000,
+   "fit_seconds": 10035.473500495002,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 4376,
+     "rate": 0.4376,
+     "mean_flop": 3953020593098.5854
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 2384,
+     "rate": 0.2384,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 4397,
+     "rate": 0.4397,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 50,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n50-s5",
+   "score_right_sha256": "c0152cfb2f02251603fd12da25f46a8140650889063a49124827154ff5be68ce",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8646.295629545999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2039,
+    "rate": 0.2039
+   },
+   "test": {
+    "n": 422786,
+    "solved": 81852,
+    "rate": 0.19360149106167185
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 50,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n50-s5",
+   "report": "baselines/runs/ebr/de2-v99/n50-s5/score10k.report.json",
+   "report_sha256": "5c649334b4a8a7e421645f7c80f0773d463f6bc30c7819a5a3671a632939ad87",
+   "steps": 60000,
+   "fit_seconds": 10165.082724734006,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 2611,
+     "rate": 0.2611,
+     "mean_flop": 3993913132518.4463
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 1307,
+     "rate": 0.1307,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 2586,
+     "rate": 0.2586,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n70-s0",
+   "score_right_sha256": "9d27be5d699b1bc132a3f036305ea10c64f306fe9adf4b229b1513e47894581c",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9104.248637946741,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 1937,
+    "rate": 0.1937
+   },
+   "test": {
+    "n": 422786,
+    "solved": 79148,
+    "rate": 0.18720582043870895
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n70-s0",
+   "report": "baselines/runs/ebr/de2-v99/n70-s0/score10k.report.json",
+   "report_sha256": "2fbd116971b1aa3b660b24ba6737faa2d5d6757c5c6cf82c0ebbc6b0a459c6d0",
+   "steps": 60000,
+   "fit_seconds": 10123.49843499987,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6654,
+     "rate": 0.6654,
+     "mean_flop": 2791748062031.3076
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4346,
+     "rate": 0.4346,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6633,
+     "rate": 0.6633,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n70-s1",
+   "score_right_sha256": "89e1488c7a039967d654bd0c7457d78200c0ca9574224e909883fa625ddc98a4",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 9092.427370017806,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2131,
+    "rate": 0.2131
+   },
+   "test": {
+    "n": 422786,
+    "solved": 86699,
+    "rate": 0.20506591987435724
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n70-s1",
+   "report": "baselines/runs/ebr/de2-v99/n70-s1/score10k.report.json",
+   "report_sha256": "18d1b46aad81e64dfc272990d4424ba4bceed2a779036a0e1d5d7828b441dc61",
+   "steps": 60000,
+   "fit_seconds": 10074.986698524013,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6233,
+     "rate": 0.6233,
+     "mean_flop": 2818508550941.862
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4247,
+     "rate": 0.4247,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6253,
+     "rate": 0.6253,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n70-s2",
+   "score_right_sha256": "86b96d92fc43b66e882f39367bf97380a25fb89cc11c588d93478d9e7ba4b0c4",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8905.860754398715,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2008,
+    "rate": 0.2008
+   },
+   "test": {
+    "n": 422786,
+    "solved": 79061,
+    "rate": 0.1870000425747305
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n70-s2",
+   "report": "baselines/runs/ebr/de2-v99/n70-s2/score10k.report.json",
+   "report_sha256": "918768ceb47fa46b09dbe5752ab66c32a99e5eae02bad88a8c2203e9f571720c",
+   "steps": 60000,
+   "fit_seconds": 10160.525846315972,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6917,
+     "rate": 0.6917,
+     "mean_flop": 2636071188166.8726
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4770,
+     "rate": 0.477,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6909,
+     "rate": 0.6909,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n70-s3",
+   "score_right_sha256": "fd56d5cc4b3313b639ff05695f35cbbb2fe13d9cff754c13ee471ec560e59dde",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8837.324870066004,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2068,
+    "rate": 0.2068
+   },
+   "test": {
+    "n": 422786,
+    "solved": 83700,
+    "rate": 0.19797249672411102
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n70-s3",
+   "report": "baselines/runs/ebr/de2-v99/n70-s3/score10k.report.json",
+   "report_sha256": "74e7644243bb67768db1dcf8be3cee8e5b0b33d6367a60bc393a81ab0efbe52c",
+   "steps": 60000,
+   "fit_seconds": 10027.451908096005,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6786,
+     "rate": 0.6786,
+     "mean_flop": 2620011360108.532
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4710,
+     "rate": 0.471,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6808,
+     "rate": 0.6808,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n70-s4",
+   "score_right_sha256": "0a7c76e8519292997aaa2fc6f045034059b62566c749c46e6a8ad897c711dd08",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8834.080779763,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2257,
+    "rate": 0.2257
+   },
+   "test": {
+    "n": 422786,
+    "solved": 89302,
+    "rate": 0.2112226989540808
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n70-s4",
+   "report": "baselines/runs/ebr/de2-v99/n70-s4/score10k.report.json",
+   "report_sha256": "e40220de4ad173476feb1f98e5f6f72497bb530a0f130fd113b98e943583c1bd",
+   "steps": 60000,
+   "fit_seconds": 10056.600058635995,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6174,
+     "rate": 0.6174,
+     "mean_flop": 3080112586661.3423
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3859,
+     "rate": 0.3859,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6116,
+     "rate": 0.6116,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 70,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n70-s5",
+   "score_right_sha256": "2a016643681e52594809b9114f800162359655bebaa095dd0bc13bcbd7fcf91f",
+   "steps": 65100,
+   "scheduled_steps": 65100,
+   "updates": 65100,
+   "fit_seconds": 8859.591200048006,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2052,
+    "rate": 0.2052
+   },
+   "test": {
+    "n": 422786,
+    "solved": 83565,
+    "rate": 0.19765318624552375
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 70,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n70-s5",
+   "report": "baselines/runs/ebr/de2-v99/n70-s5/score10k.report.json",
+   "report_sha256": "67c4bb7c9e366bb59dba6b54bb6eadf7afb8ec53ed82e26e8b4b18113a82a9d7",
+   "steps": 60000,
+   "fit_seconds": 10004.790193914,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5742,
+     "rate": 0.5742,
+     "mean_flop": 3063212584748.769
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3765,
+     "rate": 0.3765,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 5666,
+     "rate": 0.5666,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n100-s0",
+   "score_right_sha256": "9abb1352eb475e3e2923b92ffdbcb7aff2aa565a12c62b8b21dfb90a92afbea4",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8881.084790704306,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2351,
+    "rate": 0.2351
+   },
+   "test": {
+    "n": 422786,
+    "solved": 93208,
+    "rate": 0.22046141546787262
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n100-s0",
+   "report": "baselines/runs/ebr/de2-v99/n100-s0/score10k.report.json",
+   "report_sha256": "c14c3b9b8d0b78749c7638ce1a123650bc060a1e4219e17e8139d363f5e794d0",
+   "steps": 60000,
+   "fit_seconds": 10105.819412387908,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6091,
+     "rate": 0.6091,
+     "mean_flop": 2722577826546.646
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4359,
+     "rate": 0.4359,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6097,
+     "rate": 0.6097,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n100-s1",
+   "score_right_sha256": "72cd7022c6e237cd2b42bba511639c6e54242f2b0554d2ecd52dcd100a50a6fc",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8875.19769578427,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2343,
+    "rate": 0.2343
+   },
+   "test": {
+    "n": 422786,
+    "solved": 94761,
+    "rate": 0.22413466860302847
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n100-s1",
+   "report": "baselines/runs/ebr/de2-v99/n100-s1/score10k.report.json",
+   "report_sha256": "805098f80324813305330c839889d23f92c055007d322d2198a09353b0b383d8",
+   "steps": 60000,
+   "fit_seconds": 10112.895946156234,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7069,
+     "rate": 0.7069,
+     "mean_flop": 2513647797270.9473
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4893,
+     "rate": 0.4893,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7070,
+     "rate": 0.707,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n100-s2",
+   "score_right_sha256": "dc1b89797a5ef6c26d03cea5789537d90e5466f0f18ffb453d4e005585b0392b",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9020.840317829046,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2370,
+    "rate": 0.237
+   },
+   "test": {
+    "n": 422786,
+    "solved": 93736,
+    "rate": 0.22171027422856954
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n100-s2",
+   "report": "baselines/runs/ebr/de2-v99/n100-s2/score10k.report.json",
+   "report_sha256": "07459489e0015e6c5abc79c3479f5e7c64f85679295d3ee9f946b0b6949ea006",
+   "steps": 60000,
+   "fit_seconds": 10059.784903600812,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6176,
+     "rate": 0.6176,
+     "mean_flop": 2657623414883.953
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4391,
+     "rate": 0.4391,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6185,
+     "rate": 0.6185,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n100-s3",
+   "score_right_sha256": "d6e649ad4cda93c59a0cf15206342c93118337682912a822c5eb4f9047f3a793",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8939.283615674,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2668,
+    "rate": 0.2668
+   },
+   "test": {
+    "n": 422786,
+    "solved": 105646,
+    "rate": 0.24988055422838032
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n100-s3",
+   "report": "baselines/runs/ebr/de2-v99/n100-s3/score10k.report.json",
+   "report_sha256": "a94671706b516a19e7aba8fd683575f1d7374e91525d7e149896d8fc0533d040",
+   "steps": 60000,
+   "fit_seconds": 10081.451997801709,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6189,
+     "rate": 0.6189,
+     "mean_flop": 2646506745618.4785
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4496,
+     "rate": 0.4496,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6199,
+     "rate": 0.6199,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n100-s4",
+   "score_right_sha256": "6975f771e0ff284e00bdecbac903ab336f8fa41da639224d3d239c4d7559d2db",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8851.26124002201,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2518,
+    "rate": 0.2518
+   },
+   "test": {
+    "n": 422786,
+    "solved": 100142,
+    "rate": 0.23686214775323686
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n100-s4",
+   "report": "baselines/runs/ebr/de2-v99/n100-s4/score10k.report.json",
+   "report_sha256": "712dd6bfdb1fe4fe43ce6cfe036c99f5f24731f94d4c407ad0f87d2f636e78e1",
+   "steps": 60000,
+   "fit_seconds": 10044.853252678748,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6231,
+     "rate": 0.6231,
+     "mean_flop": 2753248250740.006
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4285,
+     "rate": 0.4285,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6233,
+     "rate": 0.6233,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n100-s5",
+   "score_right_sha256": "a9daf0b2609035f0bd7a9474f62dd24e5807f4eef4a9b726ea60f6b92704de7b",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8805.12796529501,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2309,
+    "rate": 0.2309
+   },
+   "test": {
+    "n": 422786,
+    "solved": 92794,
+    "rate": 0.21948219666687166
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n100-s5",
+   "report": "baselines/runs/ebr/de2-v99/n100-s5/score10k.report.json",
+   "report_sha256": "69b3d7b5bba4d549b840820a11befa263d228dd11011dce32a42e54b15dfb1f1",
+   "steps": 60000,
+   "fit_seconds": 10070.849411117299,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6947,
+     "rate": 0.6947,
+     "mean_flop": 2463173469299.898
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 5163,
+     "rate": 0.5163,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6955,
+     "rate": 0.6955,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n150-s0",
+   "score_right_sha256": "34f8d37d39fab3f3c28de8e01a627e2d6839c3a3c3c1d19221949ed15692881b",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8923.315560280953,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4835,
+    "rate": 0.4835
+   },
+   "test": {
+    "n": 422786,
+    "solved": 214896,
+    "rate": 0.5082855156036388
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n150-s0",
+   "report": "baselines/runs/ebr/de2-v99/n150-s0/score10k.report.json",
+   "report_sha256": "c2fabaaf6c0e69a1528de575dd5c6861e655965d762e6e5f5cf754ad76ec8b5d",
+   "steps": 60000,
+   "fit_seconds": 10082.570467727055,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 2953,
+     "rate": 0.2953,
+     "mean_flop": 1160308532215.845
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 1869,
+     "rate": 0.1869,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 3235,
+     "rate": 0.3235,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n150-s1",
+   "score_right_sha256": "5886ad51404c2d276f57b543068a53239256ba506d2ea06c47abfd978d4363e5",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8896.785631663653,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4071,
+    "rate": 0.4071
+   },
+   "test": {
+    "n": 422786,
+    "solved": 174692,
+    "rate": 0.41319248981754364
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n150-s1",
+   "report": "baselines/runs/ebr/de2-v99/n150-s1/score10k.report.json",
+   "report_sha256": "19a2a0b29d3ef82b4664173a7f7c179517077447731cb7b0bcccf7b24e514dff",
+   "steps": 60000,
+   "fit_seconds": 10071.115171537385,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7908,
+     "rate": 0.7908,
+     "mean_flop": 3072408273988.303
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 6282,
+     "rate": 0.6282,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7910,
+     "rate": 0.791,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n150-s2",
+   "score_right_sha256": "4704b1f01d43d23a70481b91b7ccf41d0be52801f63ae51b28f028647da347b6",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 9194.175327911347,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 5027,
+    "rate": 0.5027
+   },
+   "test": {
+    "n": 422786,
+    "solved": 216241,
+    "rate": 0.5114667940754897
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n150-s2",
+   "report": "baselines/runs/ebr/de2-v99/n150-s2/score10k.report.json",
+   "report_sha256": "3bbf0b4f5c6ae03dfefc60a077a7aacd77c3283a7043d5039585bb519daebedf",
+   "steps": 60000,
+   "fit_seconds": 10170.634567873407,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 8528,
+     "rate": 0.8528,
+     "mean_flop": 1693368933625.0764
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7108,
+     "rate": 0.7108,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 8531,
+     "rate": 0.8531,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n150-s3",
+   "score_right_sha256": "984b6036d6b843f225f871962adbe0f53a09f3aa66824ebcd616fc927ac9558d",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8978.42768962,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 3844,
+    "rate": 0.3844
+   },
+   "test": {
+    "n": 422786,
+    "solved": 170636,
+    "rate": 0.4035989838830992
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n150-s3",
+   "report": "baselines/runs/ebr/de2-v99/n150-s3/score10k.report.json",
+   "report_sha256": "df9d6f1e9276d6091dd6077f88a010ca06c4bc2c4c4ee023f133fef370cf38ad",
+   "steps": 60000,
+   "fit_seconds": 10061.531689276995,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 8127,
+     "rate": 0.8127,
+     "mean_flop": 1913733756246.9785
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 6628,
+     "rate": 0.6628,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 8130,
+     "rate": 0.813,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n150-s4",
+   "score_right_sha256": "f06f87c83301f368a610f6ddbc35a7a27a4bdbe9b3e725b07fdf090ec0c12882",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8879.456739050005,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4610,
+    "rate": 0.461
+   },
+   "test": {
+    "n": 422786,
+    "solved": 200455,
+    "rate": 0.4741287554460176
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n150-s4",
+   "report": "baselines/runs/ebr/de2-v99/n150-s4/score10k.report.json",
+   "report_sha256": "e6c7bbe277c47b5492a7441ce9921f2ecbe29662363fcc7e2b5fb3b4b866f8fe",
+   "steps": 60000,
+   "fit_seconds": 10101.234715691997,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7942,
+     "rate": 0.7942,
+     "mean_flop": 2198434415930.156
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 5773,
+     "rate": 0.5773,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7978,
+     "rate": 0.7978,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 150,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n150-s5",
+   "score_right_sha256": "75aac39a483c82c8339f6d08020c567de238861f49b8000d43f3308bd7c9c176",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8750.916445769999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 2878,
+    "rate": 0.2878
+   },
+   "test": {
+    "n": 422786,
+    "solved": 127723,
+    "rate": 0.3020984611600195
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 150,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n150-s5",
+   "report": "baselines/runs/ebr/de2-v99/n150-s5/score10k.report.json",
+   "report_sha256": "1a75af8b39e00c578163c9fca064e9b21e2910306fad6bd6c5c44e481873a9e3",
+   "steps": 60000,
+   "fit_seconds": 10116.455248657996,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7715,
+     "rate": 0.7715,
+     "mean_flop": 1970618148494.2556
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 6267,
+     "rate": 0.6267,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7712,
+     "rate": 0.7712,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n200-s0",
+   "score_right_sha256": "dd8203b48e8311a6246758fff3c6288147557d74c007e7b5a2ccf0cad384c42f",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8907.0682073923,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 5957,
+    "rate": 0.5957
+   },
+   "test": {
+    "n": 422786,
+    "solved": 254408,
+    "rate": 0.6017417795291234
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n200-s0",
+   "report": "baselines/runs/ebr/de2-v99/n200-s0/score10k.report.json",
+   "report_sha256": "feddc29f63fcbcccac7a0cc4d86a3a159d63be309bb83baf77913670193ed880",
+   "steps": 60000,
+   "fit_seconds": 10118.485206225778,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5691,
+     "rate": 0.5691,
+     "mean_flop": 2916720524086.92
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3719,
+     "rate": 0.3719,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 5706,
+     "rate": 0.5706,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n200-s1",
+   "score_right_sha256": "2578d1988640e5b070ed2519f3bc0bf5c56106db346cfeea9c4c567d6054e0b7",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8890.157015951236,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4974,
+    "rate": 0.4974
+   },
+   "test": {
+    "n": 422786,
+    "solved": 215107,
+    "rate": 0.5087845860553566
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n200-s1",
+   "report": "baselines/runs/ebr/de2-v99/n200-s1/score10k.report.json",
+   "report_sha256": "2d3164c0adb945345f64013bc2d305a2e4ae7695c565afa02e3865a5d77d5a49",
+   "steps": 60000,
+   "fit_seconds": 10057.723814906763,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 8,
+     "rate": 0.0008,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 6,
+     "rate": 0.0006,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 8,
+     "rate": 0.0008,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n200-s2",
+   "score_right_sha256": "4d685b59d8086e962fde488b9ad8bfa6c9e5d32fc3043ed106f077443346a9fb",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8844.456344521515,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4759,
+    "rate": 0.4759
+   },
+   "test": {
+    "n": 422786,
+    "solved": 208516,
+    "rate": 0.4931951389118845
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n200-s2",
+   "report": "baselines/runs/ebr/de2-v99/n200-s2/score10k.report.json",
+   "report_sha256": "e5e0d62a627d8379249a2c7284002e06a31361da49f038969a5ebc22633a48f6",
+   "steps": 60000,
+   "fit_seconds": 10058.582067903213,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 4016,
+     "rate": 0.4016,
+     "mean_flop": 3343649837948.3306
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 2247,
+     "rate": 0.2247,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 4023,
+     "rate": 0.4023,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n200-s3",
+   "score_right_sha256": "61fac1e23b65318370518ad2870db4e4606c36489d7a5f7066bebee46f8c1bfc",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8568.883497129002,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4491,
+    "rate": 0.4491
+   },
+   "test": {
+    "n": 422786,
+    "solved": 197681,
+    "rate": 0.46756751642675015
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n200-s3",
+   "report": "baselines/runs/ebr/de2-v99/n200-s3/score10k.report.json",
+   "report_sha256": "72a2e808830b30570ef1b1e95637460eccad8802b2d80836c7fa6099c1f864ac",
+   "steps": 60000,
+   "fit_seconds": 10082.843636276997,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 389,
+     "rate": 0.0389,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 310,
+     "rate": 0.031,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 389,
+     "rate": 0.0389,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n200-s4",
+   "score_right_sha256": "5882794bdbdefa0e267af89a1a96fd58578d0f36127301f2f2f1254610a0ba07",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8691.38350604999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4769,
+    "rate": 0.4769
+   },
+   "test": {
+    "n": 422786,
+    "solved": 205012,
+    "rate": 0.48490725804544144
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n200-s4",
+   "report": "baselines/runs/ebr/de2-v99/n200-s4/score10k.report.json",
+   "report_sha256": "6ccad1247024162a6dbed5983b89cd9116bc8525db10c2e46fc486d288846f23",
+   "steps": 60000,
+   "fit_seconds": 10121.143092686005,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6272,
+     "rate": 0.6272,
+     "mean_flop": 2925175283309.3716
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3781,
+     "rate": 0.3781,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6274,
+     "rate": 0.6274,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 200,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n200-s5",
+   "score_right_sha256": "ab2fa2e214abff1ed196dba3bb4825b2db9bc21f1bf9bbf28995bbcf7dc67619",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8811.83130850401,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4085,
+    "rate": 0.4085
+   },
+   "test": {
+    "n": 422786,
+    "solved": 180911,
+    "rate": 0.42790205919779745
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 200,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n200-s5",
+   "report": "baselines/runs/ebr/de2-v99/n200-s5/score10k.report.json",
+   "report_sha256": "e866dbc1e917c83642f7e0c22aefdb4ab8b174fa145f58893e2869c7d2cae39a",
+   "steps": 60000,
+   "fit_seconds": 10009.442357263,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7101,
+     "rate": 0.7101,
+     "mean_flop": 2683013523139.0586
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 4341,
+     "rate": 0.4341,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7119,
+     "rate": 0.7119,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n300-s0",
+   "score_right_sha256": "4ae19052e4768b113ba8c7b23ceded7a18b020735146ab36d0b0bfd83b5589e3",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 9043.272806792054,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 6296,
+    "rate": 0.6296
+   },
+   "test": {
+    "n": 422786,
+    "solved": 266770,
+    "rate": 0.6309811583165006
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n300-s0",
+   "report": "baselines/runs/ebr/de2-v99/n300-s0/score10k.report.json",
+   "report_sha256": "e66b3d16e7b67379639613fa83a1c7143ec82477e62ccd160d01651820c20285",
+   "steps": 60000,
+   "fit_seconds": 10025.644702150952,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7433,
+     "rate": 0.7433,
+     "mean_flop": 2435226132857.3936
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 5025,
+     "rate": 0.5025,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7436,
+     "rate": 0.7436,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n300-s1",
+   "score_right_sha256": "00f5cc67c51557bf62fa95b5cef88a41fc75b4fd4dd26179822d033afe9ebff2",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8989.966617654078,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 6196,
+    "rate": 0.6196
+   },
+   "test": {
+    "n": 422786,
+    "solved": 262424,
+    "rate": 0.6207017261687946
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n300-s1",
+   "report": "baselines/runs/ebr/de2-v99/n300-s1/score10k.report.json",
+   "report_sha256": "9b0da033d7d46e83bce360dd547465733b13b2006ede3e260e2b070be2166376",
+   "steps": 60000,
+   "fit_seconds": 10110.9555634344,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 279,
+     "rate": 0.0279,
+     "mean_flop": 4351922359745.0
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 279,
+     "rate": 0.0279,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 279,
+     "rate": 0.0279,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n300-s2",
+   "score_right_sha256": "5196f624bdb2e8f922f88b9de0b3e940e9be9909d42b88839de48bcc3b4ba6f5",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8768.966534650419,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4925,
+    "rate": 0.4925
+   },
+   "test": {
+    "n": 422786,
+    "solved": 213826,
+    "rate": 0.505754684402984
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n300-s2",
+   "report": "baselines/runs/ebr/de2-v99/n300-s2/score10k.report.json",
+   "report_sha256": "858ee517fd5423d5ded278574a5fb7b4fb062998a565a9cdede29d699a7e40a1",
+   "steps": 60000,
+   "fit_seconds": 10175.310949301347,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 7736,
+     "rate": 0.7736,
+     "mean_flop": 2283014636265.515
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 5376,
+     "rate": 0.5376,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 7751,
+     "rate": 0.7751,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n300-s3",
+   "score_right_sha256": "8c6134e774ec673cd6343b177de17979c911f465599615687f2f43c4098daeae",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8945.172781489002,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4279,
+    "rate": 0.4279
+   },
+   "test": {
+    "n": 422786,
+    "solved": 190348,
+    "rate": 0.45022304428245025
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n300-s3",
+   "report": "baselines/runs/ebr/de2-v99/n300-s3/score10k.report.json",
+   "report_sha256": "cf44b235efa23bbaf36154d822dfdef88fe1ac123b46644016c20bb5c16bc8b5",
+   "steps": 60000,
+   "fit_seconds": 10077.737849910653,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5303,
+     "rate": 0.5303,
+     "mean_flop": 3153815410544.083
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3096,
+     "rate": 0.3096,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 5312,
+     "rate": 0.5312,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n300-s4",
+   "score_right_sha256": "69f6bdba0b4e58bd244f433dafc781f2c4777057922f19a16232a34c079ff9e6",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8860.127693355,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 6289,
+    "rate": 0.6289
+   },
+   "test": {
+    "n": 422786,
+    "solved": 268344,
+    "rate": 0.6347040819705477
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n300-s4",
+   "report": "baselines/runs/ebr/de2-v99/n300-s4/score10k.report.json",
+   "report_sha256": "058f7d25a3671cb00b48d7938cce839a7ae6e265d5785247fa16da17653c836b",
+   "steps": 60000,
+   "fit_seconds": 10037.223284137774,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 6255,
+     "rate": 0.6255,
+     "mean_flop": 2786690704850.488
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3846,
+     "rate": 0.3846,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 6289,
+     "rate": 0.6289,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 300,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n300-s5",
+   "score_right_sha256": "1aefde8e0fd5a695938755ba58bed1db7f5480afd58fd6842a3353cbb34fda7a",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8906.719010481997,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 4891,
+    "rate": 0.4891
+   },
+   "test": {
+    "n": 422786,
+    "solved": 212372,
+    "rate": 0.5023155922854589
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 300,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n300-s5",
+   "report": "baselines/runs/ebr/de2-v99/n300-s5/score10k.report.json",
+   "report_sha256": "5d60c533428455d56e45d459ab8257ac997739f319c45d3eb644682ead262364",
+   "steps": 60000,
+   "fit_seconds": 10091.198354535052,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 5315,
+     "rate": 0.5315,
+     "mean_flop": 2940271222593.196
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 3414,
+     "rate": 0.3414,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 5317,
+     "rate": 0.5317,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n500-s0",
+   "score_right_sha256": "589ec6b3e5e5f7707a61806e058b0eea92d6d8d71101c41ec0d5b6c9a5f9b89c",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9034.036468040225,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 7518,
+    "rate": 0.7518
+   },
+   "test": {
+    "n": 422786,
+    "solved": 317881,
+    "rate": 0.7518721055096432
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n500-s0",
+   "report": "baselines/runs/ebr/de2-v99/n500-s0/score10k.report.json",
+   "report_sha256": "ea1d3f7764b207d3e612d3e1969deb4e5bff40ad002b3bf190a35c3ff837f6a9",
+   "steps": 60000,
+   "fit_seconds": 10050.232318679384,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9308,
+     "rate": 0.9308,
+     "mean_flop": 1716736099007.8545
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7470,
+     "rate": 0.747,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9323,
+     "rate": 0.9323,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n500-s1",
+   "score_right_sha256": "4ecdace291133a90081fb7a658af365f0db36be44b67b16bc022ffee7161eeb9",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8868.611765785528,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 7885,
+    "rate": 0.7885
+   },
+   "test": {
+    "n": 422786,
+    "solved": 331581,
+    "rate": 0.7842762059292407
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n500-s1",
+   "report": "baselines/runs/ebr/de2-v99/n500-s1/score10k.report.json",
+   "report_sha256": "ded6cdf2473c1f4341e06456f8a63da99615df4f24f981ab78981637f9e37252",
+   "steps": 60000,
+   "fit_seconds": 10064.135681454984,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9145,
+     "rate": 0.9145,
+     "mean_flop": 1518475461978.144
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7562,
+     "rate": 0.7562,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9154,
+     "rate": 0.9154,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n500-s2",
+   "score_right_sha256": "e02c5f6b338de14cd0c69ec05941ee26a3e6ae2ad7ded54b13ea36da4a91a6b7",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8980.676830475977,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 6822,
+    "rate": 0.6822
+   },
+   "test": {
+    "n": 422786,
+    "solved": 291514,
+    "rate": 0.6895072211473416
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n500-s2",
+   "report": "baselines/runs/ebr/de2-v99/n500-s2/score10k.report.json",
+   "report_sha256": "318c663287b9d924e918ca61c578dd12555f6ac086b1512f66d9d4bac1d7660f",
+   "steps": 60000,
+   "fit_seconds": 10143.03557118323,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 8273,
+     "rate": 0.8273,
+     "mean_flop": 2087424066306.5383
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 5847,
+     "rate": 0.5847,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 8276,
+     "rate": 0.8276,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n500-s3",
+   "score_right_sha256": "3fb0607346a5fc62704672010908b0e99356ccede68f7fc39079506c1efefed0",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9081.613230816989,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 6579,
+    "rate": 0.6579
+   },
+   "test": {
+    "n": 422786,
+    "solved": 284058,
+    "rate": 0.6718718216781067
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n500-s3",
+   "report": "baselines/runs/ebr/de2-v99/n500-s3/score10k.report.json",
+   "report_sha256": "d46f9b9796e0ae5ae4a66985d59ce3b68e4a644f2e86c4e3c32e205b206b906d",
+   "steps": 60000,
+   "fit_seconds": 10100.078553189,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9603,
+     "rate": 0.9603,
+     "mean_flop": 951812184913.448
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 8932,
+     "rate": 0.8932,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9605,
+     "rate": 0.9605,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n500-s4",
+   "score_right_sha256": "b4eb7ab398f8b8f5f23dbe1478d4872f54784f752d102ef27e76a73c8fc0cc70",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9018.560258308,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 7860,
+    "rate": 0.786
+   },
+   "test": {
+    "n": 422786,
+    "solved": 332832,
+    "rate": 0.7872351496974829
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n500-s4",
+   "report": "baselines/runs/ebr/de2-v99/n500-s4/score10k.report.json",
+   "report_sha256": "848169cd93913fb0a377c122fc2c0eab77ede2ab46463fe91e72407fafb5a2da",
+   "steps": 60000,
+   "fit_seconds": 10053.718822795003,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9150,
+     "rate": 0.915,
+     "mean_flop": 1442072661923.0625
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7668,
+     "rate": 0.7668,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9143,
+     "rate": 0.9143,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 500,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n500-s5",
+   "score_right_sha256": "665de4b1cc109d7433afb271ea6d82fdd4f3d4a129f5ce8c93eb2aeb7169cc47",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8955.373356391001,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 5897,
+    "rate": 0.5897
+   },
+   "test": {
+    "n": 422786,
+    "solved": 254539,
+    "rate": 0.6020516289564933
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 500,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n500-s5",
+   "report": "baselines/runs/ebr/de2-v99/n500-s5/score10k.report.json",
+   "report_sha256": "5cd71a16b981389fb29edb92bfdbbd86d7c47f028f65d6d14e4b55eb58cc2653",
+   "steps": 60000,
+   "fit_seconds": 10057.485577309002,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 8514,
+     "rate": 0.8514,
+     "mean_flop": 1616053905970.9817
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7127,
+     "rate": 0.7127,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 8517,
+     "rate": 0.8517,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n700-s0",
+   "score_right_sha256": "38385767f5c5dc43c58d73138508e2e8d280d220a5adedd3604487972a229adc",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8984.407934286113,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8431,
+    "rate": 0.8431
+   },
+   "test": {
+    "n": 422786,
+    "solved": 355760,
+    "rate": 0.8414658952756241
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n700-s0",
+   "report": "baselines/runs/ebr/de2-v99/n700-s0/score10k.report.json",
+   "report_sha256": "858e96e6ecc6c417cf217b995cd0cee9cdcaa47cdde1d54f6c7c88b0198643d0",
+   "steps": 60000,
+   "fit_seconds": 10057.00751241404,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9960,
+     "rate": 0.996,
+     "mean_flop": 490055081735.3045
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9804,
+     "rate": 0.9804,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9958,
+     "rate": 0.9958,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n700-s1",
+   "score_right_sha256": "8e0a061211642fac7b69bcd4f6210e1aaea3ff878d82ab8f4fc6ec1cec0bde37",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8907.876415659279,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8230,
+    "rate": 0.823
+   },
+   "test": {
+    "n": 422786,
+    "solved": 349440,
+    "rate": 0.8265174343521309
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n700-s1",
+   "report": "baselines/runs/ebr/de2-v99/n700-s1/score10k.report.json",
+   "report_sha256": "6e2d45a5e8d44b1273dd6552a472ffd4450dab347768456ad990574d0e8af246",
+   "steps": 60000,
+   "fit_seconds": 10053.37289025791,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9678,
+     "rate": 0.9678,
+     "mean_flop": 934093761220.5376
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 8962,
+     "rate": 0.8962,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9685,
+     "rate": 0.9685,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n700-s2",
+   "score_right_sha256": "429422ae84e2c6c534d3a5549304a789958fed77465f2c3fcd32daca9d65a433",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8921.874239604218,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8457,
+    "rate": 0.8457
+   },
+   "test": {
+    "n": 422786,
+    "solved": 357742,
+    "rate": 0.8461538461538461
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n700-s2",
+   "report": "baselines/runs/ebr/de2-v99/n700-s2/score10k.report.json",
+   "report_sha256": "7ffc21c09c4613f013c8d6207093a6a668f2c06c8934d7610096a64c899760bc",
+   "steps": 60000,
+   "fit_seconds": 10055.713164238052,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9289,
+     "rate": 0.9289,
+     "mean_flop": 1248585245608.9055
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 7950,
+     "rate": 0.795,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9284,
+     "rate": 0.9284,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n700-s3",
+   "score_right_sha256": "50d993e33e85de84dcbf8009abf0468289ae993b1a5ee68f003378d0bed58ff6",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8931.92136337801,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8415,
+    "rate": 0.8415
+   },
+   "test": {
+    "n": 422786,
+    "solved": 359515,
+    "rate": 0.850347457105959
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n700-s3",
+   "report": "baselines/runs/ebr/de2-v99/n700-s3/score10k.report.json",
+   "report_sha256": "ae3445d0d16e1ca40e740a29717c5b2b87166d71817bfec0adef94a4b223f908",
+   "steps": 60000,
+   "fit_seconds": 10049.079537942991,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9902,
+     "rate": 0.9902,
+     "mean_flop": 573732591003.9795
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9623,
+     "rate": 0.9623,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9908,
+     "rate": 0.9908,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n700-s4",
+   "score_right_sha256": "7735842af09da2b329c23e0b4cd6cc41779f7c40c146f8775e6121c6f54c1e59",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 8940.941052167995,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8215,
+    "rate": 0.8215
+   },
+   "test": {
+    "n": 422786,
+    "solved": 350266,
+    "rate": 0.8284711414285241
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n700-s4",
+   "report": "baselines/runs/ebr/de2-v99/n700-s4/score10k.report.json",
+   "report_sha256": "f1b38efc59c3d229029f6101aaba4295a98ca8db3aac7bbda2cbe72fd70f0bca",
+   "steps": 60000,
+   "fit_seconds": 10154.934082387997,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9935,
+     "rate": 0.9935,
+     "mean_flop": 560312920914.766
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9721,
+     "rate": 0.9721,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9929,
+     "rate": 0.9929,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 700,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n700-s5",
+   "score_right_sha256": "76da629d8ad45d697237af88277330c9ee0a8ce605955f22948817407b7a1d34",
+   "steps": 65100,
+   "scheduled_steps": 65105,
+   "updates": 65100,
+   "fit_seconds": 9077.810640562999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8277,
+    "rate": 0.8277
+   },
+   "test": {
+    "n": 422786,
+    "solved": 352185,
+    "rate": 0.8330100807500721
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 700,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n700-s5",
+   "report": "baselines/runs/ebr/de2-v99/n700-s5/score10k.report.json",
+   "report_sha256": "35d8594c651cebf5d32a60fcbb8db506b8c6c3195b3537ab5c358b5f9f9405c4",
+   "steps": 60000,
+   "fit_seconds": 10007.175423104,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9915,
+     "rate": 0.9915,
+     "mean_flop": 539660686255.1325
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9673,
+     "rate": 0.9673,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9918,
+     "rate": 0.9918,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n1000-s0",
+   "score_right_sha256": "1ce84604d4d84597b5c68fae6a64d7eeedd5a906f3adb0cee49e2c96e5e896b0",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8969.642405054532,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8616,
+    "rate": 0.8616
+   },
+   "test": {
+    "n": 422786,
+    "solved": 365355,
+    "rate": 0.8641605918833641
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s0",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s0/score10k.report.json",
+   "report_sha256": "58f7f78a8ddc47e6d555383ee5c785a4f0fe76eb787c260a658ce8d221f49d78",
+   "steps": 60000,
+   "fit_seconds": 10047.577917928342,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 344245492391.9425
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9924,
+     "rate": 0.9924,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9988,
+     "rate": 0.9988,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n1000-s1",
+   "score_right_sha256": "24c41f525d7f3369dcdbd3dc564120795180aba518261aed75177a2c4af33a89",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8970.556145446375,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8526,
+    "rate": 0.8526
+   },
+   "test": {
+    "n": 422786,
+    "solved": 362299,
+    "rate": 0.85693234875327
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s1",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s1/score10k.report.json",
+   "report_sha256": "a73ee2acd2930a100f299e161c13d7f33a6354cb8fbd4c8315c152ce1a6cabb1",
+   "steps": 60000,
+   "fit_seconds": 10034.679017665796,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9948,
+     "rate": 0.9948,
+     "mean_flop": 440391018516.881
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9796,
+     "rate": 0.9796,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9946,
+     "rate": 0.9946,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n1000-s2",
+   "score_right_sha256": "f722d0098f3264666504174ca85ea7c2ee1a1f85193fa1e4a17e6f7a99f0d652",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8876.666850089561,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8567,
+    "rate": 0.8567
+   },
+   "test": {
+    "n": 422786,
+    "solved": 363018,
+    "rate": 0.8586329727095977
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s2",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s2/score10k.report.json",
+   "report_sha256": "d4df0653d7dd487b54976620b32d8a5591bc5af7318a4ac59cb425e98246f61a",
+   "steps": 60000,
+   "fit_seconds": 9956.995084190974,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9964,
+     "rate": 0.9964,
+     "mean_flop": 335828799298.809
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9918,
+     "rate": 0.9918,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9967,
+     "rate": 0.9967,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n1000-s3",
+   "score_right_sha256": "0d69ba3d3998b8347ee971c7755052baabdfe6a4d4ca8f54ae169a834ad511bb",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9103.021807402001,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8604,
+    "rate": 0.8604
+   },
+   "test": {
+    "n": 422786,
+    "solved": 366136,
+    "rate": 0.8660078621335616
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s3",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s3/score10k.report.json",
+   "report_sha256": "2a1cf1b81643a92cf013cf4ce8ef50910acb17e7ede787514a7be2acdb94d40b",
+   "steps": 60000,
+   "fit_seconds": 10049.02833148,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9976,
+     "rate": 0.9976,
+     "mean_flop": 406306878226.4675
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9874,
+     "rate": 0.9874,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9974,
+     "rate": 0.9974,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n1000-s4",
+   "score_right_sha256": "0c08885a82505901b9619b74bd9ef2f6cd535bd92f728ffd755bfe3569d7f8bf",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8798.190036864999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8413,
+    "rate": 0.8413
+   },
+   "test": {
+    "n": 422786,
+    "solved": 355982,
+    "rate": 0.8419909836181898
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s4",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s4/score10k.report.json",
+   "report_sha256": "7b3106484516bccca83fe878ae79945a174dd19eccf8a79016aaa0a0bcedecfc",
+   "steps": 60000,
+   "fit_seconds": 10042.325558854012,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9989,
+     "rate": 0.9989,
+     "mean_flop": 386390135565.4425
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9914,
+     "rate": 0.9914,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 1000,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n1000-s5",
+   "score_right_sha256": "9e263ce54da4cd0b6d091c8ff41f3e6757ed713eb1bb028f906393147dd3f750",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8962.791453705006,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8618,
+    "rate": 0.8618
+   },
+   "test": {
+    "n": 422786,
+    "solved": 366663,
+    "rate": 0.8672543556314543
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 1000,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n1000-s5",
+   "report": "baselines/runs/ebr/de2-v99/n1000-s5/score10k.report.json",
+   "report_sha256": "f2ebf52ddf1a985799f7a13922e60a82a51ec4d5e1cfd365b9af8865b3196c6e",
+   "steps": 60000,
+   "fit_seconds": 10149.969171213012,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9983,
+     "rate": 0.9983,
+     "mean_flop": 390886017338.822
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9902,
+     "rate": 0.9902,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9982,
+     "rate": 0.9982,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n3000-s0",
+   "score_right_sha256": "f3b4319642370f3fedc4306dd032bbf20050e65f5c40925fc2370d7f4eed7f8f",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8703.091974184383,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8750,
+    "rate": 0.875
+   },
+   "test": {
+    "n": 422786,
+    "solved": 371502,
+    "rate": 0.8786998623417048
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s0",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s0/score10k.report.json",
+   "report_sha256": "605197da8fd21cdf53a75c212fcef2de9cb9cc1c9e9952ec87a094ea871f1781",
+   "steps": 60000,
+   "fit_seconds": 9976.602387961,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9975,
+     "rate": 0.9975,
+     "mean_flop": 325784779177.331
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9950,
+     "rate": 0.995,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9975,
+     "rate": 0.9975,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n3000-s1",
+   "score_right_sha256": "c5e46c8ab4f16d9fc31d77e5af21ca55dd0bde21c295c5df1ddaa09b30e77c9e",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8709.506763115525,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8678,
+    "rate": 0.8678
+   },
+   "test": {
+    "n": 422786,
+    "solved": 369012,
+    "rate": 0.8728103579588729
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s1",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s1/score10k.report.json",
+   "report_sha256": "57178514baf8d16296449f7141758f9f34f9f04c2b3255979445a0177581b799",
+   "steps": 60000,
+   "fit_seconds": 9996.29233512102,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9990,
+     "rate": 0.999,
+     "mean_flop": 323427398168.852
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9960,
+     "rate": 0.996,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9990,
+     "rate": 0.999,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n3000-s2",
+   "score_right_sha256": "1a4a53934ba7526c82af4eb70664f279162e1b309662e195a588e59e87a9298f",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8580.830252695829,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8671,
+    "rate": 0.8671
+   },
+   "test": {
+    "n": 422786,
+    "solved": 367951,
+    "rate": 0.8703008141234573
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s2",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s2/score10k.report.json",
+   "report_sha256": "e4a5df20b27673d5c5bd901893ca0df5f171397cd70eac81a5951aec71b97e24",
+   "steps": 60000,
+   "fit_seconds": 9930.932604424132,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 327462407876.56
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9956,
+     "rate": 0.9956,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n3000-s3",
+   "score_right_sha256": "14c0c1c859f8297c00401276599f0764f438bc81faf181bbf96ec14b43650b23",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8931.246533689988,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8770,
+    "rate": 0.877
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374359,
+    "rate": 0.8854574181737332
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s3",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s3/score10k.report.json",
+   "report_sha256": "d414d32fd48796883f5c2842c02e3f0d98c50de2d41d2e43f2af115bc06a37ca",
+   "steps": 60000,
+   "fit_seconds": 9950.242082799006,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 344157124591.74
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9947,
+     "rate": 0.9947,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n3000-s4",
+   "score_right_sha256": "fac186cb5ab2ef0633e1ff25b9f5b33414939adb813c7adbb8b4417b410e8a85",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8809.346127340998,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8361,
+    "rate": 0.8361
+   },
+   "test": {
+    "n": 422786,
+    "solved": 357473,
+    "rate": 0.8455175904594759
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s4",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s4/score10k.report.json",
+   "report_sha256": "70db7cd147e488a6f08c476765151c0353181ee8b9e0a47741d83e3bb9865841",
+   "steps": 60000,
+   "fit_seconds": 10051.821349875998,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9985,
+     "rate": 0.9985,
+     "mean_flop": 388502805742.5915
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9900,
+     "rate": 0.99,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9985,
+     "rate": 0.9985,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 3000,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n3000-s5",
+   "score_right_sha256": "1a01fdebfb8c18f41fd99cfae4fc349a049e9b834210c8d9676599d1fe26f1c9",
+   "steps": 65100,
+   "scheduled_steps": 65101,
+   "updates": 65100,
+   "fit_seconds": 8826.510923876996,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8763,
+    "rate": 0.8763
+   },
+   "test": {
+    "n": 422786,
+    "solved": 373375,
+    "rate": 0.8831299995742526
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 3000,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n3000-s5",
+   "report": "baselines/runs/ebr/de2-v99/n3000-s5/score10k.report.json",
+   "report_sha256": "7723c924b61d31f13f6a327a44bbefdfafa541fd8774c33bff432495482e32f3",
+   "steps": 60000,
+   "fit_seconds": 10026.397022145,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9990,
+     "rate": 0.999,
+     "mean_flop": 338523337452.676
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9947,
+     "rate": 0.9947,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n10000-s0",
+   "score_right_sha256": "679c4c113121b967a170df0d5f2a5450d98a79bc7caa3f854f2bcdfd163fe340",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8844.458249975927,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8809,
+    "rate": 0.8809
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374263,
+    "rate": 0.8852303529445157
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s0",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s0/score10k.report.json",
+   "report_sha256": "8592880211ec5db90b238121487e1a281568a032735d7f5c4b06884dac039fd5",
+   "steps": 60000,
+   "fit_seconds": 10022.781348466,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9986,
+     "rate": 0.9986,
+     "mean_flop": 327587482301.462
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9953,
+     "rate": 0.9953,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9988,
+     "rate": 0.9988,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n10000-s1",
+   "score_right_sha256": "f2d149804ad0d0e0a7c122979120e6357f02755a02dac16f9415846792cd5bb4",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8895.40613233298,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8732,
+    "rate": 0.8732
+   },
+   "test": {
+    "n": 422786,
+    "solved": 372421,
+    "rate": 0.8808735388589026
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s1",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s1/score10k.report.json",
+   "report_sha256": "3f92cb9caf177b07021e480414608e9c29233975b0a6030db89b528a5678dd84",
+   "steps": 60000,
+   "fit_seconds": 10006.995683021785,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9996,
+     "rate": 0.9996,
+     "mean_flop": 299883497185.669
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9962,
+     "rate": 0.9962,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9996,
+     "rate": 0.9996,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n10000-s2",
+   "score_right_sha256": "244c1613ead297c817aeb428906b5f72d8e78db4d2b019171152e6e7795bf236",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8617.410310480278,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8722,
+    "rate": 0.8722
+   },
+   "test": {
+    "n": 422786,
+    "solved": 371056,
+    "rate": 0.8776449551309646
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s2",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s2/score10k.report.json",
+   "report_sha256": "2501dd39792d05777e79b33b946fee2badf201c11b8677f0c70fbee512ad04bf",
+   "steps": 60000,
+   "fit_seconds": 9998.455619845015,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9939,
+     "rate": 0.9939,
+     "mean_flop": 389488446591.004
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9919,
+     "rate": 0.9919,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9937,
+     "rate": 0.9937,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n10000-s3",
+   "score_right_sha256": "31b18cd6d42a927ab5444a24d73dd793570389f4c68c16fe3d77feadf0e77688",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8781.87294200399,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8788,
+    "rate": 0.8788
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374184,
+    "rate": 0.885043497182972
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s3",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s3/score10k.report.json",
+   "report_sha256": "663a53096f8866c118e2a845934267ddc0137461921f3d5505cc7ef416be74a1",
+   "steps": 60000,
+   "fit_seconds": 10093.278342431004,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9995,
+     "rate": 0.9995,
+     "mean_flop": 359878436000.074
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9944,
+     "rate": 0.9944,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9994,
+     "rate": 0.9994,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n10000-s4",
+   "score_right_sha256": "275f48ae3e4face531d645ec6302750a2454e2b7d7bf8a77003f04536bc07a9f",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8837.036635597999,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8360,
+    "rate": 0.836
+   },
+   "test": {
+    "n": 422786,
+    "solved": 357154,
+    "rate": 0.8447630716248883
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s4",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s4/score10k.report.json",
+   "report_sha256": "7e23f946c440096caeecd1c2f26b19e148a584bfc7545df5828895fe3f416f7b",
+   "steps": 60000,
+   "fit_seconds": 10066.433918653005,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 360365138653.497
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9956,
+     "rate": 0.9956,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 10000,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n10000-s5",
+   "score_right_sha256": "50b992f5176fc16d32996e736ea4a56aea16757972404d372f9c08ba32ac965f",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8779.143661018998,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8803,
+    "rate": 0.8803
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374789,
+    "rate": 0.8864744811796038
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 10000,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n10000-s5",
+   "report": "baselines/runs/ebr/de2-v99/n10000-s5/score10k.report.json",
+   "report_sha256": "e221caecec0fb203aff7843a9b8a3811e5a68f27a30065aee83e9866f060e517",
+   "steps": 60000,
+   "fit_seconds": 10209.367550987008,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 368683947414.0985
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9953,
+     "rate": 0.9953,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n30000-s0",
+   "score_right_sha256": "10561590f1eb4db92f7e12d89767864a54e7364a0f16e0b806db5dc6ba02e7bc",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 8568.714410121087,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8784,
+    "rate": 0.8784
+   },
+   "test": {
+    "n": 422786,
+    "solved": 373484,
+    "rate": 0.8833878132199269
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s0",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s0/score10k.report.json",
+   "report_sha256": "d6bc14db71ad79e7b3708f6b45e2ab73ba17cddf0345987a40d93e5022c2f4bb",
+   "steps": 60000,
+   "fit_seconds": 10049.86532694695,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 369590736994.638
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9958,
+     "rate": 0.9958,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n30000-s1",
+   "score_right_sha256": "9a679632e7594ac14eaafbd956fbf26213d9e7beb7d9163060429a4744080e25",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 8975.5623012078,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8752,
+    "rate": 0.8752
+   },
+   "test": {
+    "n": 422786,
+    "solved": 371895,
+    "rate": 0.8796294106238144
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s1",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s1/score10k.report.json",
+   "report_sha256": "b00eea05b28da467821bf384ad5a60a9a62453fa373ce3fb9efe3811bb84651c",
+   "steps": 60000,
+   "fit_seconds": 10068.250715488568,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 318265359132.4075
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9963,
+     "rate": 0.9963,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n30000-s2",
+   "score_right_sha256": "83406a88acad1f2d2ba2fd9c709db7e5d31c25064a40938c89c4cdebee270507",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 8859.194587777834,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8799,
+    "rate": 0.8799
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374240,
+    "rate": 0.8851759519000156
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s2",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s2/score10k.report.json",
+   "report_sha256": "e9dd27929cab0aff16e7291b31c57555ffc1c037d3619ba10c661b6123f4dc10",
+   "steps": 60000,
+   "fit_seconds": 10127.892414227594,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9979,
+     "rate": 0.9979,
+     "mean_flop": 302849936263.236
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9951,
+     "rate": 0.9951,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9979,
+     "rate": 0.9979,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n30000-s3",
+   "score_right_sha256": "1b872bad14b041b14f5c181baefdc117cc5b558cf670740cb1742affccfeecec",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 9019.015925537995,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8781,
+    "rate": 0.8781
+   },
+   "test": {
+    "n": 422786,
+    "solved": 374588,
+    "rate": 0.8859990633559295
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s3",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s3/score10k.report.json",
+   "report_sha256": "ff4b41f141edd197bae8cf108cfb1ec7a906e5b543bc6e3f5817802459275bc2",
+   "steps": 60000,
+   "fit_seconds": 10140.245313605996,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 349206324744.849
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9964,
+     "rate": 0.9964,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9991,
+     "rate": 0.9991,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n30000-s4",
+   "score_right_sha256": "548232239e89ca44ba600f6756dd03a0472406d2868f811e12326e48a2c32c93",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 8930.657717443,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8479,
+    "rate": 0.8479
+   },
+   "test": {
+    "n": 422786,
+    "solved": 360545,
+    "rate": 0.8527836777944398
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s4",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s4/score10k.report.json",
+   "report_sha256": "1ec200590566df9ad2cc73b5f2c4b92cdc5fabb92ecc15d89aa060740da3bce9",
+   "steps": 60000,
+   "fit_seconds": 10090.007033449998,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9983,
+     "rate": 0.9983,
+     "mean_flop": 360075564169.7565
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9959,
+     "rate": 0.9959,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 30000,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n30000-s5",
+   "score_right_sha256": "7c625307f546e32183cec0c591772f43b8b6a040fc5a6dfecbb752146893dd34",
+   "steps": 65117,
+   "scheduled_steps": 65117,
+   "updates": 65117,
+   "fit_seconds": 8714.574012647008,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8728,
+    "rate": 0.8728
+   },
+   "test": {
+    "n": 422786,
+    "solved": 371861,
+    "rate": 0.8795489916884665
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 30000,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n30000-s5",
+   "report": "baselines/runs/ebr/de2-v99/n30000-s5/score10k.report.json",
+   "report_sha256": "f03864df5b29a6fa60bd90c95d3433a13a806cacf928f06234f9f2f6945e9e2c",
+   "steps": 60000,
+   "fit_seconds": 10084.311176159,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9996,
+     "rate": 0.9996,
+     "mean_flop": 324373613383.328
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9957,
+     "rate": 0.9957,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9995,
+     "rate": 0.9995,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 0,
+   "run": "experiments/runs/trm/de2-v99/n100000-s0",
+   "score_right_sha256": "badeb8c1f9390357eeada71862ff56a7225a90fd4fcc54f343ba70c0b45c2167",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 9176.1532272771,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8885,
+    "rate": 0.8885
+   },
+   "test": {
+    "n": 422786,
+    "solved": 376943,
+    "rate": 0.8915692572601742
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 0,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s0",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s0/score10k.report.json",
+   "report_sha256": "20888105b60da7eba85e7fa7c7c183f1ad2b79f14ed7d0f8dd16cef87a45cb95",
+   "steps": 60000,
+   "fit_seconds": 10148.774044501595,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 315316593614.881
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9942,
+     "rate": 0.9942,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 1,
+   "run": "experiments/runs/trm/de2-v99/n100000-s1",
+   "score_right_sha256": "f5135e8c51477898e2d7a9bb7c54df26add1e0f0fc5595f89ec0b5f7ee54ac33",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8936.349757759366,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8763,
+    "rate": 0.8763
+   },
+   "test": {
+    "n": 422786,
+    "solved": 370085,
+    "rate": 0.8753482849479406
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 1,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s1",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s1/score10k.report.json",
+   "report_sha256": "1693e5b1a905504254a755793c42a5e67bfeac00a30fe6a2f80be77fe0f429bd",
+   "steps": 60000,
+   "fit_seconds": 10275.307156860828,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 303849172157.8335
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9968,
+     "rate": 0.9968,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 2,
+   "run": "experiments/runs/trm/de2-v99/n100000-s2",
+   "score_right_sha256": "1474a4a92d9e56a4d11d9c9c82bfaf08f08e373a101564436caca0fce518f7a3",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8940.275203843601,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8749,
+    "rate": 0.8749
+   },
+   "test": {
+    "n": 422786,
+    "solved": 371660,
+    "rate": 0.8790735738647921
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 2,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s2",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s2/score10k.report.json",
+   "report_sha256": "56587a2b5d3811040d09a2c791723943d2cf126ecdcb0505258257ea5add6c84",
+   "steps": 60000,
+   "fit_seconds": 10208.354652026668,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9987,
+     "rate": 0.9987,
+     "mean_flop": 328517383460.516
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9955,
+     "rate": 0.9955,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 3,
+   "run": "experiments/runs/trm/de2-v99/n100000-s3",
+   "score_right_sha256": "70c41fe651e8a7459ebc219397c7576a0ff0a4e47249998403731d122eb0b3f4",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8626.360576080995,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8759,
+    "rate": 0.8759
+   },
+   "test": {
+    "n": 422786,
+    "solved": 370846,
+    "rate": 0.8771482499420511
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 3,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s3",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s3/score10k.report.json",
+   "report_sha256": "9af419d23de7e170371094234264b9ed368542bbe91bcd8a99a5a70eac8f81cc",
+   "steps": 60000,
+   "fit_seconds": 10205.324077553,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 316522474211.4905
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9964,
+     "rate": 0.9964,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9993,
+     "rate": 0.9993,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 4,
+   "run": "experiments/runs/trm/de2-v99/n100000-s4",
+   "score_right_sha256": "28ca6196d79bc47cc1ca21f181891c0625303288db06e1d467b1848f72e7d417",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8635.901966894005,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8653,
+    "rate": 0.8653
+   },
+   "test": {
+    "n": 422786,
+    "solved": 369493,
+    "rate": 0.8739480493677653
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 4,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s4",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s4/score10k.report.json",
+   "report_sha256": "052d9b8efb8a13770f54c2cc6998fd32547d73deef9604e9ce3a515d4e6ab4a2",
+   "steps": 60000,
+   "fit_seconds": 10072.326354877987,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 353937400817.229
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9933,
+     "rate": 0.9933,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9992,
+     "rate": 0.9992,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "TRM",
+   "k": 100000,
+   "seed": 5,
+   "run": "experiments/runs/trm/de2-v99/n100000-s5",
+   "score_right_sha256": "4a797e0d3d20bac9437272ec8e17893346e0c8853b4a007243fe2989bdb9b657",
+   "steps": 65100,
+   "scheduled_steps": 65104,
+   "updates": 65100,
+   "fit_seconds": 8908.144851085,
+   "params": 5028866,
+   "test10k": {
+    "n": 10000,
+    "solved": 8730,
+    "rate": 0.873
+   },
+   "test": {
+    "n": 422786,
+    "solved": 372957,
+    "rate": 0.8821413197220344
+   }
+  },
+  {
+   "method": "EBR",
+   "k": 100000,
+   "seed": 5,
+   "run": "baselines/runs/ebr/de2-v99/n100000-s5",
+   "report": "baselines/runs/ebr/de2-v99/n100000-s5/score10k.report.json",
+   "report_sha256": "6f9ce33f32c4ec19f052c85e66e1c41d0bb68f1fad0029a49163a542aa4a7ef7",
+   "steps": 60000,
+   "fit_seconds": 10118.014821016011,
+   "params": 1775624,
+   "test10k": {
+    "gtan0.2-cap64-N5": {
+     "n": 10000,
+     "solved": 9995,
+     "rate": 0.9995,
+     "mean_flop": 331343793562.3775
+    },
+    "D64-N1": {
+     "n": 10000,
+     "solved": 9952,
+     "rate": 0.9952,
+     "mean_flop": 830532036224.0
+    },
+    "D64-N5": {
+     "n": 10000,
+     "solved": 9995,
+     "rate": 0.9995,
+     "mean_flop": 4154167761665.0
+    }
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n1-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n1-s0/runs/s0/test10k.json",
+   "record_sha256": "8c3e52899a8845134769ed65cb8770f5a0b13be00253361ed22e2633694f151f",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n1-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n1-s1/runs/s1/test10k.json",
+   "record_sha256": "772215bb85ad083d6ef130dafee4cc399f2bb750b956fc4467413728fb33dff8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n1-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n1-s2/runs/s2/test10k.json",
+   "record_sha256": "5997bddb1e21cbb51f433ee12edfa6288083ead2e08f7ad00fd3e040bdb594c6",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n1-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n1-s3/runs/s3/test10k.json",
+   "record_sha256": "3b939de53794788fbc631b1bed15eb5b860bf6744cd84e70d569fbe710e1a82d",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n1-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n1-s4/runs/s4/test10k.json",
+   "record_sha256": "006ce7463e273a577d9f19f1a022dfb119e97e896b601243a10c84edee7d4c01",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n1-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n1-s5/runs/s5/test10k.json",
+   "record_sha256": "603e9a2fc581a4f686f9746b4160f531c7dd685e72f818cfb8e1a2dba3cb4fd7",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n3-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n3-s0/runs/s0/test10k.json",
+   "record_sha256": "e2260911a9df6acf47083fcaff3f080ef9f2de31baa74ea3d272d331e796e2a4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n3-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n3-s1/runs/s1/test10k.json",
+   "record_sha256": "98ff94daf076acbe8e6bd398592937f5bc0693acc614d3b6045617dc0e8d0c68",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n3-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n3-s2/runs/s2/test10k.json",
+   "record_sha256": "b52774f9593c732488bb7fda150305e50348eb666f8ed3881c5be83bca6ac20b",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n3-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n3-s3/runs/s3/test10k.json",
+   "record_sha256": "74fccc3ea96b57ce13ffde66c6a88da447c5810b221e9f0c10954d2f6cb32727",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n3-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n3-s4/runs/s4/test10k.json",
+   "record_sha256": "886ef863c0d853fb681fc96d673dfabc0cd39046978a71b6b3116f9c1f746cfa",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n3-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n3-s5/runs/s5/test10k.json",
+   "record_sha256": "755f861f850023c4bb9e76af497c5afaec32d496eba83546d484f25a49d7e218",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n10-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n10-s0/runs/s0/test10k.json",
+   "record_sha256": "77fffdd4a9a8298d77a0ed933c81d164d8f6fef8bf279f138491175922fc91b7",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 0,
+    "rate": 0.0,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n10-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n10-s1/runs/s1/test10k.json",
+   "record_sha256": "aa38c06ceb8da5562ebb61d79f01fc85e85193e272a17a168b8dc20e3cdcdea8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s1/runs/s1/stageB/step_00100000.pt",
+   "step": 100000,
+   "test10k": {
+    "n": 10000,
+    "solved": 61,
+    "rate": 0.0061,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n10-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n10-s2/runs/s2/test10k.json",
+   "record_sha256": "adcee47c8387d8240da84d7a492b81e0ee0e518c6bb9bdea98ff0f6023b07135",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 10,
+    "rate": 0.001,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n10-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n10-s3/runs/s3/test10k.json",
+   "record_sha256": "f6842394d9291a6edd81134df1f69c6847a9e0c3eab63b3dce81b2802d49a442",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s3/runs/s3/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3,
+    "rate": 0.0003,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n10-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n10-s4/runs/s4/test10k.json",
+   "record_sha256": "185bdabbdc6a5a33509fb2c8eb79894a0db145317e2228d29588bcb267886b70",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1,
+    "rate": 0.0001,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n10-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n10-s5/runs/s5/test10k.json",
+   "record_sha256": "64a7e6aed4d7e0c9121c01f47b81402210c92ad0553fba53c2311166cb351778",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3,
+    "rate": 0.0003,
+    "flops_per_puzzle": 31121283072.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n30-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n30-s0/runs/s0/test10k.json",
+   "record_sha256": "7bb5ca4a966a450e0459b41e080ea9c602043c4574f0e08525bd5a20c68ccac4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s0/runs/s0/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 203,
+    "rate": 0.0203,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n30-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n30-s1/runs/s1/test10k.json",
+   "record_sha256": "674539623d7859f6d09acf02b8391e214a4f493d89ab05b47f79889c6fb3d782",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s1/runs/s1/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 308,
+    "rate": 0.0308,
+    "flops_per_puzzle": 966645913600.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n30-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n30-s2/runs/s2/test10k.json",
+   "record_sha256": "5f3e165009659174b4d8a2a6dd003af20d6350da16f4e81ff8fd16b709b14077",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s2/runs/s2/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 318,
+    "rate": 0.0318,
+    "flops_per_puzzle": 966645913600.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n30-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n30-s3/runs/s3/test10k.json",
+   "record_sha256": "fe065dc36fd5967ab11e0b5414af20c939107ee571838f8511dfe00c92917032",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 307,
+    "rate": 0.0307,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n30-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n30-s4/runs/s4/test10k.json",
+   "record_sha256": "a1dd1ebce6778a33edbc91f88adcafd88d445a03bb19734566cc3c893c575959",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 310,
+    "rate": 0.031,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n30-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n30-s5/runs/s5/test10k.json",
+   "record_sha256": "1f0a1387f6f6fa25d60189c1bedd5be93b9bf668c998b831ed086f26e13cb0a4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 280,
+    "rate": 0.028,
+    "flops_per_puzzle": 121655924736.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n50-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n50-s0/runs/s0/test10k.json",
+   "record_sha256": "9de3a096278bfad47be5e9eb47022c2fc6df2f758c6926dd8834e937cdef2dc9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s0/runs/s0/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 368,
+    "rate": 0.0368,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n50-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n50-s1/runs/s1/test10k.json",
+   "record_sha256": "a74fd420dd4e9aa0c7c7a393fda2f525dc790fcf2fc317079e0a080182740db5",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s1/runs/s1/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 411,
+    "rate": 0.0411,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n50-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n50-s2/runs/s2/test10k.json",
+   "record_sha256": "fa9ea1ad6ac26fa82a20adf08504638e0f455ca181074bbce19dcd730b1c8aad",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 368,
+    "rate": 0.0368,
+    "flops_per_puzzle": 121655924736.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n50-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n50-s3/runs/s3/test10k.json",
+   "record_sha256": "5a662435b109c80fdd2dedddb5f1ec23eb59e5a1da3724301f886122f119e3bc",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 416,
+    "rate": 0.0416,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n50-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n50-s4/runs/s4/test10k.json",
+   "record_sha256": "cc347962db607109d91a8030fb55deab81815c9930f65783ecd97143f9712a2b",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s4/runs/s4/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 384,
+    "rate": 0.0384,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 50,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n50-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n50-s5/runs/s5/test10k.json",
+   "record_sha256": "f57674d725eed91d5e5c4964583763aa5bb88c697a98065066179f8f02887e97",
+   "checkpoint": "baselines/runs/frm/de2-v99/n50-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 456,
+    "rate": 0.0456,
+    "flops_per_puzzle": 966645913600.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n70-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n70-s0/runs/s0/test10k.json",
+   "record_sha256": "fc82be2d65fb1b503cb88722d5bfcd3c22c27c97d51d7410e42eec50499888a0",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s0/runs/s0/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 519,
+    "rate": 0.0519,
+    "flops_per_puzzle": 966645913600.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n70-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n70-s1/runs/s1/test10k.json",
+   "record_sha256": "69b81987f13828a686f0d49ebf48f261e702f81733b7c9e9f2c79bf098eff488",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 541,
+    "rate": 0.0541,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n70-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n70-s2/runs/s2/test10k.json",
+   "record_sha256": "c5ff7150fef69367f91e3d4145e84b3cbdcd8d9b4de1798d59444b6e15391fa6",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 432,
+    "rate": 0.0432,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n70-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n70-s3/runs/s3/test10k.json",
+   "record_sha256": "995996284ed563df83d5a3bc7f132d4b9e9a2f38c12593f2cd02fce9341a2898",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 553,
+    "rate": 0.0553,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n70-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n70-s4/runs/s4/test10k.json",
+   "record_sha256": "bf997c098c620f2be0239efa899607c8933cddc7d4d8d975a428d2160b6ccd76",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 736,
+    "rate": 0.0736,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 70,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n70-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n70-s5/runs/s5/test10k.json",
+   "record_sha256": "4bfcff1d8caf988f1882c80a43a1abf7d6a6e08d7f7731ae58db6bcd4f9c91d9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n70-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 446,
+    "rate": 0.0446,
+    "flops_per_puzzle": 483794491392.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n100-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n100-s0/runs/s0/test10k.json",
+   "record_sha256": "4d9155e5bdb3356dbeded1af45a3883673d6cb37ce91144d875dcd6ac12875b5",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1267,
+    "rate": 0.1267,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n100-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n100-s1/runs/s1/test10k.json",
+   "record_sha256": "c5ab54d91f55629431d4f45e2cad34640e1731cdcb81de2336955d80c6fa50fd",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1397,
+    "rate": 0.1397,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n100-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n100-s2/runs/s2/test10k.json",
+   "record_sha256": "245895b7e899b7a8c73ba55b31d7c253e6cb1e944936137d59edd08e72cfb869",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1247,
+    "rate": 0.1247,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n100-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n100-s3/runs/s3/test10k.json",
+   "record_sha256": "22c2b7fec06710c0c5415fb30eea6ae5de69f5d595b3598794bde0a2ee15fcf7",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1273,
+    "rate": 0.1273,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n100-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n100-s4/runs/s4/test10k.json",
+   "record_sha256": "f9e79e81ff7692ac3dc0e5a48c8b6cdb3daeb3b071a391fb0ec0187b8596a6c1",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 1371,
+    "rate": 0.1371,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n100-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n100-s5/runs/s5/test10k.json",
+   "record_sha256": "a2ee0e6be5dcb64f6f381541bcd6c45669182c5bbc3927b36cb14cd1b0a0c1fa",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100-s5/runs/s5/stageB/step_00100000.pt",
+   "step": 100000,
+   "test10k": {
+    "n": 10000,
+    "solved": 638,
+    "rate": 0.0638,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n150-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n150-s0/runs/s0/test10k.json",
+   "record_sha256": "96dd683277524a16c511bf36a0fd77a9f1159ec614c8e76fa419a0d59d445e30",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3638,
+    "rate": 0.3638,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n150-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n150-s1/runs/s1/test10k.json",
+   "record_sha256": "e892d79d53345d33572f18ce336d15bf166ef7e2f03081743ff2d86ff3742403",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 2450,
+    "rate": 0.245,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n150-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n150-s2/runs/s2/test10k.json",
+   "record_sha256": "061034d652a9ec2169691bf51c7d50a3502ea61a442dbde7e306630d4fa9d4bb",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 2808,
+    "rate": 0.2808,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n150-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n150-s3/runs/s3/test10k.json",
+   "record_sha256": "edb432d048b3f678917a6ef56102570d7162bf0e6719f7f856bbb8df941da8e4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3031,
+    "rate": 0.3031,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n150-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n150-s4/runs/s4/test10k.json",
+   "record_sha256": "1d5323b19dcc2d411ebdee233313caaf0f9a462b00342ba09b03eb0f27f4865a",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3254,
+    "rate": 0.3254,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 150,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n150-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n150-s5/runs/s5/test10k.json",
+   "record_sha256": "d2cf758ea23b7c03eef970ca7106fcbbac69e5e248f91a5e4c0db6832b7b9404",
+   "checkpoint": "baselines/runs/frm/de2-v99/n150-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 3844,
+    "rate": 0.3844,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n200-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n200-s0/runs/s0/test10k.json",
+   "record_sha256": "535d53336c2dab4564925a2e88d67b121c3365a9721b5b73f770d224cbdc6364",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 4322,
+    "rate": 0.4322,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n200-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n200-s1/runs/s1/test10k.json",
+   "record_sha256": "d1c387fa2c71c19ec85797056a07220693c201a8ce0f7027fe557667749fa5ac",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 4572,
+    "rate": 0.4572,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n200-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n200-s2/runs/s2/test10k.json",
+   "record_sha256": "9db10d959aee88bef14d1076c78db78cbb12e6f5c7a2c170b376bae6667e6ca8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 5217,
+    "rate": 0.5217,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n200-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n200-s3/runs/s3/test10k.json",
+   "record_sha256": "f3c85dca6442cb1bf1f1d4e3678b3aa23c3f7a15caba3ea19a0a960acb39e1b3",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 5761,
+    "rate": 0.5761,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n200-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n200-s4/runs/s4/test10k.json",
+   "record_sha256": "f076ed411b9638d62267d39101caf98c5ee5f03efa345dced88a8b4fa414f6b8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 6245,
+    "rate": 0.6245,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 200,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n200-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n200-s5/runs/s5/test10k.json",
+   "record_sha256": "f4770053a93362e53754d7426d3bb7c49310bbf94e840e86d3a8fa560ebe4899",
+   "checkpoint": "baselines/runs/frm/de2-v99/n200-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 4089,
+    "rate": 0.4089,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n300-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n300-s0/runs/s0/test10k.json",
+   "record_sha256": "3ad56e1a9f8e72dca48fb89c5cb526ea8a38829899814f2568a32045c93871a1",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 7629,
+    "rate": 0.7629,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n300-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n300-s1/runs/s1/test10k.json",
+   "record_sha256": "59b630e031f6a5342250c530004bd3419ca252cc556f0249ca9d66c2d9498ab9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 7664,
+    "rate": 0.7664,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n300-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n300-s2/runs/s2/test10k.json",
+   "record_sha256": "70236750fb059f35d7032f3d8271d9c3a32e1af9a8dc5b7147bbeb6b9de91976",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s2/runs/s2/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 7269,
+    "rate": 0.7269,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n300-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n300-s3/runs/s3/test10k.json",
+   "record_sha256": "cbbaba329bae7db3db36e976fcfbdfc072d7efd91a7a191567154a18d2703067",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 6972,
+    "rate": 0.6972,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n300-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n300-s4/runs/s4/test10k.json",
+   "record_sha256": "814684fa29021809503282173e9ff3d50f6dc81346eb519ee54909bfc159cff4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 8608,
+    "rate": 0.8608,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 300,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n300-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n300-s5/runs/s5/test10k.json",
+   "record_sha256": "253ceeda1e3f0b7d6148a9d1de0aed7314a1b41ed3ac8e9dc358fc1ccab38be1",
+   "checkpoint": "baselines/runs/frm/de2-v99/n300-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 7996,
+    "rate": 0.7996,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n500-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n500-s0/runs/s0/test10k.json",
+   "record_sha256": "ff502289a3594909ed1f64f2036185ad56a01635d082eed00d563c8e74323e83",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s0/runs/s0/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9355,
+    "rate": 0.9355,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n500-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n500-s1/runs/s1/test10k.json",
+   "record_sha256": "90808880b7f4f1c5edb0b497dadde82be1faaff4e01fdaf8fef285f552c91b00",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9176,
+    "rate": 0.9176,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n500-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n500-s2/runs/s2/test10k.json",
+   "record_sha256": "5abd03c73a4fddc2a49875d479ed0f8b1f621ec5fa0c2cfd44e27d8cf25bab3d",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9306,
+    "rate": 0.9306,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n500-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n500-s3/runs/s3/test10k.json",
+   "record_sha256": "c0de013b35da442532001f60fa70ba32182007cd0a8764d30113fae4c15eb2df",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9436,
+    "rate": 0.9436,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n500-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n500-s4/runs/s4/test10k.json",
+   "record_sha256": "1111652106686ecd425c6d895d6b006474bf3204141e349c5634e5bdc04beeaa",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9182,
+    "rate": 0.9182,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 500,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n500-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n500-s5/runs/s5/test10k.json",
+   "record_sha256": "8baf2309509754b06063a3fa1ef26bb8ee142544635ccdebc121ed329bf0025a",
+   "checkpoint": "baselines/runs/frm/de2-v99/n500-s5/runs/s5/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9646,
+    "rate": 0.9646,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n700-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n700-s0/runs/s0/test10k.json",
+   "record_sha256": "45b0a336311a548f6c9980700fc23627dbe3fab7ad18a8e1def01a7d94e41e65",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9711,
+    "rate": 0.9711,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n700-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n700-s1/runs/s1/test10k.json",
+   "record_sha256": "bdd5509e203e792233e9ea96f7a82242ce98a9dabf8063d1ae0ebb88ca37e473",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s1/runs/s1/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9724,
+    "rate": 0.9724,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n700-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n700-s2/runs/s2/test10k.json",
+   "record_sha256": "8b805df77b2fb1b2d884e97ec023d20b9e2a997d5c95931a2451a256285c5fc4",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9758,
+    "rate": 0.9758,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n700-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n700-s3/runs/s3/test10k.json",
+   "record_sha256": "5abee68c82b355892a28f9402f65f4111fadd1916e4c7cea6d06302f1d332b43",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s3/runs/s3/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9770,
+    "rate": 0.977,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n700-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n700-s4/runs/s4/test10k.json",
+   "record_sha256": "ce95b9732e464ac88183dca61a2e87a75095885406cf3e9a0e9954ba36581b78",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s4/runs/s4/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9822,
+    "rate": 0.9822,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 700,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n700-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n700-s5/runs/s5/test10k.json",
+   "record_sha256": "0671affcb62ef070b4db16511c1398a5938264a1a40bb27383d41a11b5799bf6",
+   "checkpoint": "baselines/runs/frm/de2-v99/n700-s5/runs/s5/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9821,
+    "rate": 0.9821,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n1000-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n1000-s0/runs/s0/test10k.json",
+   "record_sha256": "4233d26aea04c3b6110d71a4f330737917080a34d5932cbeab3a7178b714ee86",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9885,
+    "rate": 0.9885,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n1000-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n1000-s1/runs/s1/test10k.json",
+   "record_sha256": "c532fae32db340fb35d0aa17efa3b2f3a8ef479f2e99fb3f0356870a55f303d9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s1/runs/s1/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9841,
+    "rate": 0.9841,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n1000-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n1000-s2/runs/s2/test10k.json",
+   "record_sha256": "ac9501e8653939932223c40969ae1b23d7a1e53b87ca3d040c565f44a849fcc9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9864,
+    "rate": 0.9864,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n1000-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n1000-s3/runs/s3/test10k.json",
+   "record_sha256": "125217683fb98a7de799a355996a12a548faefc2394632096267f7ac56621e60",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s3/runs/s3/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9879,
+    "rate": 0.9879,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n1000-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n1000-s4/runs/s4/test10k.json",
+   "record_sha256": "7597fa77fedd5dc668a096b80e7e3b8c7ef78f53c7ea4ea3248ad2d5eaa49cd9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9853,
+    "rate": 0.9853,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 1000,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n1000-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n1000-s5/runs/s5/test10k.json",
+   "record_sha256": "82a5a7b93b89c3d25814937285e4adce2f12ccd448b91795d473a15dbcc212ef",
+   "checkpoint": "baselines/runs/frm/de2-v99/n1000-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9718,
+    "rate": 0.9718,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n3000-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n3000-s0/runs/s0/test10k.json",
+   "record_sha256": "0fe1ae5ef14520591f3d00ee537a71897dd21667411c25ba408d771898e2a03d",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s0/runs/s0/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9894,
+    "rate": 0.9894,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n3000-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n3000-s1/runs/s1/test10k.json",
+   "record_sha256": "cfbf1a60ff070a57f2be7c16b701168f22006085fadad89b8e6d60ccce52eb39",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s1/runs/s1/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9894,
+    "rate": 0.9894,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n3000-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n3000-s2/runs/s2/test10k.json",
+   "record_sha256": "ffff0483243a72948be575e654d31baa733f5ceb931d2d44b43beb1321b4646f",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s2/runs/s2/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9885,
+    "rate": 0.9885,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n3000-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n3000-s3/runs/s3/test10k.json",
+   "record_sha256": "aac29f2ba77044e9bcbc126380784630f0085c1f711c7122b5fb82f074e2fea9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s3/runs/s3/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9882,
+    "rate": 0.9882,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n3000-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n3000-s4/runs/s4/test10k.json",
+   "record_sha256": "f5beaaa6c1a8e14df8017fc018c8b5b95a0986c232f8d4526bda7c34575e4fb2",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s4/runs/s4/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9879,
+    "rate": 0.9879,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 3000,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n3000-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n3000-s5/runs/s5/test10k.json",
+   "record_sha256": "85ce027ae4912329ce63ae1bb0101b45b115db24e4078ef53bfba71af58a09bf",
+   "checkpoint": "baselines/runs/frm/de2-v99/n3000-s5/runs/s5/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9897,
+    "rate": 0.9897,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n10000-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n10000-s0/runs/s0/test10k.json",
+   "record_sha256": "046a36c290557ec17e533fc0268bc616e07ddb955dcef9923c9c471facfa9bd7",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s0/runs/s0/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9863,
+    "rate": 0.9863,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n10000-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n10000-s1/runs/s1/test10k.json",
+   "record_sha256": "28a205b770adc291442f5a767932063264f0389554cbf85b9e4411c87a63923b",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s1/runs/s1/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9892,
+    "rate": 0.9892,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n10000-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n10000-s2/runs/s2/test10k.json",
+   "record_sha256": "1036a56a9ce6659cb36ece26cf031068a99c848bee3f07e224632fed14950479",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9897,
+    "rate": 0.9897,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n10000-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n10000-s3/runs/s3/test10k.json",
+   "record_sha256": "5ebb81d9c99d19cd589bcdb1619a52bbb9059e2650d6e3e195253f8083201fe8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s3/runs/s3/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9880,
+    "rate": 0.988,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n10000-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n10000-s4/runs/s4/test10k.json",
+   "record_sha256": "9bc7aeeaf1838199ad2f07960a3e0edfef49e5202959b7a678b75af48580afa8",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s4/runs/s4/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9906,
+    "rate": 0.9906,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 10000,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n10000-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n10000-s5/runs/s5/test10k.json",
+   "record_sha256": "b29bca8a8f7cf4a570aec4647e9171110dcf60a25d74c26c5ab05ee304006896",
+   "checkpoint": "baselines/runs/frm/de2-v99/n10000-s5/runs/s5/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9890,
+    "rate": 0.989,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n30000-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n30000-s0/runs/s0/test10k.json",
+   "record_sha256": "2aca3ae237ce65df231c67ff8a0fafd3ae95c0e35e8704bfb5d2b946cda4a2cc",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s0/runs/s0/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9890,
+    "rate": 0.989,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n30000-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n30000-s1/runs/s1/test10k.json",
+   "record_sha256": "d833b8bba435be38c30441d1ef0eb61b49774e7783c38452bd6c3dda9d5efec9",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s1/runs/s1/stageB/step_00100000.pt",
+   "step": 100000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9930,
+    "rate": 0.993,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n30000-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n30000-s2/runs/s2/test10k.json",
+   "record_sha256": "2904453ef039dfe83511fe38b163c07035fc8b1573ba781ad40bb31c905ac109",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s2/runs/s2/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9862,
+    "rate": 0.9862,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n30000-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n30000-s3/runs/s3/test10k.json",
+   "record_sha256": "625a7acb488eee9ef9a3b328ca8760342a7ad93497838b7c780de492b2e3af46",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s3/runs/s3/stageB/step_00100000.pt",
+   "step": 100000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9879,
+    "rate": 0.9879,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n30000-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n30000-s4/runs/s4/test10k.json",
+   "record_sha256": "4b72ce3dbdcba834fe51dea526a835379ce6ca38808d6b85d664e45cb9284dbe",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s4/runs/s4/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9868,
+    "rate": 0.9868,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 30000,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n30000-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n30000-s5/runs/s5/test10k.json",
+   "record_sha256": "23e3700b529a954a2ba783a56646ee1bf233efdeb77da86fa5412d0684f17f25",
+   "checkpoint": "baselines/runs/frm/de2-v99/n30000-s5/runs/s5/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9887,
+    "rate": 0.9887,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 0,
+   "run": "baselines/runs/frm/de2-v99/n100000-s0/runs/s0",
+   "record": "baselines/runs/frm/de2-v99/n100000-s0/runs/s0/test10k.json",
+   "record_sha256": "6ddffbb4aebc937cc1644a48077dfaf40b3d373f035928f6a759467cbf04d39c",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s0/runs/s0/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9885,
+    "rate": 0.9885,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 1,
+   "run": "baselines/runs/frm/de2-v99/n100000-s1/runs/s1",
+   "record": "baselines/runs/frm/de2-v99/n100000-s1/runs/s1/test10k.json",
+   "record_sha256": "bbd849a6728f3fad898e893d43575cd830e6438230934c89f8daba0ea3c588f5",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s1/runs/s1/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9931,
+    "rate": 0.9931,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 2,
+   "run": "baselines/runs/frm/de2-v99/n100000-s2/runs/s2",
+   "record": "baselines/runs/frm/de2-v99/n100000-s2/runs/s2/test10k.json",
+   "record_sha256": "2473d363dc973ab49d5ec93a04f992155e16c9f46be3d776c3d68b3c9d422b7a",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s2/runs/s2/stageB/step_00075000.pt",
+   "step": 75000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9910,
+    "rate": 0.991,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 3,
+   "run": "baselines/runs/frm/de2-v99/n100000-s3/runs/s3",
+   "record": "baselines/runs/frm/de2-v99/n100000-s3/runs/s3/test10k.json",
+   "record_sha256": "641b77b4fec407337470be5ad725b7e39ee16f040cd63fbca2b91a7df016613e",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s3/runs/s3/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9884,
+    "rate": 0.9884,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 4,
+   "run": "baselines/runs/frm/de2-v99/n100000-s4/runs/s4",
+   "record": "baselines/runs/frm/de2-v99/n100000-s4/runs/s4/test10k.json",
+   "record_sha256": "733d4863838166e6e448cde5d7f8048ae2c0433c23b9ce1b1116b800208861e0",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s4/runs/s4/stageB/step_00025000.pt",
+   "step": 25000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9892,
+    "rate": 0.9892,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  },
+  {
+   "method": "FRM",
+   "k": 100000,
+   "seed": 5,
+   "run": "baselines/runs/frm/de2-v99/n100000-s5/runs/s5",
+   "record": "baselines/runs/frm/de2-v99/n100000-s5/runs/s5/test10k.json",
+   "record_sha256": "6675d4901ba6d0b22273172a5554984eff1b928d40918ad3d59435a93995bf33",
+   "checkpoint": "baselines/runs/frm/de2-v99/n100000-s5/runs/s5/stageB/step_00050000.pt",
+   "step": 50000,
+   "test10k": {
+    "n": 10000,
+    "solved": 9908,
+    "rate": 0.9908,
+    "flops_per_puzzle": 3863754446848.0
+   }
+  }
+ ]
+}

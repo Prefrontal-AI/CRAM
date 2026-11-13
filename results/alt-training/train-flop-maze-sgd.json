@@ -1,0 +1,193 @@
+{
+ "convention": "torch.utils.flop_counter.FlopCounterMode, one update (loss, gradient, step) after one warm-up update",
+ "rows": {
+  "maze/pl": {
+   "choice": {
+    "lr": 1.0,
+    "knob": null,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294400,
+   "t99_update_per_seed": [
+    6,
+    6,
+    6
+   ],
+   "t99_update": 6,
+   "t99_flop": 49766400
+  },
+  "maze/mpl": {
+   "choice": {
+    "lr": 1.0,
+    "knob": 0.3,
+    "l1": 0.03
+   },
+   "flop_per_update": 8294400,
+   "t99_update_per_seed": [
+    3,
+    3,
+    3
+   ],
+   "t99_update": 3,
+   "t99_flop": 24883200
+  },
+  "maze/mpf": {
+   "choice": {
+    "lr": 0.3,
+    "knob": null,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294400,
+   "t99_update_per_seed": [
+    4,
+    4,
+    4
+   ],
+   "t99_update": 4,
+   "t99_flop": 33177600
+  },
+  "maze/dsm": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 0.5,
+    "l1": 0.03
+   },
+   "flop_per_update": 8294400,
+   "t99_update_per_seed": [
+    3,
+    3,
+    3
+   ],
+   "t99_update": 3,
+   "t99_flop": 24883200
+  },
+  "maze/cd": {
+   "choice": {
+    "lr": 1.0,
+    "knob": 256,
+    "l1": 0.003,
+    "reg": 0.0
+   },
+   "flop_per_update": 1078272000,
+   "t99_update_per_seed": [
+    3,
+    3,
+    3
+   ],
+   "t99_update": 3,
+   "t99_flop": 3234816000
+  },
+  "maze/pcd": {
+   "choice": {
+    "lr": 1.0,
+    "knob": 256,
+    "l1": 0.0,
+    "reg": 0.0
+   },
+   "flop_per_update": 1078272000,
+   "t99_update_per_seed": [
+    3,
+    3,
+    3
+   ],
+   "t99_update": 3,
+   "t99_flop": 3234816000
+  },
+  "maze/chl": {
+   "choice": {
+    "lr": 0.3,
+    "knob": 100,
+    "l1": 0.0,
+    "reg": 0.0
+   },
+   "flop_per_update": 431308800,
+   "t99_update_per_seed": [
+    4,
+    4,
+    4
+   ],
+   "t99_update": 4,
+   "t99_flop": 1725235200
+  },
+  "maze/eqp": {
+   "choice": {
+    "lr": 0.3,
+    "knob": 30,
+    "l1": 0.0
+   },
+   "flop_per_update": 389836800,
+   "t99_update_per_seed": [
+    128,
+    128,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 49899110400
+  },
+  "maze/imp": {
+   "choice": {
+    "lr": 0.3,
+    "knob": 30,
+    "l1": 0.0
+   },
+   "flop_per_update": 261273600,
+   "t99_update_per_seed": [
+    128,
+    128,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 33443020800
+  },
+  "maze/bptt1": {
+   "choice": {
+    "lr": 1.0,
+    "knob": 10,
+    "l1": 0.0
+   },
+   "flop_per_update": 45619200,
+   "t99_update_per_seed": [
+    128,
+    128,
+    91
+   ],
+   "t99_update": 128,
+   "t99_flop": 5839257600
+  },
+  "maze/bptt5": {
+   "choice": {
+    "lr": 0.3,
+    "knob": 10,
+    "l1": 0.0
+   },
+   "flop_per_update": 78796800,
+   "t99_update_per_seed": [
+    128,
+    128,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 10085990400
+  },
+  "maze/bptt": {
+   "choice": {
+    "lr": 0.3,
+    "knob": 10,
+    "l1": 0.0
+   },
+   "flop_per_update": 120268800,
+   "t99_update_per_seed": [
+    128,
+    128,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 15394406400
+  }
+ },
+ "maze_kernel": "free",
+ "maze_opt": "sgd-cosine",
+ "roots": {
+  "maze": "runs/ALT-sgd"
+ }
+}

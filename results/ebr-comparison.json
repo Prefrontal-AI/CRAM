@@ -1,0 +1,825 @@
+{
+ "description": "EBR (Energy-Based Reasoner, arXiv 2611.08977) against CRAM on the tasks of the paper that EBR was trained on here:\nSudoku-Extreme, Maze-Unique, N-Queens (8, 10) and graph coloring (8, 10). CPU only; reads finished records, runs nothing.\n\n  python ebr/comparison.py      # writes results/ebr-comparison.json\n\nEBR: three cold fits per task with the authors' code (github.com/wwillchen/ebr at 8c5271c, unmodified; ebr/fit.py),\nscored by the authors' evaluators (ebr/score.sbatch) and aggregated by ebr/report.py (each run's report-fc2.json, written\nby ebr/report_fc2.sbatch). Fit seconds come from each run's fit.json (baselines/clock.py: evaluation, checkpoints and disk\nreads excluded). Flop (floating-point operations) per puzzle comes from the per-component counts of `ebr/flops.py --full`\n(runs/ebr/flops-full/<bench>.json: all arithmetic, the operation-count convention of baselines/flops/fullcount.py; math\nattention, batch 1, float32). Published values: the project page energy-based-reasoners.github.io, retrieved 2026-11-08.\nCRAM: the table records of the paper's rows (experiments/runs/table/<benchmark>__<row>.json) for Sudoku-Extreme,\nMaze-Unique and Maze-Hard, and the selected N-Queens and graph-coloring energies (results/nqueens-results.json,\nresults/graph-coloring-results.json); operation counts from results/op-counts.json.\nEach task keeps one metric definition for both methods; the definitions are in the output's \"definitions\".\n",
+ "status": "In the paper: Table 2, the compute figure, and the N-Queens and graph-coloring table.",
+ "ebr": {
+  "sudoku": {
+   "params": 1775624,
+   "fit_s": {
+    "mean": 10123.332672510762,
+    "sd": 75.90134113947835,
+    "per_seed": [
+     10113.827572595794,
+     10203.53887309879,
+     10052.6315718377
+    ]
+   },
+   "test": "412,786 unseen Sudoku-Extreme test puzzles",
+   "published_setting": {
+    "setting": "lowest energy of 5 samples, 64 segments",
+    "solved": {
+     "mean": 99.86958537030488,
+     "sd": 0.03693223245248943,
+     "per_seed": [
+      99.84035311275092,
+      99.91109194594777,
+      99.85731105221592
+     ]
+    },
+    "flop": {
+     "mean": 4154167761664.9995,
+     "sd": 0.0,
+     "per_seed": [
+      4154167761664.9995,
+      4154167761664.9995,
+      4154167761664.9995
+     ]
+    }
+   },
+   "n1_d64": {
+    "solved": {
+     "mean": 99.31497999770664,
+     "sd": 0.06951545200805495,
+     "per_seed": [
+      99.29454971825595,
+      99.25796902026715,
+      99.39242125459681
+     ]
+    },
+    "flop": {
+     "mean": 830532036224.0,
+     "sd": 0.0,
+     "per_seed": [
+      830532036224.0,
+      830532036224.0,
+      830532036224.0
+     ]
+    }
+   },
+   "adaptive_n5": {
+    "setting": "|grad_M E| < 0.2, at most 64 segments, N=5",
+    "solved": {
+     "mean": 99.85456548106443,
+     "sd": 0.04733636428308378,
+     "per_seed": [
+      99.81491620355341,
+      99.90697358922057,
+      99.84180665041934
+     ]
+    },
+    "flop": {
+     "mean": 337418894861.42096,
+     "sd": 10182882666.650427,
+     "per_seed": [
+      333665748808.9338,
+      348945676198.074,
+      329645259577.2552
+     ]
+    }
+   },
+   "adaptive_n1": {
+    "setting": "|grad_M E| < 0.2, at most 64 segments, N=1",
+    "solved": {
+     "mean": 99.31497999770664,
+     "sd": 0.06985737476134696,
+     "per_seed": [
+      99.29406520569981,
+      99.25796902026715,
+      99.39290576715295
+     ]
+    },
+    "flop": {
+     "mean": 67179162595.79883,
+     "sd": 2041532388.165965,
+     "per_seed": [
+      66413855419.19679,
+      69492770141.60678,
+      65630862226.59291
+     ]
+    }
+   },
+   "published": {
+    "n1": 99.4,
+    "n5": 99.9
+   }
+  },
+  "mazeunique": {
+   "params": 1773064,
+   "recipe": "maze_hard_fast, unchanged (EBR has no Maze-Unique recipe)",
+   "test": "1,000 test mazes",
+   "fit_s": {
+    "mean": 7276.693113266646,
+    "sd": 29.218123628032153,
+    "per_seed": [
+     7255.145971552003,
+     7264.983595784288,
+     7309.949772463646
+    ]
+   },
+   "exact D16-N5": {
+    "solved": {
+     "mean": 89.8,
+     "sd": 6.35059052372297,
+     "per_seed": [
+      91.1,
+      95.4,
+      82.9
+     ]
+    },
+    "flop": {
+     "mean": 19266794448860.0,
+     "sd": 0.0,
+     "per_seed": [
+      19266794448860.0,
+      19266794448860.0,
+      19266794448860.0
+     ]
+    }
+   },
+   "exact D16-N1": {
+    "solved": {
+     "mean": 73.66666666666667,
+     "sd": 9.58453615639971,
+     "per_seed": [
+      68.9,
+      84.7,
+      67.4
+     ]
+    },
+    "flop": {
+     "mean": 3848469642464.0,
+     "sd": 0.0,
+     "per_seed": [
+      3848469642464.0,
+      3848469642464.0,
+      3848469642464.0
+     ]
+    }
+   },
+   "exact gtan0.2-cap16-N5": {
+    "solved": {
+     "mean": 89.8,
+     "sd": 6.35059052372297,
+     "per_seed": [
+      91.1,
+      95.4,
+      82.9
+     ]
+    },
+    "flop": {
+     "mean": 20183130170300.0,
+     "sd": 0.0,
+     "per_seed": [
+      20183130170300.0,
+      20183130170300.0,
+      20183130170300.0
+     ]
+    }
+   },
+   "exact gtan0.2-cap16-N1": {
+    "solved": {
+     "mean": 73.66666666666667,
+     "sd": 9.58453615639971,
+     "per_seed": [
+      68.9,
+      84.7,
+      67.4
+     ]
+    },
+    "flop": {
+     "mean": 4031736786752.0,
+     "sd": 0.0,
+     "per_seed": [
+      4031736786752.0,
+      4031736786752.0,
+      4031736786752.0
+     ]
+    }
+   },
+   "shortest D16-N5": {
+    "solved": {
+     "mean": 89.93333333333334,
+     "sd": 6.232442004008806,
+     "per_seed": [
+      91.1,
+      95.5,
+      83.2
+     ]
+    },
+    "flop": {
+     "mean": 19266794448860.0,
+     "sd": 0.0,
+     "per_seed": [
+      19266794448860.0,
+      19266794448860.0,
+      19266794448860.0
+     ]
+    }
+   },
+   "shortest D16-N1": {
+    "solved": {
+     "mean": 73.96666666666667,
+     "sd": 9.922869208718485,
+     "per_seed": [
+      68.9,
+      85.4,
+      67.6
+     ]
+    },
+    "flop": {
+     "mean": 3848469642464.0,
+     "sd": 0.0,
+     "per_seed": [
+      3848469642464.0,
+      3848469642464.0,
+      3848469642464.0
+     ]
+    }
+   },
+   "shortest gtan0.2-cap16-N5": {
+    "solved": {
+     "mean": 89.93333333333334,
+     "sd": 6.232442004008806,
+     "per_seed": [
+      91.1,
+      95.5,
+      83.2
+     ]
+    },
+    "flop": {
+     "mean": 20183130170300.0,
+     "sd": 0.0,
+     "per_seed": [
+      20183130170300.0,
+      20183130170300.0,
+      20183130170300.0
+     ]
+    }
+   },
+   "shortest gtan0.2-cap16-N1": {
+    "solved": {
+     "mean": 73.96666666666667,
+     "sd": 9.922869208718485,
+     "per_seed": [
+      68.9,
+      85.4,
+      67.6
+     ]
+    },
+    "flop": {
+     "mean": 4031736786752.0,
+     "sd": 0.0,
+     "per_seed": [
+      4031736786752.0,
+      4031736786752.0,
+      4031736786752.0
+     ]
+    }
+   }
+  },
+  "nqueens8": {
+   "params": 7081992,
+   "fit_s": {
+    "mean": 11499.039737299705,
+    "sd": 59.970928231839714,
+    "per_seed": [
+     11567.074557149317,
+     11453.843789947685,
+     11476.200864802115
+    ]
+   },
+   "stop_rule": "|grad_M E| < 0.2 at a segment end, else the trained depth; 20 samples per input",
+   "n1": {
+    "mean": 100.0,
+    "sd": 0.0,
+    "per_seed": [
+     100.0,
+     100.0,
+     100.0
+    ]
+   },
+   "n20": {
+    "mean": 99.94623655913978,
+    "sd": 0.09312101115962261,
+    "per_seed": [
+     100.0,
+     100.0,
+     99.83870967741935
+    ]
+   },
+   "cov20": {
+    "mean": 98.09139784946235,
+    "sd": 0.20295253858254125,
+    "per_seed": [
+     97.90322580645162,
+     98.06451612903226,
+     98.30645161290322
+    ]
+   },
+   "flop_n1": {
+    "mean": 102701835150.80225,
+    "sd": 11715683669.001135,
+    "per_seed": [
+     114487873612.62953,
+     102559834687.40674,
+     91057797152.37047
+    ]
+   },
+   "flop_n20": {
+    "mean": 2088577686739.7375,
+    "sd": 246467543914.52832,
+    "per_seed": [
+     2341959763611.0996,
+     2074111389531.32,
+     1849661907076.7927
+    ]
+   },
+   "cov20_row_mean": {
+    "mean": 98.09139784946235,
+    "sd": 0.20295253858254125,
+    "per_seed": [
+     97.90322580645162,
+     98.06451612903226,
+     98.30645161290322
+    ]
+   },
+   "cov20_group_mean": {
+    "mean": 92.42460317460318,
+    "sd": 1.2101613222211123,
+    "per_seed": [
+     91.63095238095238,
+     91.82539682539682,
+     93.81746031746032
+    ]
+   },
+   "segments": {
+    "mean": 2.517789291882556,
+    "sd": 0.2997722391783118,
+    "per_seed": [
+     2.8259715025906735,
+     2.500194300518135,
+     2.22720207253886
+    ]
+   },
+   "published": {
+    "cov20": 98.1
+   }
+  },
+  "nqueens10": {
+   "params": 7081992,
+   "fit_s": {
+    "mean": 27294.74215672817,
+    "sd": 163.3254057086566,
+    "per_seed": [
+     27454.176935166586,
+     27302.26353021292,
+     27127.786004805006
+    ]
+   },
+   "stop_rule": "|grad_M E| < 0.2 at a segment end, else the trained depth; 20 samples per input",
+   "n1": {
+    "mean": 99.3104444203762,
+    "sd": 0.2756163619671364,
+    "per_seed": [
+     99.6155095851836,
+     99.23643452832232,
+     99.07938914762268
+    ]
+   },
+   "n20": {
+    "mean": 99.9891692840897,
+    "sd": 0.005415357955158129,
+    "per_seed": [
+     99.99458464204486,
+     99.9891692840897,
+     99.98375392613454
+    ]
+   },
+   "cov20": {
+    "mean": 92.48037793401033,
+    "sd": 0.6580618052299478,
+    "per_seed": [
+     91.7364133467247,
+     92.71844660194175,
+     92.98627385336458
+    ]
+   },
+   "flop_n1": {
+    "mean": 195637702695.0,
+    "sd": 0.0,
+    "per_seed": [
+     195637702695.0,
+     195637702695.0,
+     195637702695.0
+    ]
+   },
+   "flop_n20": {
+    "mean": 3941950176060.0,
+    "sd": 0.0,
+    "per_seed": [
+     3941950176060.0,
+     3941950176060.0,
+     3941950176060.0
+    ]
+   },
+   "cov20_row_mean": {
+    "mean": 89.75576735622225,
+    "sd": 0.7219515588598125,
+    "per_seed": [
+     88.92396837430955,
+     90.12374092927541,
+     90.21959276508179
+    ]
+   },
+   "cov20_group_mean": {
+    "mean": 78.02393256865484,
+    "sd": 0.581465615429501,
+    "per_seed": [
+     77.38664429707225,
+     78.52560677329895,
+     78.15954663559333
+    ]
+   },
+   "segments": {
+    "mean": 3.0,
+    "sd": 0.0,
+    "per_seed": [
+     3.0,
+     3.0,
+     3.0
+    ]
+   },
+   "published": {
+    "cov20": 92.0
+   }
+  },
+  "gc8": {
+   "params": 7085064,
+   "fit_s": {
+    "mean": 16150.493748708628,
+    "sd": 78.63784929570716,
+    "per_seed": [
+     16227.795715007931,
+     16070.5848469669,
+     16153.100684151053
+    ]
+   },
+   "stop_rule": "|grad_M E| < 0.2 at a segment end, else the trained depth; 20 samples per input",
+   "n1": {
+    "mean": 0.0,
+    "sd": 0.0,
+    "per_seed": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "n20": {
+    "mean": 2.6666666666666665,
+    "sd": 4.618802153517006,
+    "per_seed": [
+     0.0,
+     8.0,
+     0.0
+    ]
+   },
+   "cov20": {
+    "mean": 89.28046989720998,
+    "sd": 0.06358483140854639,
+    "per_seed": [
+     89.31718061674009,
+     89.20704845814979,
+     89.31718061674009
+    ]
+   },
+   "flop_n1": {
+    "mean": 39658882452.23138,
+    "sd": 12771248979.098412,
+    "per_seed": [
+     45562568981.89804,
+     25003848831.52941,
+     48410229543.26667
+    ]
+   },
+   "flop_n20": {
+    "mean": 795768299264.4628,
+    "sd": 240485465959.58615,
+    "per_seed": [
+     918078793132.0275,
+     518711763183.9882,
+     950514341477.3726
+    ]
+   },
+   "cov20_gram_uncapped": {
+    "mean": 88.8888888888889,
+    "sd": 0.06330595056904381,
+    "per_seed": [
+     88.92543859649123,
+     88.8157894736842,
+     88.92543859649123
+    ]
+   },
+   "segments": {
+    "mean": 2.223921568627451,
+    "sd": 0.6789132653275783,
+    "per_seed": [
+     2.56921568627451,
+     1.4417647058823528,
+     2.66078431372549
+    ]
+   },
+   "published": {
+    "cov20": 88.6
+   }
+  },
+  "gc10": {
+   "params": 7085064,
+   "fit_s": {
+    "mean": 27952.93530153685,
+    "sd": 601.2445190699577,
+    "per_seed": [
+     27523.392658280674,
+     27695.356318909675,
+     28640.0569274202
+    ]
+   },
+   "stop_rule": "|grad_M E| < 0.2 at a segment end, else the trained depth; 20 samples per input",
+   "n1": {
+    "mean": 0.3333333333333333,
+    "sd": 0.5773502691896257,
+    "per_seed": [
+     0.0,
+     0.0,
+     1.0
+    ]
+   },
+   "n20": {
+    "mean": 0.6666666666666666,
+    "sd": 1.1547005383792515,
+    "per_seed": [
+     0.0,
+     0.0,
+     2.0
+    ]
+   },
+   "cov20": {
+    "mean": 85.8355282411472,
+    "sd": 0.3323914747322337,
+    "per_seed": [
+     85.68920105355575,
+     85.60140474100088,
+     86.21597892888498
+    ]
+   },
+   "flop_n1": {
+    "mean": 111802277782.53471,
+    "sd": 2526958496.541343,
+    "per_seed": [
+     113942748817.55208,
+     112449396932.65625,
+     109014687597.39583
+    ]
+   },
+   "flop_n20": {
+    "mean": 2248331959560.5728,
+    "sd": 42679307143.09557,
+    "per_seed": [
+     2278497667635.4688,
+     2266998858121.771,
+     2199499352924.479
+    ]
+   },
+   "cov20_gram_uncapped": {
+    "mean": 54.832679005421575,
+    "sd": 0.21233532794167936,
+    "per_seed": [
+     54.739203589455975,
+     54.683118339876614,
+     55.075715086932135
+    ]
+   },
+   "segments": {
+    "mean": 3.8981770833333336,
+    "sd": 0.07442588055944388,
+    "per_seed": [
+     3.95078125,
+     3.9307291666666666,
+     3.8130208333333333
+    ]
+   },
+   "published": {
+    "cov20": 54.5
+   }
+  }
+ },
+ "cram": {
+  "sudoku": {
+   "solved": 99.99588164327278,
+   "flop": 2015770227.8755887,
+   "params_nonzero": [
+    7716,
+    7750,
+    7761
+   ],
+   "fit_s": 0.04275277815759182,
+   "source": "experiments/runs/table/sudoku-extreme__cram-0-fit.json (fit_s: fit_gpu_warm_s; params_nonzero: per training split)"
+  },
+  "mazeunique": {
+   "solved": 100.0,
+   "flop": 836870.85,
+   "params": 18,
+   "fit_s": 0.131769006329705,
+   "source": "experiments/runs/table/maze-unique__cram-sgd-fg.json (fit_s: fit_gpu_warm_s)"
+  },
+  "mazehard": {
+   "solved": 99.9,
+   "flop": 14058028.200000001,
+   "params": 29,
+   "fit_s": 25.58801945397863,
+   "metric": "exact match to the labeled path",
+   "source": "experiments/runs/table/maze-hard__cram-latent-zmu.json (fit_s: train_gpu_s, one cold fit)"
+  },
+  "nqueens8": {
+   "method": "mpl",
+   "acc_n1": {
+    "mean": 99.78494623655914,
+    "sd": 0.04656050557981541,
+    "per_seed": [
+     99.75806451612902,
+     99.83870967741936,
+     99.75806451612902
+    ]
+   },
+   "acc_majority20": {
+    "mean": 99.83870967741936,
+    "sd": 0.0,
+    "per_seed": [
+     99.83870967741936,
+     99.83870967741936,
+     99.83870967741936
+    ]
+   },
+   "cov20": {
+    "mean": 94.07410607612219,
+    "sd": 0.17228336519574564,
+    "per_seed": [
+     94.15658602150536,
+     93.87608806963645,
+     94.18964413722478
+    ]
+   },
+   "cov20_group_mean": {
+    "mean": 84.47803178574718,
+    "sd": 0.22915845141754107,
+    "per_seed": [
+     84.73165877796902,
+     84.28588370868205,
+     84.41655287059045
+    ]
+   },
+   "fit_gpu_cold_s": {
+    "mean": 8.521099794500818,
+    "sd": 0.26212365971765245,
+    "per_seed": [
+     8.807173926848918,
+     8.463678183034062,
+     8.292447273619473
+    ]
+   },
+   "params_nonzero": 8192,
+   "flop_n1": 163976.375,
+   "flop_n20": 3347803.5,
+   "source": "results/nqueens-results.json training_methods, selected method"
+  },
+  "nqueens10": {
+   "method": "cd",
+   "acc_n1": {
+    "mean": 91.952778078631,
+    "sd": 0.6317891826882819,
+    "per_seed": [
+     92.67843604462254,
+     91.5249648001733,
+     91.65493339109715
+    ]
+   },
+   "acc_majority20": {
+    "mean": 96.79771832918156,
+    "sd": 0.3448155912855701,
+    "per_seed": [
+     97.16776778945089,
+     96.48543268710061,
+     96.73995451099317
+    ]
+   },
+   "cov20": {
+    "mean": 84.48610771393392,
+    "sd": 0.24483949544958994,
+    "per_seed": [
+     84.7119108690205,
+     84.22587630269521,
+     84.52053597008604
+    ]
+   },
+   "cov20_group_mean": {
+    "mean": 68.41595814755188,
+    "sd": 0.2911324649086062,
+    "per_seed": [
+     68.53543656118008,
+     68.08409434862705,
+     68.62834353284849
+    ]
+   },
+   "fit_gpu_cold_s": {
+    "mean": 115.02383367919053,
+    "sd": 0.09940290206458423,
+    "per_seed": [
+     115.12125704716891,
+     114.92256295727566,
+     115.02768103312701
+    ]
+   },
+   "params_nonzero": 20000,
+   "flop_n1": 941704.7534929059,
+   "flop_n20": 18659243.583613127,
+   "source": "results/nqueens-results.json training_methods, selected method"
+  },
+  "gc8": {
+   "conflicts_1": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "conflicts_majority_20": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "coverage_20": {
+    "mean": 0.8885233918128654,
+    "sd": 0.004565057016373103,
+    "per_seed": [
+     0.8848684210526315,
+     0.8870614035087719,
+     0.893640350877193
+    ]
+   },
+   "flop_1": 24006.116339869284,
+   "flop_20": 201178.66274509803,
+   "params": 7332,
+   "params_nonzero": 869,
+   "fit_s": 1.5039472160860896,
+   "source": "results/graph-coloring-results.json row cram-full"
+  },
+  "gc10": {
+   "conflicts_1": {
+    "mean": 0.3333333333333333,
+    "sd": 0.5773502691896257,
+    "per_seed": [
+     1,
+     0,
+     0
+    ]
+   },
+   "conflicts_majority_20": {
+    "mean": 1,
+    "sd": 0.0,
+    "per_seed": [
+     1,
+     1,
+     1
+    ]
+   },
+   "coverage_20": {
+    "mean": 0.5257057393905403,
+    "sd": 0.006177869374409531,
+    "per_seed": [
+     0.5227145260796411,
+     0.532809871003926,
+     0.5215928210880538
+    ]
+   },
+   "flop_1": 94335.71875,
+   "flop_20": 1189987.84375,
+   "params": 18660,
+   "params_nonzero": 475,
+   "fit_s": 0.5500100222416222,
+   "source": "results/graph-coloring-results.json row cram-full"
+  }
+ },
+ "definitions": {
+  "sudoku_maze": "solved = exact match to the label; Maze \"shortest\" = any valid shortest path (a Maze-Unique maze has one shortest path).",
+  "nqueens_n1": "N=1: percent of test rows (an input with s solutions occurs s times) whose first sample is a valid completion keeping the given queens.",
+  "nqueens_cov20": "cov20 (EBR): distinct valid completions found by 20 samples, at most 20 per input, pooled over inputs over the sum of min(|S(x)|, 20); the published EBR value.",
+  "nqueens_cov20_group_mean": "cov20_group_mean (the form GRAM's evaluator prints; the paper uses it for CRAM): per row, distinct samples equal to one of the input's first 20 completions over their number; mean within groups of equal min(s, 20), then over groups.",
+  "gc_cov20": "Graph coloring Cov@20 (GRAM, uncapped): distinct proper colorings in canonical color order found by 20 samples over all canonical proper colorings, summed over graphs. EBR: cov20_gram_uncapped; CRAM: coverage_20.",
+  "gc_conflicts": "conflicts: total conflicting edges of sample 0 (N=1) or of the selected sample (N=20) over the test graphs.",
+  "flop": "EBR: all arithmetic (the operation-count convention of baselines/flops/fullcount.py), math attention, batch 1; adaptive settings add one gradient measure per segment. CRAM: the same convention applied to its search kernels (results/op-counts.json), every chain included."
+ }
+}

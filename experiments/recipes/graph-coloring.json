@@ -1,0 +1,56 @@
+{
+ "n8-full": {
+  "n": 8,
+  "arm": "full",
+  "updates": 1024,
+  "lr": 10.0,
+  "lam": 0.0001,
+  "momentum": 0.5,
+  "stop": "terms",
+  "temperature": 2.0,
+  "samples": 20,
+  "cap": 10000,
+  "theta": 0.45,
+  "validation": {
+   "graphs": 206,
+   "proper_1": 1.0,
+   "proper_canonical_1": 0.9789644012944985,
+   "coverage_20": 0.9254185692541856,
+   "coverage_canonicalized_20": 0.9264332825976661,
+   "conflicts_1": 0.0,
+   "conflicts_majority_20": 0.0,
+   "flop_1": 25479.54045307443,
+   "flop_20": 223672.59223300972,
+   "wrong_stops_all": 0.0,
+   "budget_failures_all": 20.0
+  }
+ },
+ "n10-full": {
+  "n": 10,
+  "arm": "full",
+  "updates": 256,
+  "lr": 10.0,
+  "lam": 0.001,
+  "momentum": 0.5,
+  "stop": "terms",
+  "temperature": 3.0,
+  "samples": 20,
+  "cap": 10000,
+  "theta": 0.45,
+  "validation": {
+   "graphs": 154,
+   "proper_1": 1.0,
+   "proper_canonical_1": 0.935064935064935,
+   "coverage_20": 0.5046357615894039,
+   "coverage_canonicalized_20": 0.5236203090507726,
+   "conflicts_1": 0.0,
+   "conflicts_majority_20": 0.0,
+   "flop_1": 75554.81818181818,
+   "flop_20": 762164.0909090908,
+   "wrong_stops_all": 0.0,
+   "budget_failures_all": 0.0
+  }
+ },
+ "_selected_utc": "2026-11-06T08:05:51+00:00",
+ "_rule": "the selection rule of graph_coloring.py --mode summary over the validation candidates of three screen folders (runs/CRAM-GC/screen/summary-gc3+gc4+gc5.json; the folder names are only labels); the paper reports the arm full"
+}

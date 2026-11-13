@@ -1,0 +1,191 @@
+{
+ "description": "Inference flop per test puzzle for five main-table cells. A multiply-add is 2 flop.",
+ "created_utc": "2026-11-05T13:43:19Z",
+ "report_script_sha256": "b96f65060f770e56ceeb5b96db7d348375cf10c039b96ef5ace5a84aef189e91",
+ "cells": [
+  {
+   "benchmark": "Sudoku-Extreme",
+   "method": "HRM",
+   "flop_per_puzzle": 219916926976,
+   "components": {
+    "flop_per_act_step": 13744807936,
+    "act_steps": 16,
+    "attention_per_puzzle": 5287968768,
+    "flop_seen_by_counter_with_fa3": 214628958208,
+    "analytic_per_step": {
+     "blocks_per_step": 24,
+     "per_block_linear": 558891008,
+     "per_block_attention": 13770752,
+     "heads": 925696,
+     "per_step": 13744807936
+    }
+   },
+   "convention": "FlopCounterMode, batch 1, eval mode, uncompiled; multiply-add = 2; matmuls and attention only. FlashAttention 3 is invisible to the counter; flash_attn_func was replaced by SDPA (math kernel) for counting only, and the count equals the analytic matmul count. HRM evaluation halts every puzzle at halt_max_steps = 16 (the Q-halt test applies only in training), so the count is the same for every puzzle and every checkpoint.",
+   "sampled": false,
+   "checkpoint": "baselines/runs/hrm/sudoku-e40000-s0/step_31248",
+   "checkpoint_sha256": "2bb6d614e4690b826c41767618043b0e55a4c3949ccf5d972e24c6dac1032ef1",
+   "script": {
+    "baselines/flops/hrm_count.py": "471e5c7d598c3e1d48f13dd6891a60f0d988cea5564885204b2185e045be37fb"
+   },
+   "record": "baselines/runs/flops/hrm-sudoku.json",
+   "record_sha256": "d39da9b15c5b8a34dd6373e1bff8c258b4d61258940fd7581b1784df991bbf4d",
+   "slurm_job": "316941"
+  },
+  {
+   "benchmark": "Maze-Unique",
+   "method": "HRM",
+   "flop_per_puzzle": 2996653260800,
+   "components": {
+    "flop_per_act_step": 187290828800,
+    "act_steps": 16,
+    "attention_per_puzzle": 638426284032,
+    "flop_seen_by_counter_with_fa3": 2358226976768,
+    "analytic_per_step": {
+     "blocks_per_step": 24,
+     "per_block_linear": 6140985344,
+     "per_block_attention": 1662568448,
+     "heads": 5537792,
+     "per_step": 187290828800
+    }
+   },
+   "convention": "FlopCounterMode, batch 1, eval mode, uncompiled; multiply-add = 2; matmuls and attention only. FlashAttention 3 is invisible to the counter; flash_attn_func was replaced by SDPA (math kernel) for counting only, and the count equals the analytic matmul count. HRM evaluation halts every puzzle at halt_max_steps = 16 (the Q-halt test applies only in training), so the count is the same for every puzzle and every checkpoint.",
+   "sampled": false,
+   "checkpoint": "baselines/runs/hrm/mazeunique-s0/step_26040",
+   "checkpoint_sha256": "d68d4fe16aaf3a8a753edf95e0fde64f10bd8e89fe10eaf44b252da8c1f77d73",
+   "script": {
+    "baselines/flops/hrm_count.py": "471e5c7d598c3e1d48f13dd6891a60f0d988cea5564885204b2185e045be37fb"
+   },
+   "record": "baselines/runs/flops/hrm-mazeunique.json",
+   "record_sha256": "c4f3fd1bcb18ef4126195e6a44f3dec83ba9966448e0cf8be9002c629d2c07d3",
+   "slurm_job": "320091"
+  },
+  {
+   "benchmark": "Sudoku-Extreme",
+   "method": "TRMP",
+   "flop_per_puzzle": 4513800410442.922,
+   "components": {
+    "per_step": 3359698560,
+    "halt_head_per_step": 3240,
+    "embedding_per_rollout": 21870,
+    "readout_per_rollout": 29160,
+    "rollouts": 64,
+    "step_cap": 1024,
+    "per_seed": {
+     "0": {
+      "mean_flop_per_puzzle": 2418136244707.7056,
+      "sd_flop_per_puzzle": 11352866230580.818,
+      "mean_rollout_steps": 11.2460361195026,
+      "mean_steps_per_puzzle": 719.7463116481664,
+      "capped_rollouts": 82451,
+      "puzzles": 412786,
+      "solved": 412563,
+      "sigma": 0.2,
+      "model_sha256": "70853fb58228f379b21f305516cfe0760a988ff76ce4c515e5dd8d54ce30c636",
+      "test_json_sha256": "6aaf8e1af01bc6c4ba184e5e684ab188a6d9dcfa517c5b334c87a71e0011c6ca"
+     },
+     "1": {
+      "mean_flop_per_puzzle": 3733331463405.9624,
+      "sd_flop_per_puzzle": 17719219634550.285,
+      "mean_rollout_steps": 17.362628161141608,
+      "mean_steps_per_puzzle": 1111.2082023130629,
+      "capped_rollouts": 168975,
+      "puzzles": 412786,
+      "solved": 412288,
+      "sigma": 0.1,
+      "model_sha256": "e4ebff2465d0f05e8ae2c5c2f8e8e0084a622a8c4a6e37687338f5bb379f0178",
+      "test_json_sha256": "d9ebbbf5ea3ce23aa33e41a95fb06fcf8fd8292ea0be343c95198272d7a7ed70"
+     },
+     "2": {
+      "mean_flop_per_puzzle": 7389933523215.097,
+      "sd_flop_per_puzzle": 26853745931000.188,
+      "mean_rollout_steps": 34.36842527817077,
+      "mean_steps_per_puzzle": 2199.579217802929,
+      "capped_rollouts": 460655,
+      "puzzles": 412786,
+      "solved": 411920,
+      "sigma": 0.1,
+      "model_sha256": "5cdb2eb16830902a5bae42a2b62a8db5d4dc84d443a3ae9fa47673b57d3084be",
+      "test_json_sha256": "5fdb8621f3d7bff49cf570d61c785640f0734780c26c1a6c0bb9ae56ea6263a5"
+     }
+    }
+   },
+   "status": "complete",
+   "convention": "FlopCounterMode, batch 1 per rollout, eval mode; multiply-add = 2; matmuls only (activations, normalization, pooling, noise not counted, as the TRM/FRM rows); per puzzle 64 x (embedding + readout) + sum of realized rollout steps x (step + halting head); the cell is the mean over the three seed models of the mean over all test puzzles",
+   "sampled": false,
+   "checkpoint": [
+    "baselines/runs/trmp/sudoku-extreme-s0/model.pt",
+    "baselines/runs/trmp/sudoku-extreme-s1/model.pt",
+    "baselines/runs/trmp/sudoku-extreme-s2/model.pt"
+   ],
+   "script": {
+    "baselines/flops/trmp_count.py": "025ffc687ae48bd048b6d7b31dd72e37bb62c337a1b71ca7ab92a8ad1c293e73"
+   },
+   "record": "baselines/runs/flops/trmp.json",
+   "record_sha256": "58e5730a1a427822f182512b773de0b619d1786da8e73032ab1c69c58cfd0d90"
+  },
+  {
+   "benchmark": "Maze-Unique",
+   "method": "TRMP",
+   "flop_per_puzzle": 17743874448353.402,
+   "components": {
+    "per_step": 35847554400,
+    "halt_head_per_step": 37800,
+    "embedding_per_rollout": 144000,
+    "readout_per_rollout": 189000,
+    "rollouts": 64,
+    "step_cap": 64,
+    "per_seed": {
+     "0": {
+      "mean_flop_per_puzzle": 2498455097971.2,
+      "sd_flop_per_puzzle": 653599049734.7543,
+      "mean_rollout_steps": 1.089,
+      "mean_steps_per_puzzle": 69.696,
+      "capped_rollouts": 0,
+      "puzzles": 1000,
+      "solved": 989,
+      "sigma": 0.1,
+      "model_sha256": "9b97494394ed99bee21afdf26dad8e4f6de1daf72a31dc9ad0018306388010df",
+      "test_json_sha256": "1106c31c6fa5805f25efbfed94c73a0c1aac2f5f2ad302cbf76e1465b4e508f9"
+     },
+     "1": {
+      "mean_flop_per_puzzle": 2436510458649.6,
+      "sd_flop_per_puzzle": 553546978109.4244,
+      "mean_rollout_steps": 1.062,
+      "mean_steps_per_puzzle": 67.968,
+      "capped_rollouts": 0,
+      "puzzles": 1000,
+      "solved": 993,
+      "sigma": 0.1,
+      "model_sha256": "322b41ea34b07bd4d56289a3ca65fee1cdbe4c0a0a32ed5ab48fb35445b13928",
+      "test_json_sha256": "17e7a24d863cf6eeb008e81fe3f1d52145f79b9db4e960570dccfb3be3a7eaff"
+     },
+     "2": {
+      "mean_flop_per_puzzle": 48296657788439.4,
+      "sd_flop_per_puzzle": 51614856042256.13,
+      "mean_rollout_steps": 21.051203125,
+      "mean_steps_per_puzzle": 1347.277,
+      "capped_rollouts": 15075,
+      "puzzles": 1000,
+      "solved": 995,
+      "sigma": 0.1,
+      "model_sha256": "7bae47a6188bf8161bedb609a6a6a056584b54edced991052e715432a855d1ee",
+      "test_json_sha256": "00c6ad68e0200a368b8b36b715f25901a50db1cff1261548984f065900d3e111"
+     }
+    }
+   },
+   "status": "complete",
+   "convention": "FlopCounterMode, batch 1 per rollout, eval mode; multiply-add = 2; matmuls only (activations, normalization, pooling, noise not counted, as the TRM/FRM rows); per puzzle 64 x (embedding + readout) + sum of realized rollout steps x (step + halting head); the cell is the mean over the three seed models of the mean over all test puzzles",
+   "sampled": false,
+   "checkpoint": [
+    "baselines/runs/trmp/maze-unique-s0/model.pt",
+    "baselines/runs/trmp/maze-unique-s1/model.pt",
+    "baselines/runs/trmp/maze-unique-s2/model.pt"
+   ],
+   "script": {
+    "baselines/flops/trmp_count.py": "025ffc687ae48bd048b6d7b31dd72e37bb62c337a1b71ca7ab92a8ad1c293e73"
+   },
+   "record": "baselines/runs/flops/trmp.json",
+   "record_sha256": "58e5730a1a427822f182512b773de0b619d1786da8e73032ab1c69c58cfd0d90"
+  }
+ ]
+}

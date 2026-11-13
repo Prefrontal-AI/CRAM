@@ -1,0 +1,135 @@
+{
+ "benchmark": "maze-unique",
+ "row": "cram-sgd-fg",
+ "label": "CRAM (PL with SGD, free 3x3 kernel, focused Gibbs T=0)",
+ "solved_mean": 1.0,
+ "solved_sd": 0.0,
+ "solved_peak": 1.0,
+ "per_seed": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "n_test": 1000,
+ "test_set": "EqR maze-30x30-unique-1k test (1,000 mazes), x 3 training seeds",
+ "params": 18,
+ "flop_per_puzzle": 560511.72,
+ "train_gpu_s": 0.11921307934001864,
+ "train_cpu_s": 0.07826990098692477,
+ "source": "measured",
+ "provenance": " (SGD lr 1, 20 updates; consistency screen on dev100): runs/CU13/final/fg-s*; maze_unique.py, cram/cram_maze.py",
+ "notes": "focused Gibbs at T 0 from every open cell on, as cram-fg; the energy is CRAMMazeFreeEnergy, trained with SGD. Model: cram.cram_maze.CRAMMazeFreeEnergy, 18 stored = 18 learned parameters (as cram-free-fg). Recipe: pseudo-likelihood only, free kernel, zero start, window 1, 20 SGD updates (momentum 0.5, cosine decay, no clip), batch 64, lr 1.0, l1 0.0, no post-fit compression or rescaling, T as stated; trained on all 1,000 training mazes. GPU: the synchronized update loop on one H200, warm, median of 5 per seed, mean over seeds. CPU: the whole loop on one CPU thread (median of 3).",
+ "written": "2026-11-11T11:12:43+00:00",
+ "commit": "eaede76",
+ "extra": {
+  "stopped": [
+   1000,
+   1000,
+   1000
+  ],
+  "wrong_stops": [
+   0,
+   0,
+   0
+  ],
+  "budget_failures": [
+   0,
+   0,
+   0
+  ],
+  "mean_steps": [
+   270.585,
+   270.585,
+   270.585
+  ],
+  "max_steps": [
+   290,
+   290,
+   290
+  ],
+  "p99_flop": 596080.0,
+  "p999_flop": 596080.0,
+  "max_flop": 596080.0,
+  "gpu_s_per_seed": [
+   0.11919087400019635,
+   0.11917756900948007,
+   0.11927079501037952
+  ],
+  "stored_params": 18
+ },
+ "fit_gpu_cold_s": 0.7226898963369118,
+ "fit_gpu_warm_s": 0.131769006329705,
+ "fit_cpu_cold_s": 0.15079787300298145,
+ "fit_cpu_warm_s": 0.08317945999927663,
+ "fit_cuda_context_s": 0.6915137306641554,
+ "fit_timing": {
+  "definition": "Fit time: synchronized wall clock from the training data in host memory (as the row's loader reads them from disk) to the inference-ready model and its inference statistics; includes format conversion, device transfer, initialization, augmentation, every forward, backward and optimizer step, compilation and CUDA-graph capture with their warm-up steps, post-fit compression, stopping thresholds and focus statistics fitted from training solutions, support estimation and latent caching; excludes reading files, evaluation and saving. Cold: the first fit in a fresh process (CUDA context creation reported separately); warm: median of 7 further full fits in the same process. GPU: one H200. CPU: one thread (torch.set_num_threads(1)) in a CPU-only job.",
+  "mean_over": "training seeds 0, 1, 2",
+  "per_seed": {
+   "gpu_cold_s": [
+    0.7994997780042468,
+    0.7257968420017278,
+    0.642773069004761
+   ],
+   "gpu_warm_s": [
+    0.13220811499923002,
+    0.13213962900044862,
+    0.13095927498943638
+   ],
+   "cpu_cold_s": [
+    0.11901090200990438,
+    0.13505758599785622,
+    0.19832513100118376
+   ],
+   "cpu_warm_s": [
+    0.08528278200537898,
+    0.08333088899962604,
+    0.08092470899282489
+   ],
+   "cuda_context_s": [
+    0.8866768709995085,
+    0.5872919399989769,
+    0.6005723809939809
+   ]
+  },
+  "parts_gpu_cold_s": {
+   "fit": 0.7226898963369118
+  },
+  "parts_gpu_warm_s": {
+   "fit": 0.131769006329705
+  },
+  "parts_cpu_cold_s": {
+   "fit": 0.15079787300298145
+  },
+  "parts_cpu_warm_s": {
+   "fit": 0.08317945999927663
+  },
+  "timed_ops": [
+   "maze_unique.load on the raw .npy arrays (int64 casts, tokens, path targets, free mask)",
+   "transfer of the 1,000 training mazes (tokens, targets, free mask) to the device",
+   "torch.manual_seed; CRAMMazeEnergy (its random init) or CRAMMazeFreeEnergy (zero start) construction and transfer; Adam construction",
+   "batch-index draws (numpy, seeded) for every update and their transfer",
+   "every update: pseudo-likelihood loss, backward, gradient-norm clip, Adam step",
+   "maze_unique.train bookkeeping: per-update losses copied to the host, count of entries with a gradient",
+   "SGD rows (CU12): the cosine learning rate set per update and, with l1 > 0, the soft-threshold",
+   "no post-fit compression and no inference statistics (the stopping test is a fixed point; start and step size are constants)"
+  ],
+  "same_model_check": {
+   "cuda-s0": true,
+   "cuda-s1": true,
+   "cuda-s2": true,
+   "cpu-s0": true,
+   "cpu-s1": true,
+   "cpu-s2": true
+  },
+  "sources": [
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s0-cpu.json",
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s1-cpu.json",
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s2-cpu.json",
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s0-cuda.json",
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s1-cuda.json",
+   "runs/CRAM-TIME/maze-unique__cram-sgd-fg/s2-cuda.json"
+  ],
+  "written_utc": "2026-11-11 11:12"
+ }
+}

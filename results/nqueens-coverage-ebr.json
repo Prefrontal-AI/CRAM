@@ -1,0 +1,66 @@
+{
+ "rule": "N-Queens Cov@20 with the any-valid rule, for every method from our own runs (read-only; no training or search).\n\n  ../.venv/bin/python nqueens_coverage.py --mode ebr     # with EBR's venv and src (see below): writes results/nqueens-coverage-ebr.json\n\nRule (EBR's evaluator): a sample counts when it is a valid board that holds every given queen; the\ndistinct counted samples among a row's 20, capped at min(S, 20), over min(S, 20), S the puzzle's number of solutions.\nGRAM's own evaluator instead counts only samples equal to one of the puzzle's first 20 completions in enumeration order\n(rows, then columns ascending), which undercounts the 19 test puzzles of 10 x 10 with more than 20 solutions.",
+ "stop": "|grad_M E| < 0.2, else the trained depth",
+ "sizes": {
+  "8": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "per_row": 90.62676453980802,
+     "per_puzzle": 97.90322580645162,
+     "npz": "baselines/runs/ebr/nqueens8-s0/score/nq.npz"
+    },
+    {
+     "seed": 1,
+     "per_row": 90.31620553359684,
+     "per_puzzle": 98.06451612903226,
+     "npz": "baselines/runs/ebr/nqueens8-s1/score/nq.npz"
+    },
+    {
+     "seed": 2,
+     "per_row": 91.55844155844156,
+     "per_puzzle": 98.30645161290323,
+     "npz": "baselines/runs/ebr/nqueens8-s2/score/nq.npz"
+    }
+   ],
+   "per_row": {
+    "mean": 90.83380387728214,
+    "sd": 0.6464801240578022
+   },
+   "per_puzzle": {
+    "mean": 98.09139784946235,
+    "sd": 0.2029525385825488
+   }
+  },
+  "10": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "per_row": 83.09960993245171,
+     "per_puzzle": 91.7364133467247,
+     "npz": "baselines/runs/ebr/nqueens10-s0/score/nq.npz"
+    },
+    {
+     "seed": 1,
+     "per_row": 83.92255732090192,
+     "per_puzzle": 92.71844660194175,
+     "npz": "baselines/runs/ebr/nqueens10-s1/score/nq.npz"
+    },
+    {
+     "seed": 2,
+     "per_row": 84.85301113119588,
+     "per_puzzle": 92.98627385336458,
+     "npz": "baselines/runs/ebr/nqueens10-s2/score/nq.npz"
+    }
+   ],
+   "per_row": {
+    "mean": 83.95839279484984,
+    "sd": 0.8772497231884309
+   },
+   "per_puzzle": {
+    "mean": 92.48037793401035,
+    "sd": 0.6580618052299478
+   }
+  }
+ }
+}

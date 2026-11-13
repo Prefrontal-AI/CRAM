@@ -1,0 +1,221 @@
+{
+ "benchmark": "graph-coloring-10",
+ "row": "cram-full",
+ "label": "CRAM (full pair tables, PL + L1)",
+ "solved_mean": 0.9982638888888888,
+ "solved_sd": 0.0030070326520293222,
+ "solved_peak": 1.0,
+ "per_seed": [
+  0.9947916666666666,
+  1.0,
+  1.0
+ ],
+ "n_test": 192,
+ "test_set": "GRAM's graph-coloring-10 test split (CUN-bjy/graph-coloring 08d5f1f8), 192 graphs",
+ "params": 18660,
+ "flop_per_puzzle": 75224.8125,
+ "train_gpu_s": 0.5500100222416222,
+ "train_cpu_s": 70.98753293091431,
+ "source": "measured",
+ "provenance": "cram_graph_coloring.py; cram/cram_graph_coloring.py; runs/CRAM-GC/final/n10-full-u256-lr10-lam0.001",
+ "notes": "per_seed is the fraction of test graphs whose single output (chain 0) is a proper coloring; GRAM's metrics are in extra. Training deterministic (full batch); seeds 0-2 set the search. Fit times: seed-0 cold fits (one fit per device).",
+ "written": "2026-11-06T08:53:21+00:00",
+ "commit": "58b40a4",
+ "extra": {
+  "metrics": {
+   "proper_1": {
+    "mean": 0.9982638888888888,
+    "sd": 0.0030070326520293222,
+    "per_seed": [
+     0.9947916666666666,
+     1.0,
+     1.0
+    ]
+   },
+   "proper_canonical_1": {
+    "mean": 0.9427083333333334,
+    "sd": 0.03125,
+    "per_seed": [
+     0.9739583333333334,
+     0.9114583333333334,
+     0.9427083333333334
+    ]
+   },
+   "conflicts_1": {
+    "mean": 0.3333333333333333,
+    "sd": 0.5773502691896257,
+    "per_seed": [
+     1,
+     0,
+     0
+    ]
+   },
+   "conflicts_majority_20": {
+    "mean": 1,
+    "sd": 0.0,
+    "per_seed": [
+     1,
+     1,
+     1
+    ]
+   },
+   "coverage_20": {
+    "mean": 0.5257057393905403,
+    "sd": 0.006177869374409531,
+    "per_seed": [
+     0.5227145260796411,
+     0.532809871003926,
+     0.5215928210880538
+    ]
+   },
+   "coverage_canonicalized_20": {
+    "mean": 0.5460833800710413,
+    "sd": 0.005997014369917922,
+    "per_seed": [
+     0.5423443634324173,
+     0.5530005608524958,
+     0.5429052159282108
+    ]
+   },
+   "proper_any_20": {
+    "mean": 1.0,
+    "sd": 0.0,
+    "per_seed": [
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "flop_1": {
+    "mean": 75224.8125,
+    "sd": 5206.918725434578,
+    "per_seed": [
+     81032.625,
+     73667.75,
+     70974.0625
+    ]
+   },
+   "flop_20": {
+    "mean": 806723.5625,
+    "sd": 13749.75142687246,
+    "per_seed": [
+     797038.625,
+     800670.75,
+     822461.3125
+    ]
+   },
+   "wrong_stops_1": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "budget_failures_1": {
+    "mean": 0.3333333333333333,
+    "sd": 0.5773502691896257,
+    "per_seed": [
+     1,
+     0,
+     0
+    ]
+   },
+   "wrong_stops_all": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "budget_failures_all": {
+    "mean": 13.333333333333334,
+    "sd": 2.309401076758503,
+    "per_seed": [
+     12,
+     12,
+     16
+    ]
+   },
+   "moves_mean": {
+    "mean": 454.44557291666666,
+    "sd": 8.184375849328841,
+    "per_seed": [
+     448.68072916666665,
+     450.84270833333335,
+     463.81328125
+    ]
+   },
+   "moves_max": {
+    "mean": 10000,
+    "sd": 0.0,
+    "per_seed": [
+     10000,
+     10000,
+     10000
+    ]
+   }
+  },
+  "params_nonzero": 475,
+  "fit": {
+   "gpu_cold_s": 0.5500100222416222,
+   "gpu_warm_s": 0.34429947286844254,
+   "cpu_cold_s": 70.98753293091431,
+   "cpu_warm_s": 72.93181508826092,
+   "cuda_context_s": 0.5657653319649398,
+   "gpu_hardware": "NVIDIA H200",
+   "cpu_hardware": "Intel(R) Xeon(R) Platinum 8468",
+   "cpu_threads": 1,
+   "gpu_warm_repeats": [
+    0.30090645607560873,
+    0.29357877699658275,
+    0.3164056711830199,
+    0.35490825586020947,
+    0.3510741530917585,
+    0.34460669104009867,
+    0.34429947286844254
+   ],
+   "cpu_warm_repeats": [
+    72.80042717186734,
+    72.76171511784196,
+    73.48082794621587,
+    73.28911535302177,
+    72.78006832534447,
+    73.42360551096499,
+    72.93181508826092
+   ],
+   "cpu_gpu_max_abs_diff": 1.0728836059570312e-06,
+   "cpu_gpu_same_support": true,
+   "training_deterministic": "full batch; one fit per device serves seeds 0-2 (seeds set the search)"
+  },
+  "recipe": {
+   "n": 10,
+   "arm": "full",
+   "updates": 256,
+   "lr": 10.0,
+   "lam": 0.001,
+   "momentum": 0.5,
+   "stop": "terms",
+   "temperature": 3.0,
+   "samples": 20,
+   "cap": 10000,
+   "theta": 0.45,
+   "validation": {
+    "graphs": 154,
+    "proper_1": 1.0,
+    "proper_canonical_1": 0.935064935064935,
+    "coverage_20": 0.5046357615894039,
+    "coverage_canonicalized_20": 0.5236203090507726,
+    "conflicts_1": 0.0,
+    "conflicts_majority_20": 0.0,
+    "flop_1": 75554.81818181818,
+    "flop_20": 762164.0909090908,
+    "wrong_stops_all": 0.0,
+    "budget_failures_all": 0.0
+   }
+  }
+ }
+}

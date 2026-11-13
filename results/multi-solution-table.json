@@ -1,0 +1,1048 @@
+{
+ "description": "Every cell of the paper's N-Queens and graph-coloring comparison (Table 3; results/multi-solution-table.json), from\nthe runs of this repository; read-only (no training or search). Run from experiments/ (the 10 x 10 board enumerates the\nsolutions of every test puzzle; 4 CPU cores, 32 GB of memory and 40 minutes are sufficient):\n  python multi_solution_export.py\nafter nqueens_export.py, nqueens_free_export.py, nqueens_offset_export.py, graph_coloring_export.py, the baselines'\nexports (results/ebr-comparison.json) and nqueens_coverage.py --mode ebr (EBR's N-Queens coverage, which needs EBR's\nenvironment). A cell whose runs have not finished is null. The paper reads the key `rows` of the output.\n\nMethods and sources (seeds 0-2; each mean +- sample SD over seeds):\n- TRM, HRM: trained with GRAM's code, each architecture's config and GRAM's per-task training settings (baselines/gram).\n- GRAM: scored by baselines/gram/score_multi.py at 16 steps (GRAM's setting), 20 samples per test row.\n- EBR: the authors' code at commit 8c5271c, scored at its |grad_M E| < 0.2 stop (results/ebr-comparison.json).\n- CRAM rows: the offset-shared energy (nqueens_offset.py: the recipe selected at 10 x 10, at both sizes), the free pair\n  tables (N-Queens: the validation-selected training method of nqueens_free.py; graph coloring: the `full` arm of\n  graph_coloring.py, pseudolikelihood + L1), and the hand-set energies (nqueens_free.py --mode hand,\n  graph_coloring_hand_set.py).\nMetrics:\n- N-Queens Acc: test rows (a puzzle with S solutions occurs S times) whose answer is a valid board holding every given\n  queen; N = 1 the first sample; N = 20 GRAM, TRM, HRM the majority vote of 20 (GRAM's rule), EBR and CRAM the\n  lowest-energy of 20 (EBR's rule). Cov@20: nqueens_coverage.py's any-valid rule, per puzzle (main) and per row.\n- Graph coloring Conflict: conflicting edges of the answer, summed over the test graphs (255 and 192); N = 20 as above.\n  Cov@20: distinct proper colorings in canonical color order found by the 20 samples, over all canonical proper\n  colorings, summed over graphs (GRAM's definition, color tokens only).\n- Params: learned parameters of the networks; CRAM: nonzero contributing parameters (learned in `params_learned`).\n- Fit: wall clock of seed 0 on one H200 GPU, seconds. Baselines: one cold fit (the first fit in a fresh process).\n  CRAM: the warm fit, the median of 7 complete fits after the cold fit in its process, because the one-time start-up\n  of a process is a large part of a fit of seconds and a negligible part of a baseline fit of hours. For the\n  offset-shared CRAM runs, the fit timed again with the dense pair-matrix map (nqueens_offset.py --mode retime,\n  fit-dense.json).\nDimension names: r test rows, k samples per row, c cells, u distinct puzzles.\n",
+ "rows": [
+  {
+   "method": "TRM",
+   "kind": "network",
+   "deterministic": true,
+   "params": {
+    "nqueens8": 6819842,
+    "gc8": 6822914,
+    "nqueens10": 6819842,
+    "gc10": 6822914
+   },
+   "fit_s": {
+    "nqueens8": 4510.378383828327,
+    "gc8": 3241.7688383958302,
+    "nqueens10": 17975.892377429176,
+    "gc10": 7708.825073618442
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 67.39247311827958,
+      "sd": 6.835519899228631,
+      "per_seed": [
+       71.7741935483871,
+       59.51612903225807,
+       70.88709677419355
+      ]
+     },
+     "acc_n20": {
+      "mean": 67.39247311827958,
+      "sd": 6.835519899228631,
+      "per_seed": [
+       71.7741935483871,
+       59.51612903225807,
+       70.88709677419355
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 51.4247311827957,
+      "sd": 3.062747084187595,
+      "per_seed": [
+       53.46774193548387,
+       47.903225806451616,
+       52.903225806451616
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 23.593073593073594,
+      "sd": 2.393010918984615,
+      "per_seed": [
+       25.127046866177302,
+       20.835686053077357,
+       24.81648785996612
+      ]
+     }
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 118.0,
+      "sd": 15.524174696260024,
+      "per_seed": [
+       134.0,
+       117.0,
+       103.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 118.0,
+      "sd": 15.524174696260024,
+      "per_seed": [
+       134.0,
+       117.0,
+       103.0
+      ]
+     },
+     "cov20": {
+      "mean": 21.820175438596493,
+      "sd": 0.759671406828456,
+      "per_seed": [
+       21.38157894736842,
+       21.38157894736842,
+       22.697368421052634
+      ]
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 6.897360915556518,
+      "sd": 7.870080922013747,
+      "per_seed": [
+       1.1751326762699015,
+       15.872414166576409,
+       3.6445359038232428
+      ]
+     },
+     "acc_n20": {
+      "mean": 6.897360915556518,
+      "sd": 7.870080922013747,
+      "per_seed": [
+       1.1751326762699015,
+       15.872414166576409,
+       3.6445359038232428
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 3.2920432987389803,
+      "sd": 3.649969517215061,
+      "per_seed": [
+       0.6974668005802924,
+       7.46568463341145,
+       1.712978462225198
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 1.2117464243808074,
+      "sd": 1.3826364218999703,
+      "per_seed": [
+       0.20645038531062695,
+       2.7885072780896203,
+       0.6402816097421749
+      ]
+     }
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 169.0,
+      "sd": 20.29778313018444,
+      "per_seed": [
+       151.0,
+       191.0,
+       165.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 169.0,
+      "sd": 20.29778313018444,
+      "per_seed": [
+       151.0,
+       191.0,
+       165.0
+      ]
+     },
+     "cov20": {
+      "mean": 6.861095531875116,
+      "sd": 0.508904751871983,
+      "per_seed": [
+       6.3937184520471115,
+       6.786315199102636,
+       7.403252944475602
+      ]
+     }
+    }
+   },
+   "n20_rule": "majority vote of 20 (GRAM)"
+  },
+  {
+   "method": "HRM",
+   "kind": "network",
+   "deterministic": true,
+   "params": {
+    "nqueens8": 27267074,
+    "gc8": 27270146,
+    "nqueens10": 27267074,
+    "gc10": 27270146
+   },
+   "fit_s": {
+    "nqueens8": 3542.603803517297,
+    "gc8": 2460.782287170179,
+    "nqueens10": 14397.905872746836,
+    "gc10": 6165.704844373278
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 84.40860215053763,
+      "sd": 2.17940968373218,
+      "per_seed": [
+       86.04838709677419,
+       85.24193548387096,
+       81.93548387096774
+      ]
+     },
+     "acc_n20": {
+      "mean": 84.40860215053763,
+      "sd": 2.17940968373218,
+      "per_seed": [
+       86.04838709677419,
+       85.24193548387096,
+       81.93548387096774
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 58.79032258064516,
+      "sd": 0.5645161290322562,
+      "per_seed": [
+       59.354838709677416,
+       58.225806451612904,
+       58.79032258064516
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 29.550159984942596,
+      "sd": 0.7629779807532209,
+      "per_seed": [
+       30.124223602484474,
+       29.841897233201582,
+       28.684359119141728
+      ]
+     }
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 139.66666666666666,
+      "sd": 10.692676621563626,
+      "per_seed": [
+       152.0,
+       134.0,
+       133.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 139.66666666666666,
+      "sd": 10.692676621563626,
+      "per_seed": [
+       152.0,
+       134.0,
+       133.0
+      ]
+     },
+     "cov20": {
+      "mean": 20.577485380116958,
+      "sd": 0.35247261553337017,
+      "per_seed": [
+       20.175438596491226,
+       20.833333333333336,
+       20.723684210526315
+      ]
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 22.71562150258132,
+      "sd": 8.472036902615562,
+      "per_seed": [
+       13.294703779919853,
+       25.143506985811765,
+       29.70865374201235
+      ]
+     },
+     "acc_n20": {
+      "mean": 22.71562150258132,
+      "sd": 8.472036902615562,
+      "per_seed": [
+       13.294703779919853,
+       25.143506985811765,
+       29.70865374201235
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 10.664732358739723,
+      "sd": 3.9908651333618907,
+      "per_seed": [
+       6.115388907488003,
+       13.57549380649481,
+       12.303314362236357
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 3.990739859829385,
+      "sd": 1.488389624618961,
+      "per_seed": [
+       2.335648368375987,
+       4.417277138236134,
+       5.219294072876035
+      ]
+     }
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 182.66666666666666,
+      "sd": 17.7857620959388,
+      "per_seed": [
+       202.0,
+       179.0,
+       167.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 182.66666666666666,
+      "sd": 17.7857620959388,
+      "per_seed": [
+       202.0,
+       179.0,
+       167.0
+      ]
+     },
+     "cov20": {
+      "mean": 6.22546270330903,
+      "sd": 0.8903257356358694,
+      "per_seed": [
+       6.561974200785194,
+       5.215928210880538,
+       6.898485698261357
+      ]
+     }
+    }
+   },
+   "n20_rule": "majority vote of 20 (GRAM)"
+  },
+  {
+   "method": "GRAM",
+   "kind": "network",
+   "deterministic": false,
+   "params": {
+    "nqueens8": 10891266,
+    "gc8": 10902018,
+    "nqueens10": 10891266,
+    "gc10": 10902018
+   },
+   "fit_s": {
+    "nqueens8": 4580.384960381314,
+    "gc8": 3157.6134323282167,
+    "nqueens10": 18897.55722379079,
+    "gc10": 7748.417708636727
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 99.43548387096774,
+      "sd": 0.21336704121488834,
+      "per_seed": [
+       99.35483870967742,
+       99.67741935483872,
+       99.2741935483871
+      ]
+     },
+     "acc_n20": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 97.92085893497185,
+      "sd": 0.21018968356471399,
+      "per_seed": [
+       97.68410778289811,
+       98.08550947260626,
+       97.99295954941115
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 90.70205157161679,
+      "sd": 0.5549227550463192,
+      "per_seed": [
+       90.06211180124224,
+       91.05025409373235,
+       90.99378881987577
+      ]
+     }
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 3.3333333333333335,
+      "sd": 2.516611478423583,
+      "per_seed": [
+       1.0,
+       3.0,
+       6.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 3.3333333333333335,
+      "sd": 1.1547005383792515,
+      "per_seed": [
+       2.0,
+       4.0,
+       4.0
+      ]
+     },
+     "cov20": {
+      "mean": 87.90204678362574,
+      "sd": 0.5626755964305746,
+      "per_seed": [
+       88.37719298245614,
+       87.28070175438597,
+       88.0482456140351
+      ]
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 88.911152027149,
+      "sd": 3.056614996667781,
+      "per_seed": [
+       85.56807104949638,
+       91.56287230585943,
+       89.6025127260912
+      ]
+     },
+     "acc_n20": {
+      "mean": 99.98194880681613,
+      "sd": 0.008272095914932684,
+      "per_seed": [
+       99.98375392613453,
+       99.9729232102242,
+       99.98916928408967
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 92.8789008086706,
+      "sd": 0.3199903050625512,
+      "per_seed": [
+       92.52706853165925,
+       93.15256321039786,
+       92.95707068395468
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 83.68502838296388,
+      "sd": 0.832513057268362,
+      "per_seed": [
+       82.77709066692037,
+       84.41252021691561,
+       83.86547426505565
+      ]
+     }
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 52.666666666666664,
+      "sd": 82.61557560976824,
+      "per_seed": [
+       2.0,
+       148.0,
+       8.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 52.666666666666664,
+      "sd": 83.44059763288692,
+      "per_seed": [
+       3.0,
+       149.0,
+       6.0
+      ]
+     },
+     "cov20": {
+      "mean": 37.838848382875305,
+      "sd": 24.665036192161164,
+      "per_seed": [
+       52.66404935501963,
+       9.366236679753225,
+       51.48625911385306
+      ]
+     }
+    }
+   },
+   "n20_rule": "majority vote of 20 (GRAM)"
+  },
+  {
+   "method": "EBR",
+   "kind": "network",
+   "deterministic": false,
+   "params": {
+    "nqueens8": 7081992,
+    "gc8": 7085064,
+    "nqueens10": 7081992,
+    "gc10": 7085064
+   },
+   "fit_s": {
+    "nqueens8": 11567.074557149317,
+    "gc8": 16227.795715007931,
+    "nqueens10": 27454.176935166586,
+    "gc10": 27523.392658280674
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "acc_n20": {
+      "mean": 99.94623655913978,
+      "sd": 0.09312101115962261,
+      "per_seed": [
+       100.0,
+       100.0,
+       99.83870967741935
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 98.09139784946235,
+      "sd": 0.2029525385825488
+     },
+     "cov20_per_row": {
+      "mean": 90.83380387728214,
+      "sd": 0.6464801240578022
+     }
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 2.6666666666666665,
+      "sd": 4.618802153517006,
+      "per_seed": [
+       0.0,
+       8.0,
+       0.0
+      ]
+     },
+     "cov20": {
+      "mean": 88.8888888888889,
+      "sd": 0.06330595056904381
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 99.3104444203762,
+      "sd": 0.2756163619671364,
+      "per_seed": [
+       99.6155095851836,
+       99.23643452832232,
+       99.07938914762268
+      ]
+     },
+     "acc_n20": {
+      "mean": 99.9891692840897,
+      "sd": 0.005415357955158129,
+      "per_seed": [
+       99.99458464204486,
+       99.9891692840897,
+       99.98375392613454
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 92.48037793401035,
+      "sd": 0.6580618052299478
+     },
+     "cov20_per_row": {
+      "mean": 83.95839279484984,
+      "sd": 0.8772497231884309
+     }
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 0.3333333333333333,
+      "sd": 0.5773502691896257,
+      "per_seed": [
+       0.0,
+       0.0,
+       1.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 0.6666666666666666,
+      "sd": 1.1547005383792515,
+      "per_seed": [
+       0.0,
+       0.0,
+       2.0
+      ]
+     },
+     "cov20": {
+      "mean": 54.832679005421575,
+      "sd": 0.21233532794167936
+     }
+    }
+   },
+   "n20_rule": "lowest energy of 20 (EBR)"
+  },
+  {
+   "method": "CRAM (offset-shared pair tables)",
+   "kind": "cram",
+   "deterministic": false,
+   "params": {
+    "nqueens8": 113,
+    "nqueens10": 181
+   },
+   "fit_s": {
+    "nqueens8": 2.896254482999211,
+    "nqueens10": 6.7524124900010065
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 99.94623655913979,
+      "sd": 0.046560505579807204,
+      "per_seed": [
+       99.91935483870968,
+       99.91935483870968,
+       100.0
+      ]
+     },
+     "acc_n20": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 97.93262502133469,
+      "sd": 0.06128415055770985,
+      "per_seed": [
+       97.99779185867895,
+       97.87615207373271,
+       97.92393113159241
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 90.73969508752117,
+      "sd": 0.46647971885539874,
+      "per_seed": [
+       91.21964991530209,
+       90.28797289666855,
+       90.71146245059289
+      ]
+     },
+     "config": {
+      "config": {
+       "method": "pl",
+       "arm": "ising",
+       "lr": 30.0,
+       "knob": null,
+       "lam": 0.0,
+       "precond": true
+      },
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000,
+      "val_acc_n1": 0.9943820224719101,
+      "val_cov20_group_mean": 0.806330876482335,
+      "val_cov20": 0.88189006288808,
+      "val_wrong_stops": 0,
+      "val_budget_failures": 1169,
+      "val_flop_all_chains": 21297574.90973783,
+      "tune_fit_seconds": 6.478512741625309,
+      "val_best_acc_n1": 0.9975655430711611
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 99.44582836925521,
+      "sd": 0.05203630205205378,
+      "per_seed": [
+       99.39889526697715,
+       99.43680277266327,
+       99.5017870681252
+      ]
+     },
+     "acc_n20": {
+      "mean": 99.99458464204484,
+      "sd": 0.0,
+      "per_seed": [
+       99.99458464204484,
+       99.99458464204484,
+       99.99458464204484
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 93.5520180833651,
+      "sd": 0.06460352275961005,
+      "per_seed": [
+       93.59576166357071,
+       93.47781571380776,
+       93.58247687271684
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 85.13969492277931,
+      "sd": 0.03168742840020754,
+      "per_seed": [
+       85.14984302159642,
+       85.10417657691941,
+       85.16506516982209
+      ]
+     },
+     "config": {
+      "config": {
+       "method": "pl",
+       "arm": "ising",
+       "lr": 30.0,
+       "knob": null,
+       "lam": 0.0,
+       "precond": true
+      },
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000,
+      "val_acc_n1": 0.9943820224719101,
+      "val_cov20_group_mean": 0.806330876482335,
+      "val_cov20": 0.88189006288808,
+      "val_wrong_stops": 0,
+      "val_budget_failures": 1169,
+      "val_flop_all_chains": 21297574.90973783,
+      "tune_fit_seconds": 6.478512741625309,
+      "val_best_acc_n1": 0.9975655430711611
+     }
+    }
+   },
+   "n20_rule": "lowest energy of 20",
+   "pilot": "nqueens_offset.py: the recipe selected at 10 x 10, at both sizes"
+  },
+  {
+   "method": "CRAM (free pair tables)",
+   "kind": "cram",
+   "deterministic": false,
+   "params": {
+    "nqueens8": 8192,
+    "gc8": 869,
+    "nqueens10": 20000,
+    "gc10": 475
+   },
+   "fit_s": {
+    "nqueens8": 8.783241811208427,
+    "gc8": 1.2701913099735975,
+    "nqueens10": 115.06174140190706,
+    "gc10": 0.34429947286844254
+   },
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 99.78494623655914,
+      "sd": 0.04656050557981541,
+      "per_seed": [
+       99.75806451612902,
+       99.83870967741936,
+       99.75806451612902
+      ]
+     },
+     "acc_n20": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 94.07410607612219,
+      "sd": 0.17228336519574564,
+      "per_seed": [
+       94.15658602150536,
+       93.87608806963645,
+       94.18964413722478
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 82.8910220214568,
+      "sd": 0.37348268083915687,
+      "per_seed": [
+       83.03218520609825,
+       82.46753246753246,
+       83.17334839073969
+      ]
+     },
+     "method": "mpl"
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "cov20": {
+      "mean": 88.85233918128655,
+      "sd": 0.4565057016373148,
+      "per_seed": [
+       88.48684210526315,
+       88.70614035087719,
+       89.3640350877193
+      ]
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 91.952778078631,
+      "sd": 0.6317891826882819,
+      "per_seed": [
+       92.67843604462254,
+       91.5249648001733,
+       91.65493339109715
+      ]
+     },
+     "acc_n20": {
+      "mean": 98.22376259070725,
+      "sd": 0.1925310173793049,
+      "per_seed": [
+       98.37539261345175,
+       98.00714827250081,
+       98.28874688616918
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 87.11694760507427,
+      "sd": 0.24608425660631034,
+      "per_seed": [
+       87.32397584774274,
+       86.84487506240582,
+       87.18199190507426
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 74.65670884470238,
+      "sd": 0.46119507276757926,
+      "per_seed": [
+       75.00142707639615,
+       74.13281324326896,
+       74.83588621444201
+      ]
+     },
+     "method": "cd"
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 0.3333333333333333,
+      "sd": 0.5773502691896257,
+      "per_seed": [
+       1.0,
+       0.0,
+       0.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "cov20": {
+      "mean": 52.57057393905403,
+      "sd": 0.6177869374409509,
+      "per_seed": [
+       52.27145260796411,
+       53.28098710039259,
+       52.159282108805385
+      ]
+     }
+    }
+   },
+   "n20_rule": "lowest energy of 20",
+   "pilot": "nqueens_free.py, selected method (N-Queens); graph_coloring.py, arm full (graph coloring)"
+  },
+  {
+   "method": "CRAM (hand-set)",
+   "kind": "reference",
+   "deterministic": false,
+   "params": {
+    "nqueens8": 2,
+    "nqueens10": 2,
+    "gc8": 1,
+    "gc10": 1
+   },
+   "fit_s": null,
+   "cells": {
+    "nq8": {
+     "acc_n1": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "acc_n20": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 98.39295314900154,
+      "sd": 0.023346300180832488,
+      "per_seed": [
+       98.36971966205837,
+       98.39272913466463,
+       98.41641065028163
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 92.06662902315077,
+      "sd": 0.07469653616783674,
+      "per_seed": [
+       92.01016374929418,
+       92.03839638622247,
+       92.15132693393564
+      ]
+     }
+    },
+    "gc8": {
+     "conflicts_n1": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "cov20": {
+      "mean": 90.64327485380117,
+      "sd": 0.6330595056903807,
+      "per_seed": [
+       91.00877192982456,
+       89.91228070175438,
+       91.00877192982456
+      ]
+     }
+    },
+    "nq10": {
+     "acc_n1": {
+      "mean": 99.99277952272645,
+      "sd": 0.003126558373176932,
+      "per_seed": [
+       99.99458464204484,
+       99.98916928408967,
+       99.99458464204484
+      ]
+     },
+     "acc_n20": {
+      "mean": 100.0,
+      "sd": 0.0,
+      "per_seed": [
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "cov20_per_puzzle": {
+      "mean": 95.54204959674296,
+      "sd": 0.026639495796305597,
+      "per_seed": [
+       95.52402931790378,
+       95.57264943044477,
+       95.5294700418803
+      ]
+     },
+     "cov20_per_row": {
+      "mean": 88.61161323058384,
+      "sd": 0.03572866994490577,
+      "per_seed": [
+       88.61383312720008,
+       88.64618019217963,
+       88.5748263723718
+      ]
+     }
+    },
+    "gc10": {
+     "conflicts_n1": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "conflicts_n20": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "per_seed": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "cov20": {
+      "mean": 55.15049541970462,
+      "sd": 0.36057770652431714,
+      "per_seed": [
+       55.30005608524958,
+       55.412226584408295,
+       54.739203589455975
+      ]
+     }
+    }
+   },
+   "n20_rule": "lowest energy of 20",
+   "pilot": "nqueens_free.py --mode hand (N-Queens), graph_coloring_hand_set.py (graph coloring)",
+   "note": "N-Queens: 1 per attacking queen pair, -0.5 per queen. Graph coloring: 1 per edge whose vertices share a color, outputs relabeled to canonical color order. No learned parameters; params count the distinct nonzero values, as Table 2 counts its hand-set rows (N-Queens: 1 and -0.5; graph coloring: 1). Per-pair nonzero entries: 728 + 64 (8x8), 1,470 + 100 (10x10)."
+  }
+ ],
+ "cov20_ceiling_uniform": {
+  "nq8": {
+   "per_row": 92.26120202243213,
+   "per_puzzle": 98.43826795550183
+  },
+  "nq10": {
+   "per_row": 88.84602884480883,
+   "per_puzzle": 95.66710353850122
+  }
+ },
+ "published": {
+  "source": "EBR Table 2 (arXiv 2611.08977) = GRAM Table 1 for TRM, HRM, GRAM",
+  "note": "EBR published per-puzzle any-valid Cov@20; GRAM, TRM, HRM per-row first-20 Cov@20"
+ }
+}

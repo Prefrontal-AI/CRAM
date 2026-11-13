@@ -1,0 +1,118 @@
+{
+ "arm": "full-aug",
+ "split": 1,
+ "config": {
+  "aug": true,
+  "lam": 0.0003333333333333333,
+  "lr": 540.0,
+  "momentum": 0.5,
+  "updates": 32,
+  "split": 1,
+  "seed": 1
+ },
+ "loop_s": 0.03261366533115506,
+ "levels": [
+  -5.2321215662232134e-06,
+  0.8266113996505737
+ ],
+ "raw": {
+  "conflict_diag": {
+   "n": 7290,
+   "nonzero": 7290,
+   "pos": 7290,
+   "neg": 0,
+   "min": 0.48243334889411926,
+   "max": 1.324068546295166
+  },
+  "conflict_off": {
+   "n": 58320,
+   "nonzero": 1,
+   "pos": 0,
+   "neg": 1,
+   "min": -4.5049237087368965e-05,
+   "max": -0.0
+  },
+  "other_diag": {
+   "n": 21870,
+   "nonzero": 458,
+   "pos": 0,
+   "neg": 458,
+   "min": -0.08384182304143906,
+   "max": -0.0
+  },
+  "other_off": {
+   "n": 174960,
+   "nonzero": 0,
+   "pos": 0,
+   "neg": 0,
+   "min": 0.0,
+   "max": 0.0
+  },
+  "B": {
+   "n": 729,
+   "nonzero": 1,
+   "pos": 0,
+   "neg": 1,
+   "min": -0.0002547523472458124,
+   "max": -0.0
+  },
+  "equality_form": false,
+  "dev_E": {
+   "min": -0.17557650804519653,
+   "max": 0.0
+  },
+  "dev_zero_accept": 1.0,
+  "single_changes": 446888,
+  "single_change_zero_accept": 0
+ },
+ "compressed": {
+  "conflict_diag": {
+   "n": 7290,
+   "nonzero": 7290,
+   "pos": 7290,
+   "neg": 0,
+   "min": 0.8266113996505737,
+   "max": 0.8266113996505737
+  },
+  "conflict_off": {
+   "n": 58320,
+   "nonzero": 58320,
+   "pos": 0,
+   "neg": 58320,
+   "min": -5.2321215662232134e-06,
+   "max": -5.2321215662232134e-06
+  },
+  "other_diag": {
+   "n": 21870,
+   "nonzero": 21870,
+   "pos": 0,
+   "neg": 21870,
+   "min": -5.2321215662232134e-06,
+   "max": -5.2321215662232134e-06
+  },
+  "other_off": {
+   "n": 174960,
+   "nonzero": 174960,
+   "pos": 0,
+   "neg": 174960,
+   "min": -5.2321215662232134e-06,
+   "max": -5.2321215662232134e-06
+  },
+  "B": {
+   "n": 729,
+   "nonzero": 729,
+   "pos": 0,
+   "neg": 729,
+   "min": -5.2321215662232134e-06,
+   "max": -5.2321215662232134e-06
+  },
+  "equality_form": false,
+  "dev_E": {
+   "min": -0.017375869676470757,
+   "max": -0.01737586408853531
+  },
+  "dev_zero_accept": 1.0,
+  "single_changes": 446888,
+  "single_change_zero_accept": 0
+ }
+}

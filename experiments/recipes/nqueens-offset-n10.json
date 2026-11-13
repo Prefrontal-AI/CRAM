@@ -1,0 +1,27 @@
+{
+ "method": "pl",
+ "arm": "ising",
+ "choice": {
+  "config": {
+   "method": "pl",
+   "arm": "ising",
+   "lr": 30.0,
+   "knob": null,
+   "lam": 0.0,
+   "precond": true
+  },
+  "stop": "local",
+  "temperature": 1.0,
+  "cap": 20000,
+  "val_acc_n1": 0.9943820224719101,
+  "val_cov20_group_mean": 0.806330876482335,
+  "val_cov20": 0.88189006288808,
+  "val_wrong_stops": 0,
+  "val_budget_failures": 1169,
+  "val_flop_all_chains": 21297574.90973783,
+  "tune_fit_seconds": 6.478512741625309,
+  "val_best_acc_n1": 0.9975655430711611
+ },
+ "rule": "among the methods' and arms' choices within 0.5 points of the best validation N = 1, the highest validation group-mean Cov@20; ties to the shorter tuning fit",
+ "at": "2026-11-09T13:54:56Z"
+}

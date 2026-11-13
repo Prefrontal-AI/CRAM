@@ -1,0 +1,40 @@
+# One environment for the CRAM code: `uv sync` creates .venv/ and installs the `cram` package in editable mode.
+# The baselines run in their authors' environments (baselines/README.md).
+[project]
+name = "cram"
+version = "1.0.0"
+description = "Learned pairwise energies for constraint reasoning: data, energies, training, search and operation counts"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = [
+    "torch==2.11.0",  # includes Triton, which the Sudoku search kernels use
+    "numpy>=1.26",
+    "tyro>=1.0",
+    "einops>=0.8,<0.9",
+    "huggingface-hub>=0.25",  # scripts/prepare_data.py
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "cram"
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "baselines/flops/test_fullcount.py"]
+pythonpath = ["experiments", "baselines/flops"]  # the run scripts are imported by name
+norecursedirs = ["runs", "logs", "__pycache__"]
+
+# The CUDA 12.8 build of torch. PyPI's default build targets CUDA 13, which needs a newer driver.
+[tool.uv.sources]
+torch = { index = "pytorch-cu128", marker = "sys_platform == 'linux'" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

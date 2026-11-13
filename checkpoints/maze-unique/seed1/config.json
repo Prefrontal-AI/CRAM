@@ -1,0 +1,22 @@
+{
+ "split": "train",
+ "seed": 1,
+ "R": 1,
+ "de": 2,
+ "window": 1,
+ "updates": 20,
+ "batch": 64,
+ "lr": 1.0,
+ "clip": 1.0,
+ "legacy": false,
+ "kernel": "free",
+ "free_init": 0.0,
+ "opt": "sgd",
+ "momentum": 0.5,
+ "cosine": true,
+ "l1": 0.0,
+ "n_train": 0,
+ "device": "cuda",
+ "out": "runs/CU12/../CU13/final/fg-s1",
+ "score": []
+}

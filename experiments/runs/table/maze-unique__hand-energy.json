@@ -1,0 +1,101 @@
+{
+ "benchmark": "maze-unique",
+ "row": "hand-energy",
+ "label": "Hand-set energy (focused Gibbs T=0)",
+ "solved_mean": 1.0,
+ "solved_sd": 0.0,
+ "solved_peak": 1.0,
+ "per_seed": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "n_test": 1000,
+ "test_set": "EqR maze-30x30-unique-1k test (1,000 mazes), x 3 inference seeds",
+ "params": 0,
+ "flop_per_puzzle": 560511.72,
+ "train_gpu_s": 0.0,
+ "train_cpu_s": 0.0,
+ "source": "measured",
+ "provenance": "hand_set.py; runs/HAND-E1/maze-{dev100,test}-s{0,1,2}.json",
+ "notes": "Hand-set energy, no learned parameters, no training: CRAMMazeEnergy (16 stored values) set to {\"Fp\": [[0.1, 1.0, 0.1]], \"Gp\": [[0.1, 1.0, 0.1]], \"P\": [[[0.0, 0.0], [1.0, 0.0]]], \"Q\": [[[0.0, 0.0], [-5.0, 0.0]]], \"b\": [0.0, -1.5]}: an on open cell costs 1.5 - (on side neighbours) - 0.1 (on diagonal neighbours); walls clamped off, S and G clamped on. focused Gibbs at T 0 from every open cell on (maze_unique.gibbs, focus random, max 20,000 moves): each move sets one free cell that is not at its lowest-energy answer, chosen uniformly among them, to that answer; a maze stops at a fixed point (no such cell left). Repeats: inference seeds 0, 1, 2 (cram-fg used focus seed 0 for each training seed).",
+ "written": "2026-11-04T11:24:25+00:00",
+ "commit": "862f8c6",
+ "extra": {
+  "stopped": [
+   1000,
+   1000,
+   1000
+  ],
+  "wrong_stops": [
+   0,
+   0,
+   0
+  ],
+  "budget_failures": [
+   0,
+   0,
+   0
+  ],
+  "mean_steps": [
+   270.585,
+   270.585,
+   270.585
+  ],
+  "max_steps": [
+   290,
+   290,
+   290
+  ],
+  "p99_flop": 596080.0,
+  "max_flop": 596080.0,
+  "stored_params": 16,
+  "learned_params": 0,
+  "dev100": [
+   {
+    "n": 100,
+    "solved": 100,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "mean_flop": 560246.08
+   },
+   {
+    "n": 100,
+    "solved": 100,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "mean_flop": 560246.08
+   },
+   {
+    "n": 100,
+    "solved": 100,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "mean_flop": 560246.08
+   }
+  ],
+  "flop_convention": "maze_unique.gibbs_flop, as cram-fg: one full current (2 x 2 x 2 x 9 x 900 = 64,800 flop) plus per move 4 x 8 (the field change at the 8 neighbours) + 2 x 900 (focus); a multiply-add is 2 flop",
+  "check": {
+   "stored": 16,
+   "on_on": [
+    [
+     -0.10000000894069672,
+     -1.0,
+     -0.10000000894069672
+    ],
+    [
+     -1.0,
+     -0.0,
+     -1.0
+    ],
+    [
+     -0.10000000894069672,
+     -1.0,
+     -0.10000000894069672
+    ]
+   ],
+   "off_rows_zero": true
+  },
+  "script_sha256": "639a2666017257d5ac8a96fb5c01a3153ac616c88601a064a486fe993cd7dbe3"
+ }
+}

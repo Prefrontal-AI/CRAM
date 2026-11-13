@@ -1,0 +1,183 @@
+{
+ "benchmark": "sudoku-extreme",
+ "row": "hand-energy",
+ "label": "Hand-set energy (focused Gibbs)",
+ "solved_mean": 1.0,
+ "solved_sd": 0.0,
+ "solved_peak": 1.0,
+ "per_seed": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "n_test": 412786,
+ "test_set": "Sudoku-Extreme official test less dev10k (412,786 puzzles), x 3 inference seeds",
+ "params": 0,
+ "flop_per_puzzle": 108086390.03555353,
+ "train_gpu_s": 0.0,
+ "train_cpu_s": 0.0,
+ "source": "measured",
+ "provenance": "hand_set.py; runs/HAND-E1/sudoku-{dev,test}-s{0,1,2}.json",
+ "notes": "Hand-set energy, no learned parameters, no training: E(y) = h x (number of row, column or box cell pairs with the same digit), h = 1, on the 810-pair conflict graph; clues clamped; no input costs. The search, stopping test and settings are those of cram-l1-sparse: sparse focused Gibbs, 4 chains from random boards, temperature falling geometrically from 0.9/g to 0.7/g over every 524,288 moves (g = 9/|lambda_min(S)| = 2.2500: T 0.4000 -> 0.3111), focus threshold 1.0/g, cap 4e11 flop, stop at energy <= 1e-3. T and the focus threshold scale with h, so the move probabilities are those of h = the learned level (0.8292). Repeats: inference seeds 0, 1, 2 (cram-l1-sparse: search seed = split).",
+ "written": "2026-11-04T11:24:25+00:00",
+ "commit": "862f8c6",
+ "extra": {
+  "per_seed": [
+   {
+    "seed": 0,
+    "n": 412786,
+    "solved": 412786,
+    "stopped": 412786,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "unstopped_but_right": 0,
+    "mean_flop": 107605254.8234097,
+    "median_flop": 34496056.0,
+    "p99_flop": 912459828.0000014,
+    "p999_flop": 6235471940.960003,
+    "max_flop": 43128866064.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 99302297.6192,
+     "median_flop": 34790928.0,
+     "p99_flop": 886843466.5600015,
+     "p999_flop": 4554076292.784009,
+     "max_flop": 11422906288.0
+    },
+    "gpu_seconds": 1238.6
+   },
+   {
+    "seed": 1,
+    "n": 412786,
+    "solved": 412786,
+    "stopped": 412786,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "unstopped_but_right": 0,
+    "mean_flop": 108020448.87189004,
+    "median_flop": 34342544.0,
+    "p99_flop": 894842924.8000017,
+    "p999_flop": 6484097084.480017,
+    "max_flop": 62831148192.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 104990188.8784,
+     "median_flop": 34902280.0,
+     "p99_flop": 930117184.9600005,
+     "p999_flop": 3971312869.3120723,
+     "max_flop": 50471166464.0
+    },
+    "gpu_seconds": 1323.2
+   },
+   {
+    "seed": 2,
+    "n": 412786,
+    "solved": 412786,
+    "stopped": 412786,
+    "wrong_stops": 0,
+    "budget_failures": 0,
+    "unstopped_but_right": 0,
+    "mean_flop": 108633466.41136084,
+    "median_flop": 34283520.0,
+    "p99_flop": 920236190.4000006,
+    "p999_flop": 6741188466.880034,
+    "max_flop": 62828519888.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 105670546.7216,
+     "median_flop": 34759928.0,
+     "p99_flop": 894291472.0000001,
+     "p999_flop": 6123909357.712095,
+     "max_flop": 13648804496.0
+    },
+    "gpu_seconds": 1324.6
+   }
+  ],
+  "runs": 1238358,
+  "wrong_runs": 0,
+  "wrong_stops": 0,
+  "budget_failures": 0,
+  "flop_pooled": {
+   "mean": 108086390.03555353,
+   "median": 34371312.0,
+   "p99": 909015370.8799937,
+   "p999": 6490367594.351876,
+   "max": 62831148192.0
+  },
+  "search": {
+   "h": 1.0,
+   "g": 2.2499999999999956,
+   "temp": 0.3555555555555563,
+   "theta": 0.4444444444444453,
+   "anneal": [
+    0.4000000000000008,
+    0.3111111111111117,
+    524288
+   ],
+   "C": 4,
+   "test": "zero",
+   "tau": 0.0,
+   "tol": 0.001,
+   "cap": 400000000000.0,
+   "check": 4096,
+   "restart": 0,
+   "growth": 1.0,
+   "focused": true,
+   "sparse": true,
+   "fl_move": 124.0
+  },
+  "flop_convention": "cram_sudoku_sparse.SparseSearch, as cram-l1-sparse: per move per chain 4 D (two neighbour-field updates) + (D + 1) (focus) + (2 d + 1) (heat bath without input costs) + 4 (energy and test) = 124 flop at D = 20, d = 9; a multiply-add is 2 flop; index, comparison and RNG operations 0; a puzzle pays all 4 chains up to its stop",
+  "params_detail": "Learned: 0. Hand-set: one cost h = 1 on each of the 810 unordered conflict pairs; 0 elsewhere; no input costs.",
+  "check": {
+   "pairs": 810,
+   "degree": [
+    20
+   ],
+   "levels": [
+    0.0,
+    1.0
+   ],
+   "bias_max": 0.0,
+   "lambda_min_S": -4.000000000000004,
+   "cram_l1_sparse_fits": [
+    {
+     "split": 0,
+     "same_support": true,
+     "level": 0.829232394695282,
+     "equal_to_hand_times_level": true,
+     "bias_max": 0.0
+    },
+    {
+     "split": 1,
+     "same_support": true,
+     "level": 0.8291814923286438,
+     "equal_to_hand_times_level": true,
+     "bias_max": 0.0
+    },
+    {
+     "split": 2,
+     "same_support": true,
+     "level": 0.829152524471283,
+     "equal_to_hand_times_level": true,
+     "bias_max": 0.0
+    }
+   ]
+  },
+  "script_sha256": "639a2666017257d5ac8a96fb5c01a3153ac616c88601a064a486fe993cd7dbe3"
+ }
+}

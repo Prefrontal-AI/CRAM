@@ -1,0 +1,1105 @@
+{
+ "description": "Cold complete fits of the baselines, one seed, one H200 (baselines/clock.py).",
+ "writer": "baselines/collect.py",
+ "code_commit": "d2e99f929440e422665cfb23379484cdb4345974",
+ "code_dirty": true,
+ "cells": [
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-10",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 27523.392658280674,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring10-s0.json",
+   "test_scores": {
+    "runs/ebr/gc10-s0/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-10",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 27695.356318909675,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring10-s1.json",
+   "test_scores": {
+    "runs/ebr/gc10-s1/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-10",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 28640.0569274202,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring10-s2.json",
+   "test_scores": {
+    "runs/ebr/gc10-s2/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-8",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 16227.795715007931,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring8-s0.json",
+   "test_scores": {
+    "runs/ebr/gc8-s0/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-8",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 16070.5848469669,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring8-s1.json",
+   "test_scores": {
+    "runs/ebr/gc8-s1/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Graph-Coloring-8",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 16153.100684151053,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-graphcoloring8-s2.json",
+   "test_scores": {
+    "runs/ebr/gc8-s2/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 7255.145971552003,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-mazeunique-s0.json",
+   "test_scores": {
+    "runs/ebr/mazeunique-s0/report.json": "D16-N5: 911/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 7264.983595784288,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-mazeunique-s1.json",
+   "test_scores": {
+    "runs/ebr/mazeunique-s1/report.json": "D16-N5: 954/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 7309.949772463646,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-mazeunique-s2.json",
+   "test_scores": {
+    "runs/ebr/mazeunique-s2/report.json": "D16-N5: 829/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-10",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 27454.176935166586,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens10-s0.json",
+   "test_scores": {
+    "runs/ebr/nqueens10-s0/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-10",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 27302.26353021292,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens10-s1.json",
+   "test_scores": {
+    "runs/ebr/nqueens10-s1/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-10",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 27127.786004805006,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens10-s2.json",
+   "test_scores": {
+    "runs/ebr/nqueens10-s2/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-8",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 11567.074557149317,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens8-s0.json",
+   "test_scores": {
+    "runs/ebr/nqueens8-s0/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-8",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 11453.843789947685,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens8-s1.json",
+   "test_scores": {
+    "runs/ebr/nqueens8-s1/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "N-Queens-8",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 11476.200864802115,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-nqueens8-s2.json",
+   "test_scores": {
+    "runs/ebr/nqueens8-s2/report.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 10113.827572595794,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/ebr/sudoku-s0/report.json": "D64-N5 unseen: 412127/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 10203.53887309879,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/ebr/sudoku-s1/report.json": "D64-N5 unseen: 412419/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EBR",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 10052.6315718377,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/ebr-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/ebr/sudoku-s2/report.json": "D64-N5 unseen: 412197/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile and fused kernels as the recipe"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 10983.653480438516,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-mazeunique-s0.json",
+   "test_scores": {
+    "runs/eqr/maze-repo-s0/score-test-D16-B1.json": "test-D16-B1: 992/1000",
+    "runs/eqr/maze-repo-s0/score-test-D64-B1.json": "test-D64-B1: 993/1000",
+    "runs/eqr/maze-repo-s0/score-test-D64-B128.json": "test-D64-B128: 1000/1000"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 11109.439248360228,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-mazeunique-s1.json",
+   "test_scores": {
+    "runs/eqr/maze-repo-s1/score-test-D16-B1.json": "test-D16-B1: 994/1000",
+    "runs/eqr/maze-repo-s1/score-test-D64-B1.json": "test-D64-B1: 997/1000",
+    "runs/eqr/maze-repo-s1/score-test-D64-B128.json": "test-D64-B128: 996/1000"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 11042.631018104963,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-mazeunique-s2.json",
+   "test_scores": {
+    "runs/eqr/maze-repo-s2/score-test-D16-B1.json": "test-D16-B1: 0/1000",
+    "runs/eqr/maze-repo-s2/score-test-D64-B1.json": "test-D64-B1: 0/1000",
+    "runs/eqr/maze-repo-s2/score-test-D64-B128.json": "test-D64-B128: 0/1000"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR-paper",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 25770.231400317512,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-paper-mazeunique-s0.json",
+   "test_scores": {
+    "runs/eqr/maze-paper-s0/score-test-D16-B1.json": "{'first': 440, 'top1_conv': 440, 'majority': 440, 'any': 440}/1000",
+    "runs/eqr/maze-paper-s0/score-test-D64-B1.json": "{'first': 433, 'top1_conv': 433, 'majority': 433, 'any': 433}/1000",
+    "runs/eqr/maze-paper-s0/score-test-D64-B128.json": "{'first': 421, 'top1_conv': 647, 'majority': 656, 'any': 828}/1000"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 7056.042606766801,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/eqr/sudoku-s0/score-first10k-D64-B128.json": "first10k-D64-B128: 9944/10000",
+    "runs/eqr/sudoku-s0/score-unseen-D16-B1.json": "unseen-D16-B1: 364453/412786",
+    "runs/eqr/sudoku-s0/score-unseen-D64-B1.json": "unseen-D64-B1: 390143/412786"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 7059.262985182926,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/eqr/sudoku-s1/score-first10k-D64-B128.json": "first10k-D64-B128: 9965/10000",
+    "runs/eqr/sudoku-s1/score-unseen-D16-B1.json": "unseen-D16-B1: 359198/412786",
+    "runs/eqr/sudoku-s1/score-unseen-D64-B1.json": "unseen-D64-B1: 388735/412786"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "EqR",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 7289.1480479710735,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/eqr-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/eqr/sudoku-s2/score-first10k-D64-B128.json": "first10k-D64-B128: 9938/10000",
+    "runs/eqr/sudoku-s2/score-unseen-D16-B1.json": "unseen-D16-B1: 359057/412786",
+    "runs/eqr/sudoku-s2/score-unseen-D64-B1.json": "unseen-D64-B1: 385862/412786"
+   },
+   "numerics": [
+    "EqR defaults (bf16 forward); torch.compile unless DISABLE_COMPILE is set"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 34935.90011457214,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-mazeunique-s0.json",
+   "test_scores": {
+    "runs/frm-compiled/mazeunique/runs/paper1000/s0/result.json": "1000/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 34805.12139436137,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-mazeunique-s1.json",
+   "test_scores": {
+    "runs/frm-compiled-s1/mazeunique/runs/paper1000/s1/result.json": "944/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 34885.832519178744,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-mazeunique-s2.json",
+   "test_scores": {
+    "runs/frm-compiled-s2/mazeunique/runs/paper1000/s2/result.json": "974/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM-nocompile",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 74924.55812209286,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-nocompile-mazeunique-s0.json",
+   "test_scores": {
+    "runs/frm/mazeunique/runs/paper1000/s0/result.json": null
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM-nocompile",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 21124.677538879216,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-nocompile-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/frm/sudoku/runs/s0/result.json": null
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 10372.148150755093,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/frm-compiled/sudoku/runs/s0/result.json": "991/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 10177.179787082598,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/frm-compiled-s1/sudoku/runs/s1/result.json": "993/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "FRM",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 10127.4975624769,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/frm-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/frm-compiled-s2/sudoku/runs/s2/result.json": "994/1000"
+   },
+   "numerics": [
+    "bf16 autocast in the DiT blocks (authors), torch.compile off (slower here, TF1), flash attention off"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 83374.31352342991,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-mazeunique-s0.json",
+   "test_scores": {
+    "runs/gram/mazeunique-s0/../score/mazeunique-s0/score.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 84654.26492335461,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-mazeunique-s1.json",
+   "test_scores": {
+    "runs/gram/mazeunique-s1/../score/mazeunique-s1/score.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 83374.97434081137,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-mazeunique-s2.json",
+   "test_scores": {
+    "runs/gram/mazeunique-s2/../score/mazeunique-s2/score.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 11408.986795454286,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/gram/sudoku-s0/../score/sudoku-s0/score-unseen.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 11243.661960673518,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/gram/sudoku-s1/../score/sudoku-s1/score-unseen.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "GRAM",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 11392.203008181415,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/gram-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/gram/sudoku-s2/../score/sudoku-s2/score-unseen.json": null
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 25394.069850527216,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-mazeunique-s0.json",
+   "test_scores": {
+    "runs/hrm/mazeunique-s0/score.json": "562/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 25678.471673779655,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-mazeunique-s1.json",
+   "test_scores": {
+    "runs/hrm/mazeunique-s1/score.json": "627/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 25658.487508741207,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-mazeunique-s2.json",
+   "test_scores": {
+    "runs/hrm/mazeunique-s2/score.json": "10/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 4302.0818552750015,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/hrm/sudoku-e40000-s0/score.json": "234053/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 4289.202772638,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/hrm/sudoku-e40000-s1/score.json": "236705/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "HRM",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 4252.447344354001,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/hrm-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/hrm/sudoku-e40000-s2/score.json": "205600/412786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 56071.073782211635,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-mazeunique-s0.json",
+   "test_scores": {
+    "runs/trm/mazeunique-s0/score.json": "768/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 55089.68183493707,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-mazeunique-s1.json",
+   "test_scores": {
+    "runs/trm/mazeunique-s1/score.json": "1000/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 55617.59882241627,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-mazeunique-s2.json",
+   "test_scores": {
+    "runs/trm/mazeunique-s2/score.json": "999/1000"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 9109.856309925672,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/trm/sudoku-s0/score.json": "362999/422786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 9306.207800820936,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/trm/sudoku-s1/score.json": "359104/422786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRM",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 9038.733932354022,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trm-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/trm/sudoku-s2/score.json": "365320/422786"
+   },
+   "numerics": [
+    "bf16 forward (authors default), torch.compile on"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Maze-Unique",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 27466.889913223218,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-mazeunique-s0.json",
+   "test_scores": {
+    "runs/trmp/maze-unique-s0/score/test.json": "989/1000"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Maze-Unique",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 27594.177917848807,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-mazeunique-s1.json",
+   "test_scores": {
+    "runs/trmp/maze-unique-s1/score/test.json": "993/1000"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Maze-Unique",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 27611.761818268802,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-mazeunique-s2.json",
+   "test_scores": {
+    "runs/trmp/maze-unique-s2/score/test.json": "995/1000"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Sudoku-Extreme",
+   "seed": 0,
+   "state": "done",
+   "fit_seconds": 32485.5770194605,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-sudokuextreme-s0.json",
+   "test_scores": {
+    "runs/trmp/sudoku-extreme-s0/score/test.json": "412563/412786"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Sudoku-Extreme",
+   "seed": 1,
+   "state": "done",
+   "fit_seconds": 32493.788829869125,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-sudokuextreme-s1.json",
+   "test_scores": {
+    "runs/trmp/sudoku-extreme-s1/score/test.json": "412288/412786"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  },
+  {
+   "method": "TRMP",
+   "task": "Sudoku-Extreme",
+   "seed": 2,
+   "state": "done",
+   "fit_seconds": 32411.677454770077,
+   "cold": true,
+   "gpu": [
+    "NVIDIA H200"
+   ],
+   "record": "baselines/records/trmp-sudokuextreme-s2.json",
+   "test_scores": {
+    "runs/trmp/sudoku-extreme-s2/score/test.json": "411920/412786"
+   },
+   "numerics": [
+    "bf16 autocast forward and backward, fp32 master weights, AdamW moments and EMA, torch.compile of one update"
+   ],
+   "gpus": 1
+  }
+ ]
+}

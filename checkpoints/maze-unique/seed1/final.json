@@ -1,0 +1,11 @@
+{
+ "train": {
+  "loop_s": 0.5653988179983571,
+  "updates": 20,
+  "device": "cuda",
+  "threads": 4,
+  "stored": 18,
+  "entries_with_gradient": 18
+ },
+ "scores": {}
+}

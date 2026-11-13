@@ -1,0 +1,200 @@
+{
+ "experiment": "E1: hand-set energies, no learned parameters, no training",
+ "script": "experiments/hand_set.py",
+ "script_sha256": "639a2666017257d5ac8a96fb5c01a3153ac616c88601a064a486fe993cd7dbe3",
+ "commit": "862f8c6",
+ "written": "2026-11-04T11:24:24+00:00",
+ "rows": [
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "hand-energy",
+   "solved": 1238358,
+   "total": 1238358,
+   "solve_rate": 1.0,
+   "solve_rate_per_seed": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "wrong_stops": 0,
+   "budget_failures": 0,
+   "flop_per_puzzle": 108086390.03555353,
+   "flop_pooled": {
+    "median": 34371312.0,
+    "p99": 909015370.8799937,
+    "max": 62831148192.0
+   },
+   "flop_convention": "cram_sudoku_sparse.SparseSearch, as cram-l1-sparse: per move per chain 4 D (two neighbour-field updates) + (D + 1) (focus) + (2 d + 1) (heat bath without input costs) + 4 (energy and test) = 124 flop at D = 20, d = 9; a multiply-add is 2 flop; index, comparison and RNG operations 0; a puzzle pays all 4 chains up to its stop",
+   "params": 0,
+   "hand_values": {
+    "h (equal-digit cost on each row, column or box pair)": 1.0,
+    "support": "810 conflict pairs",
+    "input costs": 0,
+    "clues": "clamped"
+   },
+   "inference": {
+    "h": 1.0,
+    "g": 2.2499999999999956,
+    "temp": 0.3555555555555563,
+    "theta": 0.4444444444444453,
+    "anneal": [
+     0.4000000000000008,
+     0.3111111111111117,
+     524288
+    ],
+    "C": 4,
+    "test": "zero",
+    "tau": 0.0,
+    "tol": 0.001,
+    "cap": 400000000000.0,
+    "check": 4096,
+    "restart": 0,
+    "growth": 1.0,
+    "focused": true,
+    "sparse": true,
+    "fl_move": 124.0,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "start": "random boards"
+   },
+   "test_set": "Sudoku-Extreme official test less dev10k: full-all rows 10,000-422,785 (412,786 puzzles), x 3 inference seeds",
+   "dev": [
+    {
+     "seed": 0,
+     "solved": 10000,
+     "n": 10000,
+     "wrong_stops": 0,
+     "mean_flop": 99302297.6192
+    },
+    {
+     "seed": 1,
+     "solved": 10000,
+     "n": 10000,
+     "wrong_stops": 0,
+     "mean_flop": 104990188.8784
+    },
+    {
+     "seed": 2,
+     "solved": 10000,
+     "n": 10000,
+     "wrong_stops": 0,
+     "mean_flop": 105670546.7216
+    }
+   ],
+   "record": "experiments/runs/table/sudoku-extreme__hand-energy.json"
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "hand-energy",
+   "solved": 3000,
+   "total": 3000,
+   "solve_rate": 1.0,
+   "solve_rate_per_seed": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "wrong_stops": 0,
+   "budget_failures": 0,
+   "flop_per_puzzle": 560511.72,
+   "flop_max": 596080.0,
+   "flop_convention": "maze_unique.gibbs_flop, as cram-fg: one full current (2 x 2 x 2 x 9 x 900 = 64,800 flop) plus per move 4 x 8 (the field change at the 8 neighbours) + 2 x 900 (focus); a multiply-add is 2 flop",
+   "params": 0,
+   "stored_values": 16,
+   "hand_values": {
+    "Fp": [
+     [
+      0.1,
+      1.0,
+      0.1
+     ]
+    ],
+    "Gp": [
+     [
+      0.1,
+      1.0,
+      0.1
+     ]
+    ],
+    "P": [
+     [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    ],
+    "Q": [
+     [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       -5.0,
+       0.0
+      ]
+     ]
+    ],
+    "b": [
+     0.0,
+     -1.5
+    ]
+   },
+   "hand_justification": {
+    "Fp, Gp = (0.1, 1, 0.1)": "the kernel is 2 K F[dr] G[dc]: side neighbours get 2 x 0.1 x 1 = 0.2, diagonal ones 0.02, so diagonals weigh 1/10 of a side; a rank-1 offset product cannot make them exactly 0",
+    "K(on, on) = Q P^T = -5": "scales the side coupling to -1 per on side neighbour and the diagonal one to -0.1; K = 0 for any off state, so walls and removed cells exert no field",
+    "b = (0, -1.5)": "an on open cell pays 1.5: it stays on iff (on sides) + 0.1 (on diagonals) > 1.5, which holds for 2 on sides and fails for at most 1 (1 + 0.1 x 4 = 1.4 < 1.5), with no ties",
+    "P, Q other entries = 0": "no coupling involves the off state, and the second factor column is unused"
+   },
+   "inference": {
+    "search": "gibbs",
+    "T": 0.0,
+    "focus": "random",
+    "max_moves": 20000,
+    "eta": 0.5,
+    "tol": 0.001,
+    "margin": 3.0,
+    "max_steps": 6000,
+    "seed": 0,
+    "seeds": [
+     0,
+     1,
+     2
+    ]
+   },
+   "test_set": "EqR maze-30x30-unique-1k test (1,000 mazes), x 3 inference seeds",
+   "dev": [
+    {
+     "seed": 0,
+     "solved": 100,
+     "n": 100,
+     "wrong_stops": 0,
+     "mean_flop": 560246.08
+    },
+    {
+     "seed": 1,
+     "solved": 100,
+     "n": 100,
+     "wrong_stops": 0,
+     "mean_flop": 560246.08
+    },
+    {
+     "seed": 2,
+     "solved": 100,
+     "n": 100,
+     "wrong_stops": 0,
+     "mean_flop": 560246.08
+    }
+   ],
+   "record": "experiments/runs/table/maze-unique__hand-energy.json"
+  }
+ ]
+}

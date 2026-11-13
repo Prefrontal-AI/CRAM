@@ -1,0 +1,528 @@
+{
+ "sudoku-extreme": {
+  "table": "Table 2",
+  "record": "experiments/runs/table/sudoku-extreme__cram-0-fit.json",
+  "script": "experiments/sudoku.py",
+  "module": "cram/cram_sudoku_general.py",
+  "weights": "model.pt",
+  "models": [
+   {
+    "folder": "checkpoints/sudoku-extreme/seed0",
+    "run": "experiments/runs/CRAM-S/full/full-aug-s0",
+    "sha256": {
+     "model.pt": "8ec939cd02c31bc39afde211b0a46f3b7fa9934ef358f291fbf2327ddc11f911",
+     "final.json": "543566f6e91a09889b973acad48c2f6d6a6b217fea1597be461c8e8b7533f1d0"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s0.json",
+     "rel": [
+      0.4,
+      0.31,
+      0.45
+     ],
+     "n": 412786,
+     "solved": 412768,
+     "wrong_stops": 0,
+     "budget_failures": 18,
+     "mean_flop": 1239583114.877255,
+     "dev": {
+      "record": "experiments/runs/CRAM-S/full/dev/cram0-hb-fit-s0.json",
+      "n": 10000,
+      "solved": 10000,
+      "wrong_stops": 0,
+      "budget_failures": 0,
+      "mean_flop": 1130530631.4134355
+     }
+    }
+   },
+   {
+    "folder": "checkpoints/sudoku-extreme/seed1",
+    "run": "experiments/runs/CRAM-S/full/full-aug-s1",
+    "sha256": {
+     "model.pt": "e1f54405d05a93f2d86097546b2ba03a83ff46739cfedfef8144e351b6b05d5a",
+     "final.json": "46e86abf88fea86c4cdf27dde9a76433850a215e3fc8547508b0929666b67447"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s1.json",
+     "rel": [
+      0.4,
+      0.31,
+      0.45
+     ],
+     "n": 412786,
+     "solved": 412770,
+     "wrong_stops": 0,
+     "budget_failures": 16,
+     "mean_flop": 1295105545.8604035,
+     "dev": {
+      "record": "experiments/runs/CRAM-S/full/dev/cram0-hb-fit-s1.json",
+      "n": 10000,
+      "solved": 10000,
+      "wrong_stops": 0,
+      "budget_failures": 0,
+      "mean_flop": 1297379693.2055616
+     }
+    }
+   },
+   {
+    "folder": "checkpoints/sudoku-extreme/seed2",
+    "run": "experiments/runs/CRAM-S/full/full-aug-s2",
+    "sha256": {
+     "model.pt": "c7370fb815fef4a3ed4153fb2dc0b76954610e94a9b1af4be7ef7c8a68b5da8b",
+     "final.json": "bbe76527e4d3ae6fdd7638032f627db7700ebdc33343ec383eab31a0e8e5bc9e"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s2.json",
+     "rel": [
+      0.4,
+      0.31,
+      0.45
+     ],
+     "n": 412786,
+     "solved": 412769,
+     "wrong_stops": 0,
+     "budget_failures": 17,
+     "mean_flop": 1289104992.2561994,
+     "dev": {
+      "record": "experiments/runs/CRAM-S/full/dev/cram0-hb-fit-s2.json",
+      "n": 10000,
+      "solved": 10000,
+      "wrong_stops": 0,
+      "budget_failures": 0,
+      "mean_flop": 1280927295.4575253
+     }
+    }
+   }
+  ]
+ },
+ "maze-unique": {
+  "table": "Table 2",
+  "record": "experiments/runs/table/maze-unique__cram-sgd-fg.json",
+  "script": "experiments/maze_unique.py",
+  "module": "cram/cram_maze.py (CRAMMazeFreeEnergy)",
+  "weights": "model.pt",
+  "models": [
+   {
+    "folder": "checkpoints/maze-unique/seed0",
+    "run": "experiments/runs/CU13/final/fg-s0",
+    "sha256": {
+     "model.pt": "5baa6f849928f3745b9f28f0561ea8dc9aee1eceb4e3e23190e5995869ba204d",
+     "config.json": "6eb1c8221a69c323dbb707858056baeaf6f145f3d6903ace1584a58ae74b727d",
+     "final.json": "5a5617eeb421272ea1ff6f30f2379677b90ac72cf94b9b5418c2391532e3aa01"
+    },
+    "expected": {
+     "record": "experiments/runs/CU13/final/fg-s0/score-test-gibbs.json",
+     "search": {
+      "search": "gibbs",
+      "T": 0.0,
+      "focus": "random",
+      "max_moves": 20000,
+      "eta": 0.5,
+      "tol": 0.001,
+      "margin": 3.0,
+      "max_steps": 6000,
+      "seed": 0
+     },
+     "n": 1000,
+     "solved": 1000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "mean_flop": 560511.72
+    }
+   },
+   {
+    "folder": "checkpoints/maze-unique/seed1",
+    "run": "experiments/runs/CU13/final/fg-s1",
+    "sha256": {
+     "model.pt": "34b9c09bf5969e8d618848b73c862e5e8593def505ae9fd3ea7f2f0261d6daf1",
+     "config.json": "b7503c8d7d286152db202701e15032ce284e5d4e1dce19aebd89b6f1110be5f7",
+     "final.json": "f750c1c7a88eb6da467449554a5dd67bd616e2ac5ca366a224d359b95699d5f7"
+    },
+    "expected": {
+     "record": "experiments/runs/CU13/final/fg-s1/score-test-gibbs.json",
+     "search": {
+      "search": "gibbs",
+      "T": 0.0,
+      "focus": "random",
+      "max_moves": 20000,
+      "eta": 0.5,
+      "tol": 0.001,
+      "margin": 3.0,
+      "max_steps": 6000,
+      "seed": 0
+     },
+     "n": 1000,
+     "solved": 1000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "mean_flop": 560511.72
+    }
+   },
+   {
+    "folder": "checkpoints/maze-unique/seed2",
+    "run": "experiments/runs/CU13/final/fg-s2",
+    "sha256": {
+     "model.pt": "d36cd5362e567a7ee0849d68736f5ebd8f1949b02261e9228c41fdc4dd1d2936",
+     "config.json": "84bbe01d5837fcaba3ad3b4d97bed5fa31a6392a0f1734b0ca86d2c7099eafbd",
+     "final.json": "cff8becda031e39d6e01771c8021e0c7c1f6647b0b1578cc5e9222a8ba8b06d5"
+    },
+    "expected": {
+     "record": "experiments/runs/CU13/final/fg-s2/score-test-gibbs.json",
+     "search": {
+      "search": "gibbs",
+      "T": 0.0,
+      "focus": "random",
+      "max_moves": 20000,
+      "eta": 0.5,
+      "tol": 0.001,
+      "margin": 3.0,
+      "max_steps": 6000,
+      "seed": 0
+     },
+     "n": 1000,
+     "solved": 1000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "mean_flop": 560511.72
+    }
+   }
+  ]
+ },
+ "nqueens-8": {
+  "table": "Table 3",
+  "record": "results/multi-solution-table.json",
+  "script": "experiments/nqueens_offset.py",
+  "module": "cram/cram_nqueens.py",
+  "weights": "model.pt",
+  "models": [
+   {
+    "folder": "checkpoints/nqueens-8/seed0",
+    "run": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s0",
+    "sha256": {
+     "model.pt": "e74cb039b3d37705441dc86a73b87ae9fa7b1e48dfa2e38c299a515590d7e62f",
+     "final.json": "0c66ee1fe8994f2ad5ba2b5f478350486eb78472053b86684e1b7c262da683d7",
+     "fit.json": "ab575dcbdd3c42413dcc6aeafafb64e1555b948cef634118a8826156c324c5c5"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s0/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 1240,
+     "acc_n1": 0.9991935483870967,
+     "acc_majority20": 1.0,
+     "cov20": 0.9799779185867895,
+     "wrong_stops": 0
+    }
+   },
+   {
+    "folder": "checkpoints/nqueens-8/seed1",
+    "run": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s1",
+    "sha256": {
+     "model.pt": "0d37a137b502c182135a4fdb95ada86c12e3b44b1aa9d410455efc6b2b59c21d",
+     "final.json": "b1bb67486f08fe0eeb7cc75d0af2a98fc593e43a7cc59a3c55ee14d77899b8e6",
+     "fit.json": "551d057a5913c90b737a010aeb3852407dd4016a5b6c96892f92cb5ae9ff0e21"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s1/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 1240,
+     "acc_n1": 0.9991935483870967,
+     "acc_majority20": 1.0,
+     "cov20": 0.9787615207373271,
+     "wrong_stops": 0
+    }
+   },
+   {
+    "folder": "checkpoints/nqueens-8/seed2",
+    "run": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s2",
+    "sha256": {
+     "model.pt": "d735a67aff1ddbb122dbed75b77d85a3aa0691369e79568625b788b221ba4160",
+     "final.json": "7e0ca42d59b608a77ae3401ea90ec9d9234ac5c6a43b4e90f25dc08a99ec524d",
+     "fit.json": "6b4177a763429dc803d80bdefa776e3192bab697aa2f5203e5b7f189bc351270"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n8/shared/pl-ising-s2/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 1240,
+     "acc_n1": 1.0,
+     "acc_majority20": 1.0,
+     "cov20": 0.9792393113159241,
+     "wrong_stops": 0
+    }
+   }
+  ]
+ },
+ "nqueens-10": {
+  "table": "Table 3",
+  "record": "results/multi-solution-table.json",
+  "script": "experiments/nqueens_offset.py",
+  "module": "cram/cram_nqueens.py",
+  "weights": "model.pt",
+  "models": [
+   {
+    "folder": "checkpoints/nqueens-10/seed0",
+    "run": "experiments/runs/NQ/nq11/n10/final/pl-ising-s0",
+    "sha256": {
+     "model.pt": "07790877155065568e0c143e64a694b7340056c2a008bd6431d2642d37fc3c75",
+     "final.json": "a42b2ce739b7906c1105385517d7875a4e7f3061e86b854a55f79b6b2a2a39d6",
+     "fit.json": "5bf2f71500ae4c574a2a61631b3417c8b78035c564938372fb622e2463f87972"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n10/final/pl-ising-s0/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 18466,
+     "acc_n1": 0.9939889526697715,
+     "acc_majority20": 0.9997833856817936,
+     "cov20": 0.9095424162439342,
+     "wrong_stops": 0
+    }
+   },
+   {
+    "folder": "checkpoints/nqueens-10/seed1",
+    "run": "experiments/runs/NQ/nq11/n10/final/pl-ising-s1",
+    "sha256": {
+     "model.pt": "ecaa8dba0c80a07d4d3b0ab418a78cda40a1d10303c65e112b11140abd2188d7",
+     "final.json": "30a27a90b398f4cd46c41fffde69916b96d70d0e632227b004ba51549b9c7bac",
+     "fit.json": "82bf13f3a7bf5995f89415a9de96865c0846e950b5482a9f576ff0fd415c27c9"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n10/final/pl-ising-s1/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 18466,
+     "acc_n1": 0.9943680277266327,
+     "acc_majority20": 0.9998375392613452,
+     "cov20": 0.9084112797085936,
+     "wrong_stops": 0
+    }
+   },
+   {
+    "folder": "checkpoints/nqueens-10/seed2",
+    "run": "experiments/runs/NQ/nq11/n10/final/pl-ising-s2",
+    "sha256": {
+     "model.pt": "ed2fefcb4a3cf9cc598efb14073dbeb522fc9b22ae42193bae3e7ac26f290ee4",
+     "final.json": "913d9c98e5ed7ca8447f81f1d843f905b1c67795c234e263d87494ad08a79354",
+     "fit.json": "bf64603f1e950bc6479819ff183f0155d299c64ba4dee2c173bc42cfe6dc69b3"
+    },
+    "expected": {
+     "record": "experiments/runs/NQ/nq11/n10/final/pl-ising-s2/final.json",
+     "search": {
+      "stop": "local",
+      "temperature": 1.0,
+      "cap": 20000
+     },
+     "rows": 18466,
+     "acc_n1": 0.995017870681252,
+     "acc_majority20": 0.9996750785226903,
+     "cov20": 0.909540170662356,
+     "wrong_stops": 0
+    }
+   }
+  ]
+ },
+ "graph-coloring-8": {
+  "table": "Table 3",
+  "record": "results/multi-solution-table.json",
+  "script": "experiments/graph_coloring.py",
+  "module": "cram/cram_graph_coloring.py",
+  "weights": "model.npz",
+  "models": [
+   {
+    "folder": "checkpoints/graph-coloring-8/model",
+    "run": "experiments/runs/CRAM-GC/final/n8-full-u1024-lr10-lam0.0001/cuda",
+    "sha256": {
+     "model.npz": "6bf00e991ab2b61b15a7a152641e96bd36213f4f6a8dfe1cdd4d185c6c8c600b",
+     "model.json": "6e8d36781201f78e6c56f78a12829e53b08a738ab1fa0edc2baa17c8bf97d37c",
+     "final.json": "8fc364900234459e181dfaf612d08e6f04e305f25403aa2d6dd6a3320dac7996"
+    },
+    "expected": [
+     {
+      "record": "experiments/runs/CRAM-GC/final/n8-full-u1024-lr10-lam0.0001/test-terms-T2-S20-cap10000-s0/final.json",
+      "seed": 0,
+      "search": {
+       "stop": "terms",
+       "temperature": 2.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 255,
+      "conflicts_1": 0,
+      "conflicts_majority_20": 0,
+      "coverage_20": 0.8848684210526315,
+      "wrong_stops_all": 0
+     },
+     {
+      "record": "experiments/runs/CRAM-GC/final/n8-full-u1024-lr10-lam0.0001/test-terms-T2-S20-cap10000-s1/final.json",
+      "seed": 1,
+      "search": {
+       "stop": "terms",
+       "temperature": 2.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 255,
+      "conflicts_1": 0,
+      "conflicts_majority_20": 0,
+      "coverage_20": 0.8870614035087719,
+      "wrong_stops_all": 0
+     },
+     {
+      "record": "experiments/runs/CRAM-GC/final/n8-full-u1024-lr10-lam0.0001/test-terms-T2-S20-cap10000-s2/final.json",
+      "seed": 2,
+      "search": {
+       "stop": "terms",
+       "temperature": 2.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 255,
+      "conflicts_1": 0,
+      "conflicts_majority_20": 0,
+      "coverage_20": 0.893640350877193,
+      "wrong_stops_all": 0
+     }
+    ]
+   }
+  ]
+ },
+ "graph-coloring-10": {
+  "table": "Table 3",
+  "record": "results/multi-solution-table.json",
+  "script": "experiments/graph_coloring.py",
+  "module": "cram/cram_graph_coloring.py",
+  "weights": "model.npz",
+  "models": [
+   {
+    "folder": "checkpoints/graph-coloring-10/model",
+    "run": "experiments/runs/CRAM-GC/final/n10-full-u256-lr10-lam0.001/cuda",
+    "sha256": {
+     "model.npz": "e94ff605a01dcf3899fd7b1b93ea0d00405fb2a7e8a337599d998079faacdd44",
+     "model.json": "2a5cf4c3d90158a5f40cbc098bdf3f61377ec4e9e493babf7da9c708a562040d",
+     "final.json": "715019eb6f86915bd84aac08b8d6428c0e0bd91bbc734ed87dfa8a44e22d478b"
+    },
+    "expected": [
+     {
+      "record": "experiments/runs/CRAM-GC/final/n10-full-u256-lr10-lam0.001/test-terms-T3-S20-cap10000-s0/final.json",
+      "seed": 0,
+      "search": {
+       "stop": "terms",
+       "temperature": 3.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 192,
+      "conflicts_1": 1,
+      "conflicts_majority_20": 1,
+      "coverage_20": 0.5227145260796411,
+      "wrong_stops_all": 0
+     },
+     {
+      "record": "experiments/runs/CRAM-GC/final/n10-full-u256-lr10-lam0.001/test-terms-T3-S20-cap10000-s1/final.json",
+      "seed": 1,
+      "search": {
+       "stop": "terms",
+       "temperature": 3.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 192,
+      "conflicts_1": 0,
+      "conflicts_majority_20": 1,
+      "coverage_20": 0.532809871003926,
+      "wrong_stops_all": 0
+     },
+     {
+      "record": "experiments/runs/CRAM-GC/final/n10-full-u256-lr10-lam0.001/test-terms-T3-S20-cap10000-s2/final.json",
+      "seed": 2,
+      "search": {
+       "stop": "terms",
+       "temperature": 3.0,
+       "samples": 20,
+       "cap": 10000
+      },
+      "graphs": 192,
+      "conflicts_1": 0,
+      "conflicts_majority_20": 1,
+      "coverage_20": 0.5215928210880538,
+      "wrong_stops_all": 0
+     }
+    ]
+   }
+  ]
+ },
+ "maze-hard": {
+  "table": "Maze-Hard appendix table",
+  "record": "experiments/runs/table/maze-hard__cram-latent-zmu.json",
+  "script": "experiments/maze_hard_latent.py",
+  "module": "cram/cram_maze_hard_graph.py (GraphLatentEnergyMU)",
+  "weights": "model.pt",
+  "models": [
+   {
+    "folder": "checkpoints/maze-hard/seed0",
+    "run": "experiments/runs/CRAM-HE/final-triton/CHE8-mu (final-s0)",
+    "sha256": {
+     "model.pt": "c2a52ddcc71383ecfcef6e0af43787a574b5cc9dcdd1e0f840fec2b164f0d20c",
+     "final.json": "357c200bbedd31bf62c68dd4b7df24b187ec45ce1814abf43d6d8b106b371d2b"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-HE/final-triton/CHE8-mu/test-scores.json",
+     "n": 1000,
+     "solved": 999,
+     "wrong_stops": 1,
+     "budget_failures": 0,
+     "flop_mean": 6013738.8
+    }
+   },
+   {
+    "folder": "checkpoints/maze-hard/seed1",
+    "run": "experiments/runs/CRAM-HE/final-triton/CHE8-mu (final-s1)",
+    "sha256": {
+     "model.pt": "3d40b6a5a173be938697375d952f6eb9b2c7f6a3bdb5509aea772687667f6169",
+     "final.json": "7b7617f75f0c006681188ed3cd2c3f23ad3aa46645f515bd271d1b7a26ef97a4"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-HE/final-triton/CHE8-mu/test-scores.json",
+     "n": 1000,
+     "solved": 999,
+     "wrong_stops": 1,
+     "budget_failures": 0,
+     "flop_mean": 6017900.4
+    }
+   },
+   {
+    "folder": "checkpoints/maze-hard/seed2",
+    "run": "experiments/runs/CRAM-HE/final-triton/CHE8-mu (final-s2)",
+    "sha256": {
+     "model.pt": "5661438660127316672752f5636768c70e4b45732e5ffd358e3f72ec83015a2a",
+     "final.json": "98d7177bca2384f431cf1404ec3b74972fcd01f16a11921d2067e71a7362e41a"
+    },
+    "expected": {
+     "record": "experiments/runs/CRAM-HE/final-triton/CHE8-mu/test-scores.json",
+     "n": 1000,
+     "solved": 999,
+     "wrong_stops": 1,
+     "budget_failures": 0,
+     "flop_mean": 6006976.2
+    }
+   }
+  ]
+ }
+}

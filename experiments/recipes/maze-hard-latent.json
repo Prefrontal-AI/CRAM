@@ -1,0 +1,23 @@
+{
+ "name": "CHE8-mu",
+ "recipe": {
+  "mass": "shared",
+  "mass_fn": "exp",
+  "mass0": 218.39260013257692,
+  "source": "goal",
+  "source0": 1.0,
+  "loss": "pl",
+  "coupling": "attention",
+  "updates": 4000,
+  "lr": 0.1,
+  "batch": 64,
+  "full_batch": false,
+  "warm_cache": false,
+  "degree": false,
+  "answers": "mu"
+ },
+ "decided": "The answer energy contains the Maze-Unique energy. The recipe solves 300 of 300 development mazes (100 mazes x 3 training seeds).",
+ "dev_runs": "runs/CRAM-HE/CHE8-mu/dev-s{0,1,2}.json",
+ "kernels": "fused Triton settle and adjoint for the fits; PyTorch settle at evaluation",
+ "inference": "latent at temperature 1, damped descent step 0.2 from logits 3, certificate every 16 steps, at most 2,048 steps"
+}

@@ -1,0 +1,917 @@
+{
+ "description": "Operation-count export: every inference operation count the paper shows, under one convention, in results/op-counts.json.",
+ "convention": "matrix products 2 flop per multiply-add; elementwise arithmetic (add, subtract, multiply, divide, negate, absolute value; integer arithmetic too) and transcendental evaluations (exp, log, sqrt, sigmoid, tanh, erf) 1 flop each; comparisons, selections, min/max/argmax and mask logic recorded, not counted; indexing, data movement, casts and random-number generation free.",
+ "counter_sha256": {
+  "baselines/flops/fullcount.py": "77709eacc6744e79663b034212d16d0aafeb8d799e0de45162622bd6997007ea",
+  "baselines/flops/cram_kernels.py": "d7c8c527209a0301a47787c4f563fa4174ac3bfa6294307a23a110335da722cb",
+  "baselines/flops/cram_kernels_extra.py": "4a1eae817d45390c78859865800cb2b68cbec1d1188bd0b646ce09a8254bae12"
+ },
+ "script": "baselines/flops/fc2_export.py",
+ "script_sha256": "063b83f987c98858fe3931f1edd05ae0e4a27217eb5add141636d387e309c3e8",
+ "created_utc": "2026-11-13T16:13:15Z",
+ "cells": [
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "hrm",
+   "method": "HRM",
+   "old": 219916926976.0,
+   "new": 220426297904.0,
+   "new_with_compare": 220468957195.0,
+   "ratio": 1.0023161970067707,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/hrm-sudoku.json": "3d4fc29da0d894d5178ecaac3d65690401e21b99999db1fefc7ca1ef7c97bd98"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "hrm",
+   "method": "HRM",
+   "old": 2996653260800.0,
+   "new": 3011317677360.0,
+   "new_with_compare": 3016320178952.0,
+   "ratio": 1.0048935980521434,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/hrm-mazeunique.json": "d8e0ddb5ed4c85e13fe586081f694f6ca84826d98fc0a173a787c5de950dad45"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "trm",
+   "method": "TRM",
+   "old": 410119782400.0,
+   "new": 411248638992.0,
+   "new_with_compare": 411250231787.0,
+   "ratio": 1.0027525046107115,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/trm-sudoku.json": "204ba4861d5bbfc39a3b50bf128dcaea98530540c574feebf033135f6da022a2"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "trm",
+   "method": "TRM",
+   "old": 3821662011392.0,
+   "new": 3840615678256.0,
+   "new_with_compare": 3847074670344.0,
+   "ratio": 1.0049595350942864,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/trm-mazeunique.json": "5459563e20137fae2231860c74186ece86d8744c48c1efcfb3a27334813f4157"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 8488302673920.0,
+   "new": 8511351096680.0,
+   "new_with_compare": 8511382953000.0,
+   "ratio": 1.0027153158464548,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-sudoku.json": "93ba7e000fe8f12c5885cac220b2c51276b0cb6c250e754a5c04e5de63bece95"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 79607641538560.0,
+   "new": 79991802145120.0,
+   "new_with_compare": 80120981987300.0,
+   "ratio": 1.0048256750122904,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-mazeunique.json": "9a9aaa24da5e6ce82d592fe52b1d209b235bdd83668fc6d3d756f88187553224"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-hard",
+   "row": "hrm",
+   "method": "HRM",
+   "old": 2996653260800.0,
+   "new": 3011317677360.0,
+   "new_with_compare": 3016320178952.0,
+   "ratio": 1.0048935980521434,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/hrm-mazeunique.json": "d8e0ddb5ed4c85e13fe586081f694f6ca84826d98fc0a173a787c5de950dad45"
+   },
+   "note": "same model and sequence length as the counted Maze-Unique fit; the count does not depend on the maze"
+  },
+  {
+   "benchmark": "maze-hard",
+   "row": "trm",
+   "method": "TRM",
+   "old": 3821662011392.0,
+   "new": 3840615678256.0,
+   "new_with_compare": 3847074670344.0,
+   "ratio": 1.0049595350942864,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/trm-mazeunique.json": "5459563e20137fae2231860c74186ece86d8744c48c1efcfb3a27334813f4157"
+   },
+   "note": "same model and sequence length as the counted Maze-Unique fit; the count does not depend on the maze"
+  },
+  {
+   "benchmark": "nqueens-8",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 5585995694080.0,
+   "new": 5598918763200.0,
+   "new_with_compare": 5599928064100.0,
+   "ratio": 1.002313476384111,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-nqueens8.json": "a26f8d2666a1cc263ae9b50b0d521cd4eb8e370d0ace33b82d44b449f17bb6a1"
+   },
+   "note": "20 samples, majority vote"
+  },
+  {
+   "benchmark": "nqueens-10",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 8207185346560.0,
+   "new": 8227247361120.0,
+   "new_with_compare": 8229352285300.0,
+   "ratio": 1.0024444451676005,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-nqueens10.json": "44c7c697fa7d0bfa862fcc2e246e70b95a1ebc48fd079f5948fac1a8a2902f45"
+   },
+   "note": "20 samples, majority vote"
+  },
+  {
+   "benchmark": "graph-coloring-8",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 3582630952960.0,
+   "new": 3590552011360.0,
+   "new_with_compare": 3590984414180.0,
+   "ratio": 1.002210961303021,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-gc8.json": "bfb88fc6b3c86835c75177e4b5c13d8ac979cd97830f73022d3ca326d190018b"
+   },
+   "note": "20 samples, majority vote"
+  },
+  {
+   "benchmark": "graph-coloring-10",
+   "row": "gram",
+   "method": "GRAM",
+   "old": 4938823106560.0,
+   "new": 4950085855320.0,
+   "new_with_compare": 4950883461700.0,
+   "ratio": 1.0022804519451285,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/gram-gc10.json": "5c8128c1e9b45f0a8b89c03cfdf36987fd7e609a3e43235085bd90f0b5652f22"
+   },
+   "note": "20 samples, majority vote"
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "eqr",
+   "method": "EqR",
+   "old": 209979852193792.0,
+   "new": 210602174233856.0,
+   "new_with_compare": 210604615457536.0,
+   "ratio": 1.002963722631301,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/eqr-sudoku-extreme.json": "3e06afbddb16fec49c6151d3651db3a53b4658097ff36692448ed3418977ebe9"
+   },
+   "note": "D 64, B 128, noise 0.5, init std 1.0, top1_conv window 3"
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "eqr",
+   "method": "EqR",
+   "old": 111813018517504.0,
+   "new": 115633591867520.0,
+   "new_with_compare": 117289006777600.0,
+   "ratio": 1.0341693069436086,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/eqr-maze-unique.json": "28144bc57a817ccef23ef981918a09fa54702f1ccc0c7aa44a4f114c397128d5"
+   },
+   "note": "D 64, B 128, noise 0.5, init std 1.0, top1_conv window 3"
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "frm",
+   "method": "FRM",
+   "old": 3863754446848.0,
+   "new": 3905328576240.0,
+   "new_with_compare": 3908345899547.0,
+   "ratio": 1.01076003404562,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/frm-sudoku-extreme.json": "ca159726cbe0e847ad43144eaa6f4a3456492fba4437a3e1c2abbdddaf851f0e"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "frm",
+   "method": "FRM",
+   "old": 4618755248128.0,
+   "new": 4700206758076.0,
+   "new_with_compare": 4726855313692.0,
+   "ratio": 1.0176349482863403,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/frm-maze-unique.json": "2f34cd074491c56d87fe29754fa89587e1418beea56dbbb4596d9349b13e1ed2"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "trmp",
+   "method": "TRMP",
+   "old": 4513800410442.922,
+   "new": 4572177978858.989,
+   "new_with_compare": 4588058035267.159,
+   "ratio": 1.012933130202436,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/trmp-sudoku-extreme.json": "136339dbb353e575a11a996683fbb2235c37e8b8e2ee9220441c3765eab4699e"
+   },
+   "note": "best of 64 rollouts, realized steps"
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "trmp-local",
+   "method": "TRMP",
+   "old": 17743874448353.4,
+   "new": 17980031045892.914,
+   "new_with_compare": 18050084425409.45,
+   "ratio": 1.0133091900659514,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/trmp-maze-unique.json": "3758e805d5899cf8204f92310630540c9ce31d65add2030fcbd99a4557be9b20"
+   },
+   "note": "best of 64 rollouts, realized steps"
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "ebr",
+   "method": "EBR",
+   "old": 335110850369.98175,
+   "new": 337418894861.42096,
+   "new_with_compare": 337448738522.3081,
+   "ratio": 1.0068874060296495,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/ebr/flops-full/sudoku.json": "8dfa6415ca6639482798a227914fab1da5497500f3e044412a5380277d74ec25",
+    "baselines/runs/ebr/sudoku-s0/report-fc2.json": "4cf17c59b6ac3a1ebdfe2f586206c82aa243de66a641934d31c416498af6f4de",
+    "baselines/runs/ebr/sudoku-s1/report-fc2.json": "829648cf8734794ee5eee514343c20ca704b5c882dd020d30f9aad9fddef25a7",
+    "baselines/runs/ebr/sudoku-s2/report-fc2.json": "6e2cbe945ce17b5b942bb0fb24e78e781be91590729f598365cea9ee0c180370"
+   },
+   "note": "lowest energy of 5 samples, each stopped at |grad_M E| < 0.2, at most 64 segments; 24.71 segments per puzzle over the 5 samples (three-seed mean)"
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "ebr",
+   "method": "EBR",
+   "old": 19088513280000.0,
+   "new": 19266794448860.0,
+   "new_with_compare": 19277753575440.0,
+   "ratio": 1.0093397095019858,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/ebr/flops-full/mazeunique.json": "042998dd5f0f1f6c2e6b99454f7143a898b10cf32f72a3a12b9263423861caaf"
+   },
+   "note": "published setting: lowest energy of 5 samples, 16 segments"
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "cram-0-fit",
+   "method": "CRAM",
+   "old": 1274597884.331286,
+   "new": 2015770227.8755887,
+   "new_with_compare": 3048019945.4901795,
+   "ratio": 1.5814950367136036,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s0.json": "343d5fd61414820310d09ee597e441443ab24e38fae8f7dde5f172c8a29e4dc1",
+    "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s1.json": "906057e35eb870aa2e9c285bda4789eadb0f3d6f4d50c3aa937b351898dbb980",
+    "experiments/runs/CRAM-S/full/test/cram0-hb-fit-s2.json": "f84e3feb3fae593e8959218c5e3573c7443a6f950afb47d627c7dd9320f903c4",
+    "baselines/runs/flops-full/cram-kernels.json": "1d14295c29a4922aa8a22c31a4eb1ae468d8c6f5380d5178b6fa3a1075159874"
+   },
+   "note": "3-seed mean of per-puzzle means; per seed new 1.97e+09, 2.043e+09, 2.034e+09"
+  },
+  {
+   "benchmark": "sudoku-extreme",
+   "row": "hand-energy",
+   "method": "Hand-set energy",
+   "old": 108086390.03555353,
+   "new": 108229308.45860569,
+   "new_with_compare": 721958709.9635695,
+   "ratio": 1.0013222610451247,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-hand-sudoku.json": "7c49b44518e10be8c536b69a582ba733bd3635dfcc80bb8b2bc8871b4441b8f4"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "hand-energy",
+   "method": "Hand-set energy",
+   "old": 560511.72,
+   "new": 837048.85,
+   "new_with_compare": 3057695.145,
+   "ratio": 1.493365473250051,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-hand-maze-unique.json": "89fd578c5235c114e981e20c8b49a84ddeb5cf8a6ce79670d977f98e833d2b18"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-unique",
+   "row": "cram-sgd-fg",
+   "method": "CRAM",
+   "old": 560511.72,
+   "new": 836870.85,
+   "new_with_compare": 3057517.145,
+   "ratio": 1.4930479062953403,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-sgd-fg.json": "dd474fd95abb80492bb265cbc85b6b6ffb6deef674e63fe177fb8d12b0468775"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "maze-hard",
+   "row": "cram-latent-zmu",
+   "method": "CRAM",
+   "old": 6012871.8,
+   "new": 14058028.200000001,
+   "new_with_compare": 16193699.256666668,
+   "ratio": 2.337989012172187,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-latent-zmu.json": "233cb7dde1d5a9a9137f997087dbb665136658e1d3f4a121ff368237b99cc041"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "nqueens-8",
+   "row": "cram-mpl",
+   "method": "CRAM",
+   "old": 2094787.675268817,
+   "new": 3347803.5,
+   "new_with_compare": 7087820.620430107,
+   "ratio": 1.5981588680916732,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-nqueens-8.json": "1fa63452912aab163ea44f53794e4bb56672a254a17786dfcf28c2e48f136681"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "nqueens-10",
+   "row": "cram-cd",
+   "method": "CRAM",
+   "old": 12624734.591320986,
+   "new": 18659243.583613127,
+   "new_with_compare": 42593667.1611791,
+   "ratio": 1.4779909588309788,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-nqueens-10.json": "0fed1b0f2c98477fd0e05246a34908b05523dcd38874fc99d7cd2862df2e3399"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "nqueens-8",
+   "row": "cram-mpl-n1",
+   "method": "CRAM",
+   "old": 102287.32096774194,
+   "new": 163976.375,
+   "new_with_compare": 346234.6185483871,
+   "ratio": 1.603095803552356,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-nqueens-8.json": "1fa63452912aab163ea44f53794e4bb56672a254a17786dfcf28c2e48f136681"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "nqueens-10",
+   "row": "cram-cd-n1",
+   "method": "CRAM",
+   "old": 637504.0701469368,
+   "new": 941704.7534929059,
+   "new_with_compare": 2150692.3616015017,
+   "ratio": 1.4771744959618134,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-nqueens-10.json": "0fed1b0f2c98477fd0e05246a34908b05523dcd38874fc99d7cd2862df2e3399"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "graph-coloring-8",
+   "row": "cram-full",
+   "method": "CRAM",
+   "old": 149565.92156862747,
+   "new": 201178.66274509803,
+   "new_with_compare": 426635.9294117647,
+   "ratio": 1.3450835633890594,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-gc8-full.json": "ae102a7d4a05feabf76eca0744de99b31b8d32ae06ff7cf7e4908878b0ceb84f"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "graph-coloring-10",
+   "row": "cram-full",
+   "method": "CRAM",
+   "old": 806723.5625,
+   "new": 1189987.84375,
+   "new_with_compare": 2712842.0572916665,
+   "ratio": 1.475087500930655,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-gc10-full.json": "6df9571b65734b6459d53a1e98d9f4dc30c1b2c34be79a56f53c62a292737f92"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "graph-coloring-8",
+   "row": "cram-full-n1",
+   "method": "CRAM",
+   "old": 21336.104575163397,
+   "new": 24006.116339869284,
+   "new_with_compare": 35588.094117647066,
+   "ratio": 1.1251405454683585,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-gc8-full.json": "ae102a7d4a05feabf76eca0744de99b31b8d32ae06ff7cf7e4908878b0ceb84f"
+   },
+   "note": null
+  },
+  {
+   "benchmark": "graph-coloring-10",
+   "row": "cram-full-n1",
+   "method": "CRAM",
+   "old": 75224.8125,
+   "new": 94335.71875,
+   "new_with_compare": 170105.36979166666,
+   "ratio": 1.254050566759472,
+   "flop_is_lower_bound": false,
+   "upper_bound": null,
+   "sources": {
+    "baselines/runs/flops-full/cram-gc10-full.json": "6df9571b65734b6459d53a1e98d9f4dc30c1b2c34be79a56f53c62a292737f92"
+   },
+   "note": null
+  }
+ ],
+ "components": {
+  "baselines": {
+   "HRM": {
+    "sudoku-extreme": {
+     "per_step": 13776643619,
+     "per_step_with_compare": 13779309769,
+     "per_step_old": 13744807936,
+     "vote": 0
+    },
+    "maze-unique": {
+     "per_step": 188207354835,
+     "per_step_with_compare": 188520010847,
+     "per_step_old": 187290828800,
+     "vote": 0
+    }
+   },
+   "TRM": {
+    "sudoku-extreme": {
+     "per_step": 25703039937,
+     "per_step_with_compare": 25703139431,
+     "per_step_old": 25632486400,
+     "vote": 0
+    },
+    "maze-unique": {
+     "per_step": 240038479891,
+     "per_step_with_compare": 240442166559,
+     "per_step_old": 238853875712,
+     "vote": 0
+    }
+   },
+   "GRAM": {
+    "sudoku-extreme": {
+     "per_step": 26597972163,
+     "per_step_with_compare": 26598071657,
+     "per_step_old": 26525945856,
+     "vote": 1260
+    },
+    "maze-unique": {
+     "per_step": 249974381587,
+     "per_step_with_compare": 250378068255,
+     "per_step_old": 248773879808,
+     "vote": 1260
+    }
+   },
+   "EqR": {
+    "sudoku-extreme": {
+     "per_nfe": 25708273089,
+     "per_nfe_with_compare": 25708571076,
+     "per_nfe_old": 25632306176,
+     "select_over_B": 1088768
+    },
+    "maze-unique": {
+     "per_nfe": 14115427851,
+     "per_nfe_with_compare": 14317504782,
+     "per_nfe_old": 13649050112,
+     "select_over_B": 6912128
+    }
+   },
+   "FRM": {
+    "sudoku-extreme": {
+     "per_call": 953204425,
+     "per_call_with_compare": 953939257,
+     "per_call_old": 943069184,
+     "per_puzzle_over_calls": 953216640.527215
+    },
+    "maze-unique": {
+     "per_call": 18288649692,
+     "per_call_with_compare": 18392329692,
+     "per_call_old": 17971810304,
+     "per_puzzle_over_calls": 18288742249.322956
+    }
+   },
+   "TRMP": {
+    "sudoku-extreme": {
+     "per_step": 3403150044,
+     "per_rollout": 54432,
+     "noise_per_continuing_step": 3240,
+     "cap_correction": 0,
+     "select_per_rollout_considered": 0,
+     "input_check": 729,
+     "with_compare": {
+      "per_step": 3414969652,
+      "per_rollout": 58806,
+      "noise_per_continuing_step": 3240,
+      "cap_correction": 1,
+      "select_per_rollout_considered": 1,
+      "input_check": 891
+     },
+     "formula": "K rollouts, cap c, u = min(steps, c) of those K: input_check + K per_rollout + sum(u) per_step - #(steps >= c) cap_correction + (sum(u) - K) noise + K select_per_rollout_considered"
+    },
+    "maze-unique": {
+     "per_step": 36324658662,
+     "per_rollout": 360900,
+     "noise_per_continuing_step": 37800,
+     "cap_correction": 0,
+     "select_per_rollout_considered": 0,
+     "input_check": 4500,
+     "with_compare": {
+      "per_step": 36466182769,
+      "per_rollout": 387900,
+      "noise_per_continuing_step": 37800,
+      "cap_correction": 1,
+      "select_per_rollout_considered": 1,
+      "input_check": 6300
+     },
+     "formula": "K rollouts, cap c, u = min(steps, c) of those K: input_check + K per_rollout + sum(u) per_step - #(steps >= c) cap_correction + (sum(u) - K) noise + K select_per_rollout_considered"
+    }
+   },
+   "EBR": {
+    "sudoku": {
+     "segment": {
+      "new": 12977063066,
+      "new_with_compare": 12978207703,
+      "old": 12888211968
+     },
+     "measure": {
+      "new": 617983119,
+      "new_with_compare": 618035697,
+      "old": 613702656
+     },
+     "energy": {
+      "new": 301516109,
+      "new_with_compare": 301568597,
+      "old": 300132864
+     }
+    },
+    "mazeunique": {
+     "segment": {
+      "new": 240529352654,
+      "new_with_compare": 240665936680,
+      "old": 238303641600
+     },
+     "measure": {
+      "new": 11454196518,
+      "new_with_compare": 11460679227,
+      "old": 11347660800
+     },
+     "energy": {
+      "new": 4889247308,
+      "new_with_compare": 4895728208,
+      "old": 4844390400
+     }
+    },
+    "nqueens8": {
+     "segment": {
+      "new": 39240471543,
+      "new_with_compare": 39241225424,
+      "old": 39110639616
+     },
+     "measure": {
+      "new": 1868662610,
+      "new_with_compare": 1868695451,
+      "old": 1862402048
+     },
+     "energy": {
+      "new": 924746568,
+      "new_with_compare": 924779336,
+      "old": 922812416
+     }
+    },
+    "nqueens10": {
+     "segment": {
+      "new": 62248257447,
+      "new_with_compare": 62250040172,
+      "old": 62039347200
+     },
+     "measure": {
+      "new": 2964310118,
+      "new_with_compare": 2964390227,
+      "old": 2954240000
+     },
+     "energy": {
+      "new": 1459806108,
+      "new_with_compare": 1459886108,
+      "old": 1456640000
+     }
+    },
+    "gc8": {
+     "segment": {
+      "new": 16905986631,
+      "new_with_compare": 16906147208,
+      "old": 16850878464
+     },
+     "measure": {
+      "new": 805072958,
+      "new_with_compare": 805079267,
+      "old": 802414592
+     },
+     "energy": {
+      "new": 400407540,
+      "new_with_compare": 400413812,
+      "old": 399601664
+     }
+    },
+    "gc10": {
+     "segment": {
+      "new": 27369027427,
+      "new_with_compare": 27369414002,
+      "old": 27279175680
+     },
+     "measure": {
+      "new": 1303328763,
+      "new_with_compare": 1303345017,
+      "old": 1298995200
+     },
+     "energy": {
+      "new": 646676153,
+      "new_with_compare": 646692353,
+      "old": 645350400
+     }
+    }
+   }
+  },
+  "cram0_sudoku": {
+   "C": 4,
+   "check_moves": 4096,
+   "move": {
+    "20": {
+     "total": 639,
+     "total_with_compare": 1223
+    },
+    "30": {
+     "total": 919,
+     "total_with_compare": 1533
+    },
+    "31": {
+     "total": 947,
+     "total_with_compare": 1564
+    }
+   },
+   "start": {
+    "total": 8546006,
+    "total_with_compare": 9635780
+   },
+   "check": {
+    "total": 4266118,
+    "total_with_compare": 4268732
+   },
+   "source": "baselines/flops/cram_kernels.py (move_general transcription; GeneralSearch constructor and step_check on the seed-0 model)"
+  },
+  "training_per_update": {
+   "rows": {
+    "sudoku/pl": {
+     "old": 2125764000,
+     "new": 2137264625,
+     "new_with_compare": 2138555963,
+     "ratio": 1.005410113728523
+    },
+    "sudoku/mpl": {
+     "old": 2125764000,
+     "new": 2137993625,
+     "new_with_compare": 2139446963,
+     "ratio": 1.0057530492566438
+    },
+    "sudoku/mpf": {
+     "old": 2125764000,
+     "new": 2139937625,
+     "new_with_compare": 2140499963,
+     "ratio": 1.006667543998299
+    },
+    "sudoku/dsm": {
+     "old": 2125764000,
+     "new": 2145769625,
+     "new_with_compare": 2147789963,
+     "ratio": 1.0094110282232647
+    },
+    "sudoku/cd": {
+     "old": 348625296000,
+     "new": 348918164795,
+     "new_with_compare": 348921724133,
+     "ratio": 1.0008400675405953
+    },
+    "sudoku/pcd": {
+     "old": 348625296000,
+     "new": 348918164795,
+     "new_with_compare": 348921760133,
+     "ratio": 1.0008400675405953
+    },
+    "sudoku/chl": {
+     "old": 14880348000,
+     "new": 14961806795,
+     "new_with_compare": 14985697133,
+     "ratio": 1.0054742533575156
+    },
+    "sudoku/eqp": {
+     "old": 99910908000,
+     "new": 100738862796,
+     "new_with_compare": 100982911134,
+     "ratio": 1.0082869309525242
+    },
+    "sudoku/imp": {
+     "old": 23383404000,
+     "new": 23540056625,
+     "new_with_compare": 23571965963,
+     "ratio": 1.006699307979283
+    },
+    "sudoku/tbptt": {
+     "old": 32949342000,
+     "new": 33157024625,
+     "new_with_compare": 33224654963,
+     "ratio": 1.0063030886929396
+    },
+    "sudoku/bptt1": {
+     "old": 11691702000,
+     "new": 11768164625,
+     "new_with_compare": 11792054963,
+     "ratio": 1.006539905396152
+    },
+    "sudoku/bptt5": {
+     "old": 41452398000,
+     "new": 41694285305,
+     "new_with_compare": 41770663643,
+     "ratio": 1.0058353030625635
+    },
+    "sudoku/bptt": {
+     "old": 30823578000,
+     "new": 30977001155,
+     "new_with_compare": 31020574493,
+     "ratio": 1.0049774609229338
+    },
+    "maze/pl": {
+     "old": 8294400,
+     "new": 10252968,
+     "new_with_compare": 10368168,
+     "ratio": 1.2361313657407407
+    },
+    "maze/mpl": {
+     "old": 8294400,
+     "new": 10368168,
+     "new_with_compare": 10598568,
+     "ratio": 1.2500202546296297
+    },
+    "maze/mpf": {
+     "old": 8294400,
+     "new": 10540968,
+     "new_with_compare": 10540968,
+     "ratio": 1.270853587962963
+    },
+    "maze/dsm": {
+     "old": 8294400,
+     "new": 11462568,
+     "new_with_compare": 11692968,
+     "ratio": 1.3819646990740742
+    },
+    "maze/cd": {
+     "old": 1078272000,
+     "new": 1124376718,
+     "new_with_compare": 1124467086,
+     "ratio": 1.0427579664500237
+    },
+    "maze/pcd": {
+     "old": 1078272000,
+     "new": 1124376718,
+     "new_with_compare": 1124467086,
+     "ratio": 1.0427579664500237
+    },
+    "maze/chl": {
+     "old": 431308800,
+     "new": 537120910,
+     "new_with_compare": 571911310,
+     "ratio": 1.2453279645581077
+    },
+    "maze/eqp": {
+     "old": 389836800,
+     "new": 520301711,
+     "new_with_compare": 558778511,
+     "ratio": 1.3346654574427042
+    },
+    "maze/imp": {
+     "old": 261273600,
+     "new": 330451368,
+     "new_with_compare": 344736168,
+     "ratio": 1.2647713661081716
+    },
+    "maze/bptt1": {
+     "old": 45619200,
+     "new": 57888168,
+     "new_with_compare": 61574568,
+     "ratio": 1.2689430765993266
+    },
+    "maze/bptt5": {
+     "old": 78796800,
+     "new": 96595520,
+     "new_with_compare": 101664320,
+     "ratio": 1.2258812540610786
+    },
+    "maze/bptt": {
+     "old": 120268800,
+     "new": 144979710,
+     "new_with_compare": 151776510,
+     "ratio": 1.2054640106162198
+    }
+   },
+   "sources": {
+    "results/alt-training/train-flop-fc2.json": "ca577e7a496a558cb9aaf97af5a83831c3a4e087f7e7777ef81748680a93ee3d",
+    "results/alt-training/train-flop.json": "05eb566603ddbeebfe62887f8c3a39f9ec041531df370484d87ae6e52ad4f2c5",
+    "results/alt-training/train-flop-fc2-maze-sgd.json": "70b26e0f9b8deaf70af27631c56646826f174bd6fab7f98ffb4954319f0279e7",
+    "results/alt-training/train-flop-maze-sgd.json": "15968b2d65248ba8b87aec5ff7dbb4cb348acbc3d9021368046581de47d47b85"
+   },
+   "note": "one training update (loss, gradient, step) of each CRAM training method at its tuned choice; FullCounter"
+  }
+ }
+}

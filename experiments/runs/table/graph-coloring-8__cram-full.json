@@ -1,0 +1,221 @@
+{
+ "benchmark": "graph-coloring-8",
+ "row": "cram-full",
+ "label": "CRAM (full pair tables, PL + L1)",
+ "solved_mean": 1.0,
+ "solved_sd": 0.0,
+ "solved_peak": 1.0,
+ "per_seed": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "n_test": 255,
+ "test_set": "GRAM's graph-coloring-8 test split (CUN-bjy/graph-coloring 08d5f1f8), 255 graphs",
+ "params": 7332,
+ "flop_per_puzzle": 21336.104575163397,
+ "train_gpu_s": 1.5039472160860896,
+ "train_cpu_s": 59.914122159127146,
+ "source": "measured",
+ "provenance": "cram_graph_coloring.py; cram/cram_graph_coloring.py; runs/CRAM-GC/final/n8-full-u1024-lr10-lam0.0001",
+ "notes": "per_seed is the fraction of test graphs whose single output (chain 0) is a proper coloring; GRAM's metrics are in extra. Training deterministic (full batch); seeds 0-2 set the search. Fit times: seed-0 cold fits (one fit per device).",
+ "written": "2026-11-06T08:53:21+00:00",
+ "commit": "58b40a4",
+ "extra": {
+  "metrics": {
+   "proper_1": {
+    "mean": 1.0,
+    "sd": 0.0,
+    "per_seed": [
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "proper_canonical_1": {
+    "mean": 0.9751633986928104,
+    "sd": 0.012606079426134537,
+    "per_seed": [
+     0.984313725490196,
+     0.9803921568627451,
+     0.9607843137254902
+    ]
+   },
+   "conflicts_1": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "conflicts_majority_20": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "coverage_20": {
+    "mean": 0.8885233918128654,
+    "sd": 0.004565057016373103,
+    "per_seed": [
+     0.8848684210526315,
+     0.8870614035087719,
+     0.893640350877193
+    ]
+   },
+   "coverage_canonicalized_20": {
+    "mean": 0.889985380116959,
+    "sd": 0.0044314165398326695,
+    "per_seed": [
+     0.8859649122807017,
+     0.8892543859649122,
+     0.8947368421052632
+    ]
+   },
+   "proper_any_20": {
+    "mean": 1.0,
+    "sd": 0.0,
+    "per_seed": [
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "flop_1": {
+    "mean": 21336.104575163397,
+    "sd": 455.19042634294215,
+    "per_seed": [
+     21539.882352941175,
+     21653.80392156863,
+     20814.62745098039
+    ]
+   },
+   "flop_20": {
+    "mean": 149565.92156862744,
+    "sd": 911.178263014233,
+    "per_seed": [
+     148515.92156862744,
+     150148.98039215687,
+     150032.86274509804
+    ]
+   },
+   "wrong_stops_1": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "budget_failures_1": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "wrong_stops_all": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "budget_failures_all": {
+    "mean": 0,
+    "sd": 0.0,
+    "per_seed": [
+     0,
+     0,
+     0
+    ]
+   },
+   "moves_mean": {
+    "mean": 93.6013725490196,
+    "sd": 0.6508416164387357,
+    "per_seed": [
+     92.8513725490196,
+     94.0178431372549,
+     93.93490196078432
+    ]
+   },
+   "moves_max": {
+    "mean": 4542.333333333333,
+    "sd": 668.9516674120287,
+    "per_seed": [
+     5060,
+     4780,
+     3787
+    ]
+   }
+  },
+  "params_nonzero": 869,
+  "fit": {
+   "gpu_cold_s": 1.5039472160860896,
+   "gpu_warm_s": 1.2701913099735975,
+   "cpu_cold_s": 59.914122159127146,
+   "cpu_warm_s": 59.44079232029617,
+   "cuda_context_s": 0.8069977178238332,
+   "gpu_hardware": "NVIDIA H200",
+   "cpu_hardware": "Intel(R) Xeon(R) Platinum 8468",
+   "cpu_threads": 1,
+   "gpu_warm_repeats": [
+    1.131909797899425,
+    1.2701913099735975,
+    1.3136930568143725,
+    1.3146147122606635,
+    1.313214029185474,
+    1.2629392980597913,
+    1.2120064250193536
+   ],
+   "cpu_warm_repeats": [
+    61.35203878721222,
+    58.722100264858454,
+    60.53767354087904,
+    59.96310058096424,
+    59.44079232029617,
+    59.044287162832916,
+    58.6851972611621
+   ],
+   "cpu_gpu_max_abs_diff": 3.337860107421875e-06,
+   "cpu_gpu_same_support": true,
+   "training_deterministic": "full batch; one fit per device serves seeds 0-2 (seeds set the search)"
+  },
+  "recipe": {
+   "n": 8,
+   "arm": "full",
+   "updates": 1024,
+   "lr": 10.0,
+   "lam": 0.0001,
+   "momentum": 0.5,
+   "stop": "terms",
+   "temperature": 2.0,
+   "samples": 20,
+   "cap": 10000,
+   "theta": 0.45,
+   "validation": {
+    "graphs": 206,
+    "proper_1": 1.0,
+    "proper_canonical_1": 0.9789644012944985,
+    "coverage_20": 0.9254185692541856,
+    "coverage_canonicalized_20": 0.9264332825976661,
+    "conflicts_1": 0.0,
+    "conflicts_majority_20": 0.0,
+    "flop_1": 25479.54045307443,
+    "flop_20": 223672.59223300972,
+    "wrong_stops_all": 0.0,
+    "budget_failures_all": 20.0
+   }
+  }
+ }
+}

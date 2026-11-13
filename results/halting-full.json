@@ -1,0 +1,369 @@
+{
+ "description": "Halting of looped models on the full Sudoku-Extreme test set",
+ "puzzles": "Sudoku-Extreme: all 412,786 test puzzles (full-all rows 10,000-422,785)",
+ "n_per_seed": 412786,
+ "rows": {
+  "HRM": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "halt_rule": "q_halt > q_continue",
+     "file": "baselines/runs/looped-dynamics/halting-full/hrm/sudoku-extreme-s0/act16.json",
+     "slurm_job": "341522",
+     "seconds": 297.4369225970004,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/hrm/sudoku-extreme-s0/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 234053
+     },
+     "npz_sha256": "5ddff07afd882f2af6cd390248a2209cad441bbada00531d98e28660e5c0f557",
+     "cap": 16,
+     "n": 412786,
+     "halted": 231738,
+     "halted_wrong": 2307,
+     "wrong_halt_rate": 0.009955208036662092,
+     "solved": 234256,
+     "solve_rate": 0.5674998667590471,
+     "mean_halt_step": 10.552811868619575,
+     "mean_halt_step_of_halted": 6.29713296912893,
+     "capped_wrong": 176223
+    },
+    {
+     "seed": 1,
+     "halt_rule": "q_halt > q_continue",
+     "file": "baselines/runs/looped-dynamics/halting-full/hrm/sudoku-extreme-s1/act16.json",
+     "slurm_job": "341526",
+     "seconds": 293.013938278993,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/hrm/sudoku-extreme-s1/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 236705
+     },
+     "npz_sha256": "eac13958cd52ef042ddae21893ee4b6c79220455186e4174f3502127893f1986",
+     "cap": 16,
+     "n": 412786,
+     "halted": 236322,
+     "halted_wrong": 203,
+     "wrong_halt_rate": 0.0008589974695542523,
+     "solved": 237143,
+     "solve_rate": 0.5744938055069697,
+     "mean_halt_step": 9.557390512275125,
+     "mean_halt_step_of_halted": 4.746629598598522,
+     "capped_wrong": 175440
+    },
+    {
+     "seed": 2,
+     "halt_rule": "q_halt > q_continue",
+     "file": "baselines/runs/looped-dynamics/halting-full/hrm/sudoku-extreme-s2/act16.json",
+     "slurm_job": "341530",
+     "seconds": 293.97696580100455,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/hrm/sudoku-extreme-s2/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 205600
+     },
+     "npz_sha256": "36bfbf861df76ee44f7e46c214602f9b09171ce86f6fe3281d2dfa1976ef1e21",
+     "cap": 16,
+     "n": 412786,
+     "halted": 207021,
+     "halted_wrong": 1676,
+     "wrong_halt_rate": 0.008095797044744254,
+     "solved": 206217,
+     "solve_rate": 0.49957362895059426,
+     "mean_halt_step": 10.854256200549438,
+     "mean_halt_step_of_halted": 5.739731718038267,
+     "capped_wrong": 204893
+    }
+   ],
+   "pooled": {
+    "n": 1238358,
+    "halted": 675081,
+    "halted_wrong": 4186,
+    "solved": 677616,
+    "halted_pct": 54.51420348558333,
+    "wrong_halt_pct": 0.6200737392994322,
+    "solved_pct": 54.7189100405537
+   },
+   "cap": 16,
+   "mode": "one rollout per puzzle, cap at the trained depth"
+  },
+  "TRM": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/trm/sudoku-extreme-s0/act16.json",
+     "slurm_job": "341523",
+     "seconds": 767.7636487450072,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/trm/sudoku-extreme-s0/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 354376
+     },
+     "npz_sha256": "ad1691309d76a4064b3e8d2032ec8ecdb16d786ca78478ab26ae67d1a9e06b49",
+     "cap": 16,
+     "n": 412786,
+     "halted": 355011,
+     "halted_wrong": 8358,
+     "wrong_halt_rate": 0.023542932472514936,
+     "solved": 346665,
+     "solve_rate": 0.8398177263763791,
+     "mean_halt_step": 4.955163208054537,
+     "mean_halt_step_of_halted": 3.157710606150232,
+     "capped_wrong": 57763
+    },
+    {
+     "seed": 1,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/trm/sudoku-extreme-s1/act16.json",
+     "slurm_job": "341527",
+     "seconds": 770.2372054830048,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/trm/sudoku-extreme-s1/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 350572
+     },
+     "npz_sha256": "2a6d33f19ec36b6d8b0a4ef7336cdb5c1d3fe5b393a6f57222846f87961dc342",
+     "cap": 16,
+     "n": 412786,
+     "halted": 350870,
+     "halted_wrong": 7265,
+     "wrong_halt_rate": 0.02070567446632656,
+     "solved": 343608,
+     "solve_rate": 0.8324119519557349,
+     "mean_halt_step": 5.16740151071015,
+     "mean_halt_step_of_halted": 3.25583549462764,
+     "capped_wrong": 61913
+    },
+    {
+     "seed": 2,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/trm/sudoku-extreme-s2/act16.json",
+     "slurm_job": "341531",
+     "seconds": 764.498570944008,
+     "check": {
+      "ref": "baselines/runs/compute-sweep/trm/sudoku-extreme-s2/act32.npz",
+      "steps_compared": 16,
+      "mismatches_step16": 0,
+      "mismatches_all_steps": 0,
+      "ref_solved_step16": 356647
+     },
+     "npz_sha256": "f510142534259296cc83984f2e647640d28983e7a1b5361137c82efb48e2aaff",
+     "cap": 16,
+     "n": 412786,
+     "halted": 357116,
+     "halted_wrong": 9550,
+     "wrong_halt_rate": 0.026742010999227142,
+     "solved": 347576,
+     "solve_rate": 0.8420246810696099,
+     "mean_halt_step": 5.033104320398463,
+     "mean_halt_step_of_halted": 3.323499927194525,
+     "capped_wrong": 55660
+    }
+   ],
+   "pooled": {
+    "n": 1238358,
+    "halted": 1062997,
+    "halted_wrong": 25173,
+    "solved": 1037849,
+    "halted_pct": 85.83923227370437,
+    "wrong_halt_pct": 2.368115808417145,
+    "solved_pct": 83.80847864672413
+   },
+   "cap": 16,
+   "mode": "one rollout per puzzle, cap at the trained depth"
+  },
+  "EqR": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/eqr/sudoku-extreme-s0/d16-noise0p01.json",
+     "slurm_job": "341524",
+     "seconds": 785.7376164169982,
+     "check": null,
+     "npz_sha256": "50ce834fbc0f0024e04bbf42667fa4feb9480ff1cbbc5b0c3000566527c45a53",
+     "cap": 16,
+     "n": 412786,
+     "halted": 364904,
+     "halted_wrong": 7895,
+     "wrong_halt_rate": 0.021635827505316466,
+     "solved": 357013,
+     "solve_rate": 0.8648864060312123,
+     "mean_halt_step": 4.821461968186906,
+     "mean_halt_step_of_halted": 3.3546357398110187,
+     "capped_wrong": 47878
+    },
+    {
+     "seed": 1,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/eqr/sudoku-extreme-s1/d16-noise0p01.json",
+     "slurm_job": "341528",
+     "seconds": 771.8111112290062,
+     "check": null,
+     "npz_sha256": "e2431cc9b7e8cca89040bbcc295a36af269b3ae7e739cce4ac0a232164bddf94",
+     "cap": 16,
+     "n": 412786,
+     "halted": 359175,
+     "halted_wrong": 4458,
+     "wrong_halt_rate": 0.012411776988932971,
+     "solved": 354724,
+     "solve_rate": 0.8593411598261569,
+     "mean_halt_step": 5.108693124282316,
+     "mean_halt_step_of_halted": 3.4830403006890793,
+     "capped_wrong": 53604
+    },
+    {
+     "seed": 2,
+     "halt_rule": "q_halt > 0",
+     "file": "baselines/runs/looped-dynamics/halting-full/eqr/sudoku-extreme-s2/d16-noise0p01.json",
+     "slurm_job": "341532",
+     "seconds": 777.7842040940013,
+     "check": null,
+     "npz_sha256": "10eed484480d8c1ef51ef9799074a2fac3160d07f158f0b29049408bfa04546c",
+     "cap": 16,
+     "n": 412786,
+     "halted": 359355,
+     "halted_wrong": 5130,
+     "wrong_halt_rate": 0.014275577075593772,
+     "solved": 354231,
+     "solve_rate": 0.8581468363752647,
+     "mean_halt_step": 5.065668409296827,
+     "mean_halt_step_of_halted": 3.439888132904788,
+     "capped_wrong": 53425
+    }
+   ],
+   "pooled": {
+    "n": 1238358,
+    "halted": 1083434,
+    "halted_wrong": 17483,
+    "solved": 1065968,
+    "halted_pct": 87.48956279201975,
+    "wrong_halt_pct": 1.6136654378577744,
+    "solved_pct": 86.0791467410878
+   },
+   "cap": 16,
+   "mode": "one rollout per puzzle, cap at the trained depth"
+  },
+  "TRMP": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "halt_rule": "q > 0 (board q = -logsumexp(-q_cell))",
+     "file": "baselines/runs/looped-dynamics/halting-full/trmp/sudoku-extreme-s0/steps32.json",
+     "slurm_job": "341525",
+     "seconds": 2887.664209101,
+     "check": null,
+     "npz_sha256": "6a070231b46023e89a0f9e11f0f0c6b7a1ebb20dee659c01e846787bdef62e0a",
+     "cap": 32,
+     "n": 412786,
+     "halted": 397375,
+     "halted_wrong": 66,
+     "wrong_halt_rate": 0.00016608996539792386,
+     "solved": 397336,
+     "solve_rate": 0.9625714050379616,
+     "mean_halt_step": 5.126496538157786,
+     "mean_halt_step_of_halted": 4.084288140924819,
+     "capped_wrong": 15384
+    },
+    {
+     "seed": 1,
+     "halt_rule": "q > 0 (board q = -logsumexp(-q_cell))",
+     "file": "baselines/runs/looped-dynamics/halting-full/trmp/sudoku-extreme-s1/steps32.json",
+     "slurm_job": "341529",
+     "seconds": 2889.508393797005,
+     "check": null,
+     "npz_sha256": "4b99a8be7a15cf724f73129f78ea15e4a8691bd958b32378b4f18b9e03ad603f",
+     "cap": 32,
+     "n": 412786,
+     "halted": 388585,
+     "halted_wrong": 104,
+     "wrong_halt_rate": 0.0002676377111828815,
+     "solved": 388510,
+     "solve_rate": 0.9411898659353757,
+     "mean_halt_step": 5.65767007602002,
+     "mean_halt_step_of_halted": 4.017074771285562,
+     "capped_wrong": 24172
+    },
+    {
+     "seed": 2,
+     "halt_rule": "q > 0 (board q = -logsumexp(-q_cell))",
+     "file": "baselines/runs/looped-dynamics/halting-full/trmp/sudoku-extreme-s2/steps32.json",
+     "slurm_job": "341533",
+     "seconds": 2888.4795205099945,
+     "check": null,
+     "npz_sha256": "bb1f214d2c6f2e42be26965418ff1affecf0cdd5342fe72e98a744cbae21d845",
+     "cap": 32,
+     "n": 412786,
+     "halted": 375410,
+     "halted_wrong": 367,
+     "wrong_halt_rate": 0.000977597826376495,
+     "solved": 375150,
+     "solve_rate": 0.9088244271850305,
+     "mean_halt_step": 7.315640549824849,
+     "mean_halt_step_of_halted": 4.858053861111851,
+     "capped_wrong": 37269
+    }
+   ],
+   "pooled": {
+    "n": 1238358,
+    "halted": 1161370,
+    "halted_wrong": 537,
+    "solved": 1160996,
+    "halted_pct": 93.78305788794516,
+    "wrong_halt_pct": 0.046238494192204035,
+    "solved_pct": 93.75285660527892
+   },
+   "cap": 32,
+   "mode": "one rollout per puzzle, cap at the trained depth"
+  },
+  "EBR": {
+   "per_seed": [
+    {
+     "seed": 0,
+     "n": 412786,
+     "halted": 410468,
+     "halted_wrong": 1121,
+     "solved": 409872
+    },
+    {
+     "seed": 1,
+     "n": 412786,
+     "halted": 409956,
+     "halted_wrong": 592,
+     "solved": 409723
+    },
+    {
+     "seed": 2,
+     "n": 412786,
+     "halted": 409940,
+     "halted_wrong": 855,
+     "solved": 410280
+    }
+   ],
+   "pooled": {
+    "n": 1238358,
+    "halted": 1230364,
+    "halted_wrong": 2568,
+    "solved": 1229875,
+    "halted_pct": 99.35446777103229,
+    "wrong_halt_pct": 0.2087187206387703,
+    "solved_pct": 99.31497999770664
+   },
+   "cap": 64,
+   "mode": "first sample, gradient norm below 0.2 or 64 segments (results/ebr-halting.json, unseen)"
+  }
+ },
+ "missing": [],
+ "complete": true
+}

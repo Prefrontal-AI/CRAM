@@ -1,0 +1,68 @@
+{
+ "benchmark": "maze-hard",
+ "row": "cram-latent-zmu",
+ "label": "CRAM + linear latent with its input at G (pseudolikelihood alone, adjoint at the fixed point / damped descent)",
+ "solved_mean": 0.999,
+ "solved_sd": 0.0,
+ "solved_peak": 0.999,
+ "per_seed": [
+  0.999,
+  0.999,
+  0.999
+ ],
+ "n_test": 1000,
+ "test_set": "Maze-Hard test (sapientinc/maze-30x30-hard-1k @ 549754de), all 1,000 mazes, scored once per seed",
+ "params": 29,
+ "flop_per_puzzle": 6012871.8,
+ "train_gpu_s": 25.58801945397863,
+ "train_cpu_s": null,
+ "source": "measured",
+ "provenance": "maze_hard_latent.py fit/score; runs/CRAM-HE/selected-CHE8-mu.json, runs/CRAM-HE/final-triton/CHE8-mu/",
+ "notes": "Latent on the open cells: A z = e_G with A = (4 + m) I - Adj (no degree term; one learned mass m = e^mu). Settled by the Jacobi relaxation in log z (all cells at once); pair costs kappa (alpha_ij + alpha_ji), alpha = softmax over self + 4 sides of beta_d + log z_(i+d). Training: pseudolikelihood of the answers alone, Adam lr 0.1 constant, 4,000 updates of 64 mazes; gradient to m by the adjoint relaxation at the fixed point (no differentiation through a solver). Inference: latent settle, then damped descent (step 0.2 from logits 3, fixed-point certificate every 16 steps, at most 2,048 steps). Trained on all 1,000 training mazes. train_gpu_s: the seed-0 cold fit on one H200 (no warm repeats were run); train_cpu_s: not measured. flop_per_puzzle: the value in results/op-counts.json.",
+ "written": "2026-11-12T17:37:30+00:00",
+ "commit": "d2e99f9",
+ "extra": {
+  "fit_gpu_cold_s": [
+   25.58801945397863,
+   25.257067181984894,
+   25.065556916990317
+  ],
+  "fit_gpu_warm_s": [
+   null,
+   null,
+   null
+  ],
+  "fit_cpu_cold_s": [
+   null
+  ],
+  "fit_cpu_warm_s": [
+   null
+  ],
+  "cuda_context_s": [
+   0.6131874349957798,
+   0.5958928070031106,
+   0.6216774900094606
+  ],
+  "wrong_stops": [
+   1,
+   1,
+   1
+  ],
+  "budget_failures": [
+   0,
+   0,
+   0
+  ],
+  "flop_p99": [
+   8967150.0,
+   8967150.0,
+   8967150.0
+  ],
+  "flop_max": [
+   10368900.0,
+   10368900.0,
+   10368900.0
+  ],
+  "stored_params": 29
+ }
+}

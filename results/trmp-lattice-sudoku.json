@@ -1,0 +1,131 @@
+{
+ "method": "TRMP lattice model (factor graph, 16k), the ten-minute recipe of arXiv 2610.18649 (Table 4, \"Full gradient, factor graph\")",
+ "benchmark": "sudoku-extreme",
+ "status": "3-seed scored clean-room TRMP lattice reimplementation",
+ "published_accuracy_used": false,
+ "parameters": 16543,
+ "solved_mean": 0.9889733017431146,
+ "solved_sd": 0.002726826952172621,
+ "per_seed": [
+  0.9918311183034308,
+  0.9886890543768442,
+  0.986399732549069
+ ],
+ "n_test": 412786,
+ "flop_per_puzzle": 347624484858.9656,
+ "fit_cold_seconds_seed0": 885.9256122320367,
+ "fit_warm_median_seconds_seed0": 807.7068823470036,
+ "fit_warm_seconds_seed0": [
+  788.1819891569903,
+  793.7747998950072,
+  811.8605781030201,
+  814.2507285129977,
+  812.0516910859442,
+  807.7068823470036,
+  790.1025733009737
+ ],
+ "device": "one H200",
+ "inference": "64 chains per puzzle, budget 1,000 deep-supervision steps, check every step, conflict threshold 0.8",
+ "flop_convention": "FC2 (baselines/flops/fullcount.py), whole chain search counted; mean over all test puzzles of the three seeds",
+ "published": {
+  "abstract": "about 99% with 16k parameters, about 10 minutes on an H100",
+  "appendix_b6": "a 20,000-step Sudoku lattice run at 16k parameters takes about 15 minutes (H100 often shared by two jobs)",
+  "appendix_b4": "with full gradients, the 16k factor graph exceeds 99% (1,000 test puzzles)"
+ },
+ "seeds": [
+  {
+   "seed": 0,
+   "solved": 409414,
+   "count": 412786,
+   "solve_rate": 0.9918311183034308,
+   "timeouts": 3275,
+   "wrong": 97,
+   "mean_steps": 31.373743295557503,
+   "flop_per_puzzle": 281032712187.05707,
+   "fit_seconds_cold": 885.9256122320367,
+   "selected_step": 20000,
+   "selected_dev": {
+    "solved": 495,
+    "count": 500,
+    "timeouts": 5,
+    "wrong": 0,
+    "mean_steps": 32.50400161743164,
+    "resets": 129041,
+    "seconds": 86.62,
+    "chains": 64,
+    "budget": 300,
+    "check_every": 4
+   },
+   "gpu": "NVIDIA H200",
+   "slurm_job": "343800",
+   "params": 16543
+  },
+  {
+   "seed": 1,
+   "solved": 408117,
+   "count": 412786,
+   "solve_rate": 0.9886890543768442,
+   "timeouts": 4408,
+   "wrong": 261,
+   "mean_steps": 40.58924236771596,
+   "flop_per_puzzle": 363581252028.41925,
+   "fit_seconds_cold": 764.1625671750808,
+   "selected_step": 20000,
+   "selected_dev": {
+    "solved": 489,
+    "count": 500,
+    "timeouts": 11,
+    "wrong": 0,
+    "mean_steps": 42.42400360107422,
+    "resets": 172123,
+    "seconds": 86.64,
+    "chains": 64,
+    "budget": 300,
+    "check_every": 4
+   },
+   "gpu": "NVIDIA H200",
+   "slurm_job": "343801",
+   "params": 16543
+  },
+  {
+   "seed": 2,
+   "solved": 407172,
+   "count": 412786,
+   "solve_rate": 0.986399732549069,
+   "timeouts": 5456,
+   "wrong": 158,
+   "mean_steps": 44.46062850968783,
+   "flop_per_puzzle": 398259490361.4204,
+   "fit_seconds_cold": 760.7506136589218,
+   "selected_step": 20000,
+   "selected_dev": {
+    "solved": 493,
+    "count": 500,
+    "timeouts": 7,
+    "wrong": 0,
+    "mean_steps": 43.07200241088867,
+    "resets": 167332,
+    "seconds": 86.64,
+    "chains": 64,
+    "budget": 300,
+    "check_every": 4
+   },
+   "gpu": "NVIDIA H200",
+   "slurm_job": "343802",
+   "params": 16543
+  }
+ ],
+ "sources": {
+  "baselines/runs/trmp-lattice/warm-s0/cold/fit.json": "e75ffc719f203cdac6df1414e31fa51085290186f657de22e1ebd221cc57a5e9",
+  "baselines/runs/trmp-lattice/warm-s0/cold/score/test.json": "268b953bfdc36f7aa45fada342a4ccfc00bbfbda42cc68ce0121ab9b77385a70",
+  "baselines/runs/trmp-lattice/warm-s0/cold/score/flops.json": "8a225d6eb4b9b1a4c586cfa48bd1fbeebfcea05d41af7d209f1e4b12aeb1e350",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s1/fit.json": "8f133c6b08d93ddf7ebc5465555c9fc10c37a5e0e058909fef535b068490698a",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s1/score/test.json": "ba7824032cc181aa99efab8118b3a545f048f84c8f0a64e255301a7646dba2aa",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s1/score/flops.json": "1bdb2dcf9f2e1700089f602241bbd945c9085972056f4e56dedf66cae25e2562",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s2/fit.json": "f0c9f57678622e36c0de2f8d2c1f171e099245743f742232974325e5ed7e9cdc",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s2/score/test.json": "b5eae629fcb549b7fe45777fb7ce5c42636d65b73ccd7933b770e62cb17dd9e4",
+  "baselines/runs/trmp-lattice/sudoku-extreme-s2/score/flops.json": "2d3b2d218eb4f9ef3c3edf5f1b2b803d198cad362bdc4fd24496bab27316ad8e",
+  "baselines/runs/trmp-lattice/warm-s0/repeats.json": "5fe49d57c4d4885ded48c2f89a10c1afb5a8b98356759537de0d5dd5e7944ab1"
+ },
+ "code": "baselines/trmp/lattice*.py, baselines/flops/trmp_lattice_count.py"
+}

@@ -1,0 +1,343 @@
+{
+ "benchmark": "sudoku-extreme",
+ "row": "cram-0-fit",
+ "label": "CRAM0 (general Eq. 1 energy, PL + L1, no post-fit processing), fitted stopping threshold",
+ "solved_mean": 0.9999588164327279,
+ "solved_sd": 2.4225627807128447e-06,
+ "solved_peak": 0.9999612389955086,
+ "per_seed": [
+  0.9999563938699472,
+  0.9999612389955086,
+  0.9999588164327279
+ ],
+ "n_test": 412786,
+ "test_set": "Sudoku-Extreme official test less dev10k (412,786 puzzles), x 3 training splits",
+ "params": 263169,
+ "flop_per_puzzle": 1274597884.331286,
+ "train_gpu_s": 0.5850703643324474,
+ "train_cpu_s": 1.7854374502785504,
+ "source": "measured",
+ "provenance": "sudoku.py; runs/CRAM-S/full/",
+ "notes": "One free 9x9 cost block per unordered cell pair and a free input cost per cell; digit relabeling; no equality prior, no compression; stopping threshold fitted from the training solutions (tau + 1e-3, tau the highest training-solution energy, refit per split, inside the fit clock).",
+ "written": "2026-11-05T18:15:04+00:00",
+ "commit": "baa56e5",
+ "extra": {
+  "per_seed": [
+   {
+    "split": 0,
+    "n": 412786,
+    "solved": 412768,
+    "stopped": 412768,
+    "wrong_stops": 0,
+    "budget_failures": 18,
+    "unstopped_but_right": 0,
+    "mean_flop": 1239583114.877255,
+    "median_flop": 339803132.3339844,
+    "p99_flop": 10495887505.325205,
+    "p999_flop": 92899250381.73393,
+    "max_flop": 400001581280.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 1130530631.4134355,
+     "median_flop": 339700169.375,
+     "p99_flop": 10588018462.581072,
+     "p999_flop": 76197148042.4646,
+     "max_flop": 161489182036.875
+    },
+    "g": 3.895523125891658,
+    "D": 30,
+    "fl_move": 746.1083984375,
+    "gpu_seconds": 1936.3,
+    "tau": -4.9305090215057135e-06
+   },
+   {
+    "split": 1,
+    "n": 412786,
+    "solved": 412770,
+    "stopped": 412770,
+    "wrong_stops": 0,
+    "budget_failures": 16,
+    "unstopped_but_right": 0,
+    "mean_flop": 1295105545.8604035,
+    "median_flop": 350009270.0996094,
+    "p99_flop": 11005733019.55178,
+    "p999_flop": 101958340247.59825,
+    "max_flop": 400000887880.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 1297379693.2055616,
+     "median_flop": 366292528.13964844,
+     "p99_flop": 10782484674.384718,
+     "p999_flop": 90349154753.30116,
+     "max_flop": 261042908734.9336
+    },
+    "g": 3.8855140900705503,
+    "D": 31,
+    "fl_move": 769.31201171875,
+    "gpu_seconds": 1992.8,
+    "tau": -3.1055533327162266e-06
+   },
+   {
+    "split": 2,
+    "n": 412786,
+    "solved": 412769,
+    "stopped": 412769,
+    "wrong_stops": 0,
+    "budget_failures": 17,
+    "unstopped_but_right": 0,
+    "mean_flop": 1289104992.2561994,
+    "median_flop": 348547577.27734375,
+    "p99_flop": 10963567028.189558,
+    "p999_flop": 99975660560.83784,
+    "max_flop": 400000887880.0,
+    "dev": {
+     "n": 10000,
+     "solved": 10000,
+     "stopped": 10000,
+     "wrong_stops": 0,
+     "budget_failures": 0,
+     "unstopped_but_right": 0,
+     "mean_flop": 1280927295.4575253,
+     "median_flop": 347395147.88378906,
+     "p99_flop": 11724514525.812157,
+     "p999_flop": 106077160861.08553,
+     "max_flop": 298168189316.0703
+    },
+    "g": 3.8905760825680895,
+    "D": 31,
+    "fl_move": 769.31201171875,
+    "gpu_seconds": 1992.2,
+    "tau": -0.00016508318367414176
+   }
+  ],
+  "wrong_stops": 0,
+  "budget_failures": 51,
+  "unstopped_but_right": 0,
+  "flop_pooled": {
+   "mean": 1274597884.331286,
+   "median": 346218100.5058594,
+   "p99": 10814972127.684574,
+   "p999": 98284763275.17621,
+   "max": 400001581280.0
+  },
+  "nonzero_params": [
+   7716,
+   7750,
+   7761
+  ],
+  "search": {
+   "C": 4,
+   "cap": 400000000000.0,
+   "check": 4096,
+   "tol": 0.001,
+   "scale": "hbar (mean positive entry of W)",
+   "anneal_rel": [
+    0.4,
+    0.31,
+    524288
+   ],
+   "theta_rel": 0.45,
+   "test": "fitted threshold: E <= tau + 1e-3, tau the highest energy of a training solution (input costs included)",
+   "tau_per_split": [
+    -4.9305090215057135e-06,
+    -3.1055533327162266e-06,
+    -0.00016508318367414176
+   ]
+  },
+  "fit_gpu_cold_s": [
+   0.5013104099780321,
+   0.4567209118977189,
+   0.7971797711215913
+  ],
+  "fit_gpu_warm_s": [
+   0.04236035933718085,
+   0.0432765819132328,
+   0.0426213932223618
+  ],
+  "fit_cpu_cold_s": [
+   1.7147980919107795,
+   1.8916136408224702,
+   1.7499006181024015
+  ],
+  "fit_cpu_warm_s": [
+   1.2787639573216438,
+   1.2243611309677362,
+   1.281594212166965
+  ],
+  "gpu_timing": [
+   {
+    "split": 0,
+    "device": "cuda",
+    "train_s": 0.5013104099780321,
+    "loop_s": 0.29309548204764724,
+    "warm_median_s": 0.04236035933718085,
+    "warm_s": [
+     0.04835626529529691,
+     0.043251953553408384,
+     0.04184310510754585,
+     0.04236035933718085,
+     0.04197817808017135,
+     0.04309490229934454,
+     0.04228046303614974
+    ],
+    "cuda_context_s": 0.8412255537696183,
+    "threads": 4,
+    "bitwise_equal_to_saved": true,
+    "max_abs_diff": 0.0,
+    "same_support_as_saved": true,
+    "tau_train": -4.9305090215057135e-06,
+    "ebar": -0.000601624371483922,
+    "hbar": 0.8268314599990845,
+    "gpu": "NVIDIA H200",
+    "node": "worker-13"
+   },
+   {
+    "split": 1,
+    "device": "cuda",
+    "train_s": 0.4567209118977189,
+    "loop_s": 0.28358272602781653,
+    "warm_median_s": 0.0432765819132328,
+    "warm_s": [
+     0.04407140240073204,
+     0.043054039124399424,
+     0.047108449041843414,
+     0.0432765819132328,
+     0.04294910607859492,
+     0.04351147497072816,
+     0.04308947501704097
+    ],
+    "cuda_context_s": 0.5837984909303486,
+    "threads": 4,
+    "bitwise_equal_to_saved": true,
+    "max_abs_diff": 0.0,
+    "same_support_as_saved": true,
+    "tau_train": -3.1055533327162266e-06,
+    "ebar": -0.0006802665302529931,
+    "hbar": 0.8266113996505737,
+    "gpu": "NVIDIA H200",
+    "node": "worker-5"
+   },
+   {
+    "split": 2,
+    "device": "cuda",
+    "train_s": 0.7971797711215913,
+    "loop_s": 0.449137173127383,
+    "warm_median_s": 0.0426213932223618,
+    "warm_s": [
+     0.0678432546555996,
+     0.043659433256834745,
+     0.04313555872067809,
+     0.0426213932223618,
+     0.04172943904995918,
+     0.04223642684519291,
+     0.04249772895127535
+    ],
+    "cuda_context_s": 0.6011604769155383,
+    "threads": 4,
+    "bitwise_equal_to_saved": true,
+    "max_abs_diff": 0.0,
+    "same_support_as_saved": true,
+    "tau_train": -0.00016508318367414176,
+    "ebar": -0.0008015378261916339,
+    "hbar": 0.8265022039413452,
+    "gpu": "NVIDIA H200",
+    "node": "worker-5"
+   }
+  ],
+  "cpu_timing": [
+   {
+    "split": 0,
+    "device": "cpu",
+    "train_s": 1.7147980919107795,
+    "loop_s": 1.6250706403516233,
+    "warm_median_s": 1.2787639573216438,
+    "warm_s": [
+     1.2792068333365023,
+     1.276053481735289,
+     1.2916194796562195,
+     1.2787639573216438,
+     1.2903658570721745,
+     1.2034183559007943,
+     1.2276434539817274
+    ],
+    "cuda_context_s": 0.0,
+    "threads": 1,
+    "bitwise_equal_to_saved": false,
+    "max_abs_diff": 2.384185791015625e-07,
+    "same_support_as_saved": true,
+    "tau_train": -4.93053812533617e-06,
+    "ebar": -0.000601624371483922,
+    "hbar": 0.8268315196037292,
+    "gpu": null,
+    "node": "worker-13"
+   },
+   {
+    "split": 1,
+    "device": "cpu",
+    "train_s": 1.8916136408224702,
+    "loop_s": 1.8087564297020435,
+    "warm_median_s": 1.2243611309677362,
+    "warm_s": [
+     1.2243611309677362,
+     1.2200415432453156,
+     1.2534832241944969,
+     1.2275483547709882,
+     1.2364033698104322,
+     1.2118219528347254,
+     1.2156536988914013
+    ],
+    "cuda_context_s": 0.0,
+    "threads": 1,
+    "bitwise_equal_to_saved": false,
+    "max_abs_diff": 2.384185791015625e-07,
+    "same_support_as_saved": true,
+    "tau_train": -3.1055533327162266e-06,
+    "ebar": -0.000680266588460654,
+    "hbar": 0.826611340045929,
+    "gpu": null,
+    "node": "worker-5"
+   },
+   {
+    "split": 2,
+    "device": "cpu",
+    "train_s": 1.7499006181024015,
+    "loop_s": 1.6498899180442095,
+    "warm_median_s": 1.281594212166965,
+    "warm_s": [
+     1.2799644549377263,
+     1.2801596610806882,
+     1.3135837218724191,
+     1.3097923919558525,
+     1.281594212166965,
+     1.3283300111070275,
+     1.2709877490997314
+    ],
+    "cuda_context_s": 0.0,
+    "threads": 1,
+    "bitwise_equal_to_saved": false,
+    "max_abs_diff": 2.384185791015625e-07,
+    "same_support_as_saved": true,
+    "tau_train": -0.00016508332919329405,
+    "ebar": -0.0008015380008146167,
+    "hbar": 0.8265022039413452,
+    "gpu": null,
+    "node": "worker-5"
+   }
+  ]
+ },
+ "fit_gpu_cold_s": 0.5850703643324474,
+ "fit_cpu_cold_s": 1.7854374502785504,
+ "fit_gpu_warm_s": 0.04275277815759182,
+ "fit_cpu_warm_s": 1.261573100152115,
+ "fit_time_kind": "measured-complete-fit"
+}

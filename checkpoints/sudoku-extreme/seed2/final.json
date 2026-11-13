@@ -1,0 +1,118 @@
+{
+ "arm": "full-aug",
+ "split": 2,
+ "config": {
+  "aug": true,
+  "lam": 0.0003333333333333333,
+  "lr": 540.0,
+  "momentum": 0.5,
+  "updates": 32,
+  "split": 2,
+  "seed": 2
+ },
+ "loop_s": 0.03260185895487666,
+ "levels": [
+  -6.193050467118155e-06,
+  0.8265022039413452
+ ],
+ "raw": {
+  "conflict_diag": {
+   "n": 7290,
+   "nonzero": 7290,
+   "pos": 7290,
+   "neg": 0,
+   "min": 0.49089711904525757,
+   "max": 1.3146147727966309
+  },
+  "conflict_off": {
+   "n": 58320,
+   "nonzero": 0,
+   "pos": 0,
+   "neg": 0,
+   "min": -0.0,
+   "max": -0.0
+  },
+  "other_diag": {
+   "n": 21870,
+   "nonzero": 471,
+   "pos": 0,
+   "neg": 471,
+   "min": -0.08360826224088669,
+   "max": -0.0
+  },
+  "other_off": {
+   "n": 174960,
+   "nonzero": 0,
+   "pos": 0,
+   "neg": 0,
+   "min": 0.0,
+   "max": 0.0
+  },
+  "B": {
+   "n": 729,
+   "nonzero": 0,
+   "pos": 0,
+   "neg": 0,
+   "min": -0.0,
+   "max": -0.0
+  },
+  "equality_form": false,
+  "dev_E": {
+   "min": -0.21665352582931519,
+   "max": 0.0
+  },
+  "dev_zero_accept": 1.0,
+  "single_changes": 446888,
+  "single_change_zero_accept": 0
+ },
+ "compressed": {
+  "conflict_diag": {
+   "n": 7290,
+   "nonzero": 7290,
+   "pos": 7290,
+   "neg": 0,
+   "min": 0.8265022039413452,
+   "max": 0.8265022039413452
+  },
+  "conflict_off": {
+   "n": 58320,
+   "nonzero": 58320,
+   "pos": 0,
+   "neg": 58320,
+   "min": -6.193050467118155e-06,
+   "max": -6.193050467118155e-06
+  },
+  "other_diag": {
+   "n": 21870,
+   "nonzero": 21870,
+   "pos": 0,
+   "neg": 21870,
+   "min": -6.193050467118155e-06,
+   "max": -6.193050467118155e-06
+  },
+  "other_off": {
+   "n": 174960,
+   "nonzero": 174960,
+   "pos": 0,
+   "neg": 174960,
+   "min": -6.193050467118155e-06,
+   "max": -6.193050467118155e-06
+  },
+  "B": {
+   "n": 729,
+   "nonzero": 729,
+   "pos": 0,
+   "neg": 729,
+   "min": -6.193050467118155e-06,
+   "max": -6.193050467118155e-06
+  },
+  "equality_form": false,
+  "dev_E": {
+   "min": -0.020567139610648155,
+   "max": -0.02056713029742241
+  },
+  "dev_zero_accept": 1.0,
+  "single_changes": 446888,
+  "single_change_zero_accept": 0
+ }
+}

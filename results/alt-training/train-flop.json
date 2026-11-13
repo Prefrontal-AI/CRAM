@@ -1,0 +1,401 @@
+{
+ "convention": "torch.utils.flop_counter.FlopCounterMode, one update (loss, gradient, step) after one warm-up update",
+ "rows": {
+  "sudoku/pl": {
+   "choice": {
+    "lr": 540.0,
+    "knob": null,
+    "l1": 1.0
+   },
+   "flop_per_update": 2125764000,
+   "t99_update_per_seed": [
+    16,
+    16,
+    16
+   ],
+   "t99_update": 16,
+   "t99_flop": 34012224000
+  },
+  "sudoku/mpl": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 0.1,
+    "l1": 1.0
+   },
+   "flop_per_update": 2125764000,
+   "t99_update_per_seed": [
+    91,
+    91,
+    91
+   ],
+   "t99_update": 91,
+   "t99_flop": 193444524000
+  },
+  "sudoku/mpf": {
+   "choice": {
+    "lr": 60.0,
+    "knob": null,
+    "l1": 1.0
+   },
+   "flop_per_update": 2125764000,
+   "t99_update_per_seed": [
+    91,
+    91,
+    91
+   ],
+   "t99_update": 91,
+   "t99_flop": 193444524000
+  },
+  "sudoku/dsm": {
+   "choice": {
+    "lr": 6.0,
+    "knob": 0.5,
+    "l1": 0.01
+   },
+   "flop_per_update": 2125764000,
+   "t99_update_per_seed": [
+    724,
+    1024,
+    1024
+   ],
+   "t99_update": 1024,
+   "t99_flop": 2176782336000
+  },
+  "sudoku/cd": {
+   "choice": {
+    "lr": 6.0,
+    "knob": 324,
+    "l1": 1.0,
+    "reg": 0.0
+   },
+   "flop_per_update": 348625296000,
+   "t99_update_per_seed": [
+    256,
+    362,
+    362
+   ],
+   "t99_update": 362,
+   "t99_flop": 126202357152000
+  },
+  "sudoku/pcd": {
+   "choice": {
+    "lr": 6.0,
+    "knob": 324,
+    "l1": 1.0,
+    "reg": 0.0
+   },
+   "flop_per_update": 348625296000,
+   "t99_update_per_seed": [
+    256,
+    362,
+    362
+   ],
+   "t99_update": 362,
+   "t99_flop": 126202357152000
+  },
+  "sudoku/chl": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 10,
+    "l1": 1.0,
+    "reg": 0.0
+   },
+   "flop_per_update": 14880348000,
+   "t99_update_per_seed": [
+    128,
+    91,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 1904684544000
+  },
+  "sudoku/eqp": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 30,
+    "l1": 0.1
+   },
+   "flop_per_update": 99910908000,
+   "t99_update_per_seed": [
+    null,
+    null,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "sudoku/imp": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 10,
+    "l1": 0.01
+   },
+   "flop_per_update": 23383404000,
+   "t99_update_per_seed": [
+    null,
+    null,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "sudoku/tbptt": {
+   "choice": {
+    "lr": 540.0,
+    "knob": 1,
+    "l1": 0.1
+   },
+   "flop_per_update": 32949342000,
+   "t99_update_per_seed": [
+    2000,
+    null,
+    2000
+   ],
+   "t99_update": 2000,
+   "t99_flop": 65898684000000
+  },
+  "sudoku/bptt1": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 10,
+    "l1": 0.01
+   },
+   "flop_per_update": 11691702000,
+   "t99_update_per_seed": [
+    1448,
+    2000,
+    1448
+   ],
+   "t99_update": 1448,
+   "t99_flop": 16929584496000
+  },
+  "sudoku/bptt5": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 30,
+    "l1": 0.1
+   },
+   "flop_per_update": 41452398000,
+   "t99_update_per_seed": [
+    null,
+    null,
+    2000
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "sudoku/bptt": {
+   "choice": {
+    "lr": 60.0,
+    "knob": 10,
+    "l1": 0.1
+   },
+   "flop_per_update": 30823578000,
+   "t99_update_per_seed": [
+    null,
+    null,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "maze/pl": {
+   "choice": {
+    "lr": 0.03,
+    "knob": null,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294448,
+   "t99_update_per_seed": [
+    91,
+    100,
+    100
+   ],
+   "t99_update": 100,
+   "t99_flop": 829444800
+  },
+  "maze/mpl": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 0.1,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294448,
+   "t99_update_per_seed": [
+    128,
+    32,
+    128
+   ],
+   "t99_update": 128,
+   "t99_flop": 1061689344
+  },
+  "maze/mpf": {
+   "choice": {
+    "lr": 0.1,
+    "knob": null,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294448,
+   "t99_update_per_seed": [
+    32,
+    32,
+    32
+   ],
+   "t99_update": 32,
+   "t99_flop": 265422336
+  },
+  "maze/dsm": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 0.5,
+    "l1": 0.003
+   },
+   "flop_per_update": 8294448,
+   "t99_update_per_seed": [
+    null,
+    724,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "maze/cd": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 256,
+    "l1": 0.03,
+    "reg": 0.0
+   },
+   "flop_per_update": 1078272048,
+   "t99_update_per_seed": [
+    32,
+    32,
+    64
+   ],
+   "t99_update": 32,
+   "t99_flop": 34504705536
+  },
+  "maze/pcd": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 256,
+    "l1": 0.3,
+    "reg": 1.0
+   },
+   "flop_per_update": 1078272048,
+   "t99_update_per_seed": [
+    null,
+    1024,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "maze/chl": {
+   "choice": {
+    "lr": 0.1,
+    "knob": 30,
+    "l1": 0.003,
+    "reg": 1.0
+   },
+   "flop_per_update": 141004848,
+   "t99_update_per_seed": [
+    null,
+    256,
+    null
+   ],
+   "t99_update": null,
+   "t99_flop": null
+  },
+  "maze/eqp": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 30,
+    "l1": 0.3
+   },
+   "flop_per_update": 389836848,
+   "t99_update_per_seed": [
+    181,
+    181,
+    181
+   ],
+   "t99_update": 181,
+   "t99_flop": 70560469488
+  },
+  "maze/imp": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 30,
+    "l1": 0.3
+   },
+   "flop_per_update": 261273648,
+   "t99_update_per_seed": [
+    181,
+    181,
+    181
+   ],
+   "t99_update": 181,
+   "t99_flop": 47290530288
+  },
+  "maze/tbptt": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 1,
+    "l1": 0.03
+   },
+   "flop_per_update": 128563248,
+   "t99_update_per_seed": [
+    256,
+    256,
+    256
+   ],
+   "t99_update": 256,
+   "t99_flop": 32912191488
+  },
+  "maze/bptt1": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 10,
+    "l1": 0.003
+   },
+   "flop_per_update": 45619248,
+   "t99_update_per_seed": [
+    256,
+    128,
+    256
+   ],
+   "t99_update": 256,
+   "t99_flop": 11678527488
+  },
+  "maze/bptt5": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 10,
+    "l1": 0.3
+   },
+   "flop_per_update": 78796848,
+   "t99_update_per_seed": [
+    181,
+    181,
+    256
+   ],
+   "t99_update": 181,
+   "t99_flop": 14262229488
+  },
+  "maze/bptt": {
+   "choice": {
+    "lr": 0.03,
+    "knob": 10,
+    "l1": 0.3
+   },
+   "flop_per_update": 120268848,
+   "t99_update_per_seed": [
+    181,
+    181,
+    181
+   ],
+   "t99_update": 181,
+   "t99_flop": 21768661488
+  }
+ }
+}
