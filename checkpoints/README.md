@@ -83,5 +83,5 @@ uv run python checkpoints/evaluate.py --seeds 0 1 2
   By default the script scores the 10,000 development puzzles (about 5 minutes for each seed), and the score must equal the development record in every field, the mean operation count included.
   `--sudoku-set test --sudoku-n N` scores the first N test puzzles.
   The search draws its random numbers for the whole batch, so a batch that differs from the recorded run takes other draws; for N below 412,786 the script compares only the solve rate.
-- The datasets are read from `data/`, which `scripts/prepare_data.py` writes (`README.md`, "Data").
+- The datasets are read from `data/`, which `scripts/prepare_data.py` writes (`REPRODUCING.md`, "Data").
 

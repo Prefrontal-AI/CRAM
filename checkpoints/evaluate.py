@@ -14,7 +14,7 @@ Run on one GPU, from the repository root:
     uv run python checkpoints/evaluate.py                                             # every model, seed 0
     uv run python checkpoints/evaluate.py --tasks maze-unique nqueens-8 --seeds 0 1 2
 
-The datasets are read from data/, which scripts/prepare_data.py writes (README.md, "Data").
+The datasets are read from data/, which scripts/prepare_data.py writes (REPRODUCING.md, "Data").
 Sudoku-Extreme has 412,786 test puzzles (about 1.5 GPU hours on one H200). By default the script scores the 10,000
 development puzzles instead (about 5 minutes), whose recorded run it must reproduce in every field.
 `--sudoku-set test --sudoku-n N` scores the first N test puzzles. Every other task scores its whole test set.
