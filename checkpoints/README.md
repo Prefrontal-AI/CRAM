@@ -81,7 +81,8 @@ uv run python checkpoints/evaluate.py --seeds 0 1 2
 - Maze-Unique, Maze-Hard, N-Queens and graph coloring score their whole test set, and each score must equal its record exactly.
 - Sudoku-Extreme has 412,786 test puzzles (about 1.5 GPU hours for each seed).
   By default the script scores the 10,000 development puzzles (about 5 minutes for each seed), and the score must equal the development record in every field, the mean operation count included.
-  `--sudoku-set test --sudoku-n N` scores the first N test puzzles.
-  The search draws its random numbers for the whole batch, so a batch that differs from the recorded run takes other draws; for N below 412,786 the script compares only the solve rate.
+  `--sudoku-set test --sudoku-n N` scores the first N test puzzles, with N from 1 to 412,786. The full test set must match its record in every field.
+  A smaller test batch takes different random draws. The script reports a partial check that requires zero wrong stops
+  and a solve rate no more than 0.05 percentage points below the recorded rate. Each run requires the full requested cohort.
 - The datasets are read from `data/`, which `scripts/prepare_data.py` writes (`REPRODUCING.md`, "Data").
 
