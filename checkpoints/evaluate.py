@@ -57,32 +57,40 @@ def sudoku(seed, data, n):
 
     data 'dev': the 10,000 development puzzles. The search draws its random numbers for the whole batch, so the same
     batch gives the same result: the score must equal the record in every field. data 'test': the first n test puzzles;
-    a batch that differs from the recorded run (n < 412,786) takes other random draws, so only the rate is compared."""
+    a smaller batch takes other random draws, so it compares the solve rate and requires zero wrong stops."""
+    exp = entry('sudoku-extreme', seed)['expected']
+    keys = ('n', 'solved', 'wrong_stops', 'budget_failures', 'mean_flop')
+    record = exp['dev'] if data == 'dev' else exp
+    want = {'set': data, **{k: record[k] for k in keys}}
+    requested = want['n'] if data == 'dev' else n
+    if not 1 <= requested <= want['n']:
+        raise ValueError(f"--sudoku-n must be between 1 and {want['n']}")
+
+    from cram import cram_sudoku_search as SS
+    split, start = ('dev10k', 0) if data == 'dev' else ('full-all', exp['dev']['n'])
+    sol, free, _ = SS.load_puzzles(split, start, requested)
+    if len(sol) != requested or len(free) != requested:
+        raise ValueError(f'Sudoku-Extreme {data} requires {requested:,} puzzles; '
+                         f'loaded {len(sol):,} solutions and {len(free):,} free-cell masks')
+
     import sudoku as F
     from cram import cram_sudoku_general as GS
-    from cram import cram_sudoku_search as SS
-    exp = entry('sudoku-extreme', seed)['expected']
     sd = torch.load(path('sudoku-extreme', seed), map_location='cuda', weights_only=True)
     W, B = sd['W'], sd['B']
     train_sol, _, _ = SS.load_puzzles(f'train-s{seed}')
     m = F.prepare(W, B, torch.as_tensor(train_sol, device='cuda'))
-    if data == 'dev':
-        sol, free, _ = SS.load_puzzles('dev10k', 0, 10000)
-    else:
-        sol, free, _ = SS.load_puzzles('full-all', 10000, n)  # the test set is full-all less its first 10,000 puzzles
     hi, lo, theta = exp['rel']
     unit, fz = m['hbar'], F.FROZEN
     search = GS.GeneralSearch(m['S'], B, sol, free, temp=hi * unit, theta=theta * unit, focused=True, C=fz['C'],
                               tau=m['tau_train'], tol=fz['tol'], ebar=m['ebar'], cap=fz['cap'], check=fz['check'],
                               seed=seed, anneal=(hi * unit, lo * unit, fz['anneal'][2]))
     s = SS.summarize(search.run(lambda _: None))
-    keys = ('n', 'solved', 'wrong_stops', 'budget_failures', 'mean_flop')
     got = {'set': data, **{k: s[k] for k in keys}}
-    want = {'set': data, **{k: (exp['dev'] if data == 'dev' else exp)[k] for k in keys}}
-    if s['n'] == want['n']:
+    if requested == want['n']:
         same = got == want
     else:
-        same = s['wrong_stops'] == 0 and s['solved'] / s['n'] >= want['solved'] / want['n'] - 5e-4
+        same = (s['n'] == requested and s['wrong_stops'] == 0
+                and s['solved'] / requested >= want['solved'] / want['n'] - 5e-4)
     return got, want, same
 
 
@@ -147,6 +155,7 @@ def maze_hard(seed):
 
 def main(a: Args):
     failed = 0
+    has_sample = False
     for name in a.tasks:
         for seed in a.seeds:
             if name == 'sudoku-extreme':
@@ -160,10 +169,19 @@ def main(a: Args):
             else:
                 got, want, same = graph_coloring(int(name.split('-')[2]), seed)
             failed += not same
-            print(f"{name} seed {seed}: {'MATCHES the record' if same else 'DIFFERS from the record'}", flush=True)
+            sample = name == 'sudoku-extreme' and a.sudoku_set == 'test' and a.sudoku_n < want['n']
+            has_sample |= sample
+            if sample:
+                status = 'PASSES' if same else 'FAILS'
+                print(f'{name} seed {seed}: {status} the partial test solve-rate check ({a.sudoku_n:,} puzzles)', flush=True)
+            else:
+                print(f"{name} seed {seed}: {'MATCHES the record' if same else 'DIFFERS from the record'}", flush=True)
             print(f'  scored now: {json.dumps(got)}')
             print(f'  recorded:   {json.dumps(want)}', flush=True)
-    print('every score matches its record' if failed == 0 else f'{failed} scores differ from their records')
+    if has_sample:
+        print('every evaluation passed' if failed == 0 else f'{failed} evaluations failed')
+    else:
+        print('every score matches its record' if failed == 0 else f'{failed} scores differ from their records')
     sys.exit(1 if failed else 0)
 
 
