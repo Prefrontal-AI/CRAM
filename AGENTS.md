@@ -3,7 +3,7 @@
 The facts an agent needs to check or extend this repository without reading every file.
 `REPRODUCING.md` has the commands behind each result.
 
-- **Environment.** `uv sync` creates `.venv/`. Use `uv run python` or `.venv/bin/python`. Do not install packages globally.
+- **Environment.** `uv sync --locked --python 3.12` creates `.venv/`. Use `uv run python` or `.venv/bin/python`. Do not install packages globally.
 - **Compute.** Everything except the CPU-only exports needs one NVIDIA GPU. On a cluster, submit jobs (`slurm/gpu.sbatch`, `slurm/cpu.sbatch`); do not run fits, searches or tests on a login node.
 - **Working directory.** Run experiment scripts from `experiments/` and baseline scripts from `baselines/`. `checkpoints/evaluate.py`, `scripts/` and `pytest` run from the repository root.
 - **Locations.** Datasets: `data/` (`CRAM_DATA`). Clones of the baselines' code: `third_party/` (`THIRD_PARTY`; `baselines/fetch.sh` fills it). Run outputs: `experiments/runs/` and `baselines/runs/`. All four are ignored by git, except `experiments/runs/table/`.
