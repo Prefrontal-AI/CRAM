@@ -13,7 +13,7 @@
   <a href="https://arxiv.org/pdf/2611.17309"><img src="https://img.shields.io/badge/arXiv-2611.17309-b31b1b?logo=arxiv&logoColor=white" alt="Paper on arXiv"></a>
   <a href="https://prefrontal.ai/news/cram/"><img src="https://img.shields.io/badge/Blog-Reasoning%20at%20Hyperspeed-256abf?logo=rss&logoColor=white" alt="Blog post"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-3da639?logo=apache&logoColor=white" alt="License: Apache 2.0"></a>
-  <img src="https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white" alt="Python 3.12 or later">
+  <img src="https://img.shields.io/badge/Python-3.12--3.14-3776ab?logo=python&logoColor=white" alt="Python 3.12 through 3.14">
   <img src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch">
 </p>
 
@@ -43,9 +43,10 @@ Paper: "Classical Energies Learn to Reason 1,000× Faster than Looped Models", B
 ## Quickstart
 
 Needs one NVIDIA GPU and [uv](https://docs.astral.sh/uv/).
+The published lockfile has PyTorch wheels for Python 3.12 through 3.14.
 
 ```sh
-uv sync                                                                    # environment
+uv sync --locked --python 3.12                                               # environment
 uv run python scripts/prepare_data.py sudoku                               # data
 uv run python scripts/prepare_data.py maze-unique
 uv run python checkpoints/evaluate.py --tasks sudoku-extreme maze-unique   # score the paper's trained models

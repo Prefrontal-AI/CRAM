@@ -38,10 +38,11 @@ Every module starts with a docstring that states its equation, its inputs and th
 ## Setup
 
 ```sh
-uv sync                                  # creates .venv/ with torch 2.11 (CUDA 12.8) and installs cram/
+uv sync --locked --python 3.12            # creates .venv/ with torch 2.11 (CUDA 12.8) and installs cram/
 uv run pytest                            # 91 tests, about 2 minutes on one GPU
 ```
 
+The published lockfile has PyTorch wheels for Python 3.12 through 3.14.
 The Sudoku search kernels are written in Triton and need an NVIDIA GPU.
 The reported times are from one NVIDIA H200 and, for the CPU fit times, one CPU thread.
 On a Slurm cluster, run every command of this file inside a job, not on a login node.
