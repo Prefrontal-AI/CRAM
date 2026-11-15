@@ -16,7 +16,8 @@ w = load('maze-unique', seed=0)          # dict: tensor name -> numpy array
 w = load('graph-coloring-8')             # a model with one fit takes no seed
 ```
 
-`uv run python checkpoints/load.py` checks every file against its SHA-256 and prints each model's tensors.
+`uv run python checkpoints/load.py` checks every manifest-listed file against its SHA-256 before printing model tensors.
+It exits with a nonzero status if a file fails verification. The loader and evaluator also verify each artifact they read.
 The loader needs only numpy and torch.
 
 ## Models
@@ -43,13 +44,13 @@ Sudoku-Extreme (`experiments/sudoku.py`, `cram/cram_sudoku_general.py`); 81 cell
 
 Maze-Unique (`experiments/maze_unique.py`, model class `cram.cram_maze.CRAMMazeFreeEnergy`); 900 cells, 2 states:
 - `T` (4, 2, 2): one 2 x 2 cost table for each of the 4 neighbor offsets of a 3 x 3 window that are not mirror images of each other, shared by all cells. `b` (2,): the input cost, shared by all cells.
-- To get the model object, from `experiments/`: `m = CRAMMazeFreeEnergy(window=1); m.load_state_dict(torch.load(path))`, or `maze_unique.load_run`.
+- To get the model object: `m = CRAMMazeFreeEnergy(window=1); m.load_state_dict(load_torch('maze-unique'))`, with `load_torch` from `checkpoints.load`.
 
 N-Queens (`experiments/nqueens_offset.py`, `cram/cram_nqueens.py`); `n*n` cells, 2 states:
 - `A` (112 at 8 x 8, 180 at 10 x 10): one learned cost per relative position of two cells. `b` (1,): the learned input cost. These are the 113 and 181 parameters.
 - `W` (pairs, 2, 2) and `B` (cells, 2): the pair and input cost tables that `A` and `b` expand to. `S`: `W` as a (cells, cells, 2, 2) tensor.
 - `tau`, `unit`, `delta`: constants of the search, computed from the training solutions at the end of the fit (the stopping threshold, the temperature unit and the local stopping margin).
-- To get the dict that the search takes, from `experiments/`: `cram_nqueens.load_model(path)`.
+- To get the dict that the search takes, use `load_torch('nqueens-8')` or `load_torch('nqueens-10')` from `checkpoints.load`.
 
 Graph coloring (`experiments/graph_coloring.py`, `cram/cram_graph_coloring.py`); `n` vertices, 3 colors, `p = n(n-1)/2` vertex pairs:
 - `W0` (p, 3, 3): the base cost table of each vertex pair. `D` (p, p, 3, 3): the cost table that each possible edge adds to each pair. `B` (n, 3): the input cost of each vertex. The cost table of a pair is its `W0` entry plus the `D` entries of the edges in the input graph.
@@ -57,7 +58,7 @@ Graph coloring (`experiments/graph_coloring.py`, `cram/cram_graph_coloring.py`);
 
 Maze-Hard (`experiments/maze_hard_latent.py`, model class `cram.cram_maze_hard_graph.GraphLatentEnergyMU`); 900 cells, 2 states, one hidden value per open cell:
 - `T` (4, 2, 2) and `b` (2,): the Maze-Unique energy (its 3 x 3 kernel and input cost, 18 values). `mu` (1,): the log of the hidden layer's mass. `beta` (5,): the attention score of the cell itself and of its 4 side neighbours. `kappa` (5,): the pair cost that each attention weight adds. These are the 29 parameters. `k` (2,) is zero and unused.
-- To get the model object, from `experiments/`: `m = maze_hard_latent.build(maze_hard_latent.Recipe(**json.load(open('final.json'))['recipe'])); m.load_state_dict(torch.load(path))`.
+- To get the model object, follow `maze_hard` in `checkpoints/evaluate.py`. It reads the recipe with `read_artifact('maze-hard', 'final.json')` and loads the state dict with `load_torch('maze-hard')`.
 
 ## Evaluate
 
