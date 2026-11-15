@@ -88,14 +88,13 @@ Rebuild a model and solve puzzles with the paper's search (one GPU; needs the da
 
 ```python
 import json, sys
-import torch
 sys.path.insert(0, 'experiments')         # the run scripts are imported by name
 import maze_unique as U
-from checkpoints.load import path
+from checkpoints.load import load_torch, read_artifact
 
-config = U.Train(**json.load(open('checkpoints/maze-unique/seed0/config.json')))
+config = U.Train(**json.loads(read_artifact('maze-unique', 'config.json')))
 model = U.make_model(config)              # the 18-parameter energy, cram.cram_maze.CRAMMazeFreeEnergy
-model.load_state_dict(torch.load(path('maze-unique', seed=0), map_location='cpu'))
+model.load_state_dict(load_torch('maze-unique'))
 result = U.score(model, 'test', U.Search(search='gibbs', T=0.0))   # focused Gibbs at temperature 0
 print(result['solved'], 'of', result['n'], 'test mazes solved')   # 1000 of 1000
 ```

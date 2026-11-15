@@ -27,7 +27,6 @@ import sys
 from pathlib import Path
 from typing import Literal
 
-import numpy as np
 import torch
 import tyro
 
@@ -35,7 +34,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path[:0] = [str(ROOT), str(ROOT / 'experiments')]
 
-from checkpoints.load import MANIFEST, path  # noqa: E402
+from checkpoints.load import MANIFEST, load, load_torch, read_artifact  # noqa: E402
 
 
 @dataclasses.dataclass
@@ -62,7 +61,7 @@ def sudoku(seed, data, n):
     from cram import cram_sudoku_general as GS
     from cram import cram_sudoku_search as SS
     exp = entry('sudoku-extreme', seed)['expected']
-    sd = torch.load(path('sudoku-extreme', seed), map_location='cuda', weights_only=True)
+    sd = load_torch('sudoku-extreme', seed, map_location='cuda')
     W, B = sd['W'], sd['B']
     train_sol, _, _ = SS.load_puzzles(f'train-s{seed}')
     m = F.prepare(W, B, torch.as_tensor(train_sol, device='cuda'))
@@ -90,9 +89,9 @@ def maze(seed):
     """As maze_unique.main_score(run, split='test'): focused Gibbs at T = 0 from every open cell on."""
     import maze_unique as U
     e = entry('maze-unique', seed)
-    cfg = U.Train(**json.loads((ROOT / e['folder'] / 'config.json').read_text()))
+    cfg = U.Train(**json.loads(read_artifact('maze-unique', 'config.json', seed)))
     model = U.make_model(cfg)
-    model.load_state_dict(torch.load(path('maze-unique', seed), map_location='cpu'))
+    model.load_state_dict(load_torch('maze-unique', seed))
     r = U.score(model, 'test', U.Search(**e['expected']['search']))
     keys = ('n', 'solved', 'wrong_stops', 'budget_failures', 'mean_flop')
     got, want = {k: r[k] for k in keys}, {k: e['expected'][k] for k in keys}
@@ -104,7 +103,7 @@ def nqueens(n, seed):
     import nqueens_free as N
     from cram import cram_nqueens as Q
     e = entry(f'nqueens-{n}', seed)
-    model = torch.load(path(f'nqueens-{n}', seed), weights_only=False)
+    model = load_torch(f'nqueens-{n}', seed)
     inputs, labels, _ = Q.load_split(n, 'test')
     r = N.score(model, inputs, labels, n, chains=20, seed=seed, **e['expected']['search'])
     keys = ('rows', 'acc_n1', 'acc_majority20', 'cov20', 'wrong_stops')
@@ -117,8 +116,8 @@ def graph_coloring(n, seed):
     from cram import cram_graph_coloring as G
     e = entry(f'graph-coloring-{n}', 0)
     exp = next(x for x in e['expected'] if x['seed'] == seed)
-    model = dict(np.load(path(f'graph-coloring-{n}')))
-    model.update(json.loads((ROOT / e['folder'] / 'model.json').read_text()))
+    model = load(f'graph-coloring-{n}')
+    model.update(json.loads(read_artifact(f'graph-coloring-{n}', 'model.json')))
     x, y = G.load_split(n, 'test')
     tokens, _ = G.convert(x, y, n)
     r = G.score(G.adjacency(tokens, n), G.solve(model, tokens, seed=seed, **exp['search']))
@@ -132,9 +131,9 @@ def maze_hard(seed):
     import maze_hard_latent as H
     from cram import maze_h3 as m3
     e = entry('maze-hard', seed)
-    rec = json.loads((ROOT / e['folder'] / 'final.json').read_text())
+    rec = json.loads(read_artifact('maze-hard', 'final.json', seed))
     model = H.build(H.Recipe(**rec['recipe'])).cuda()
-    model.load_state_dict(torch.load(path('maze-hard', seed), map_location='cuda'))
+    model.load_state_dict(load_torch('maze-hard', seed, map_location='cuda'))
     for p in model.parameters():
         p.requires_grad_(False)
     tok, y = m3.load('test')
