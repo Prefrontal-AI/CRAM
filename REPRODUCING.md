@@ -60,6 +60,7 @@ The Sudoku command needs about 32 GB of memory and writes 2 GB.
 `scripts/sudoku_extreme_splits.json` names the official rows of every Sudoku split, and the script checks a hash of each split.
 The docstring of `scripts/prepare_data.py` describes the splits.
 N-Queens and graph coloring come from GRAM's dataset builders: `baselines/fetch.sh gram` clones `https://github.com/ahn-ml/gram-release` at commit `f2e32b9` into `third_party/gram`.
+The GRAM checkout must have no tracked changes or non-ignored untracked files. Keep it stable while the builders run.
 
 ## Use the trained models
 

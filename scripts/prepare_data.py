@@ -63,7 +63,8 @@ def read_csv(path):
     sol, clue, rat, src = [], [], [], []
     with open(path, newline='') as f:
         rows = csv.reader(f)
-        assert next(rows) == ['source', 'question', 'answer', 'rating']
+        if next(rows, None) != ['source', 'question', 'answer', 'rating']:
+            raise ValueError(f'{path}: unexpected Sudoku-Extreme CSV header')
         for source, question, answer, rating in rows:
             sol.append(np.frombuffer(answer.encode(), np.uint8) - ord('0'))
             clue.append(np.frombuffer(question.encode(), np.uint8) != ord('.'))
@@ -86,33 +87,39 @@ def sudoku():
     for name in ('train', 'test'):
         path = hf_hub_download(index['dataset'], f'{name}.csv', repo_type='dataset', revision=index['revision'], local_dir=DATA / 'sudoku-extreme')
         sol, clue, rat, src = read_csv(path)
-        assert len(sol) == index[f'{name}_csv_rows'] and content_sha256(sol, clue, rat) == index[f'{name}_csv_content_sha256'], f'{name}.csv is not the pinned file'
+        if len(sol) != index[f'{name}_csv_rows'] or content_sha256(sol, clue, rat) != index[f'{name}_csv_content_sha256']:
+            raise ValueError(f'{name}.csv is not the pinned file')
         official[name] = (sol, clue, rat)
         save(DATA / f'frm/official/{name}.npz', sol, clue, rat, dict(solutions='uint8', clue_mask='uint8', ratings='int32'), sources=src)
         print(f'{name}.csv: {len(sol):,} puzzles', flush=True)
     rows = {}
     for rel, spec in index['files'].items():
         sol, clue, rat = (a[spec['rows']] for a in official[spec['csv']])
-        assert content_sha256(sol, clue, rat) == spec['content_sha256'], rel
+        if content_sha256(sol, clue, rat) != spec['content_sha256']:
+            raise ValueError(f'{rel}: split data does not match the pinned hash')
         save(DATA / rel, sol, clue, rat, spec['dtypes'])
         rows[rel] = np.array(spec['rows'])
     dev, test = rows['frm/dev10k/dev.npz'], rows['frm/split/test.npz']
+    if list(rows['frm/split/dev.npz']) != list(dev[:256]) or set(dev) & set(test):
+        raise ValueError('Sudoku-Extreme development and test rows do not match the split layout')
     (DATA / 'frm/dev10k/indices.json').write_text(json.dumps([int(i) for i in dev]))
-    assert list(rows['frm/split/dev.npz']) == list(dev[:256]) and not set(dev) & set(test)
 
     # the whole official test split: development puzzles, FRM's test puzzles, then the rest in 16 shards
     sol, clue, rat = official['test']
     rest = np.setdiff1d(np.arange(len(sol)), np.concatenate([dev, test]))
     shards = {'full-dev10k': dev, 'full-frmtest': test} | {f'full-{k:02d}': part for k, part in enumerate(np.array_split(rest, NSHARD))}
+    every = np.concatenate(list(shards.values()))
+    if len(every) != len(sol) or len(set(every.tolist())) != len(sol):
+        raise ValueError('Sudoku-Extreme full-test shards must cover each official test row once')
+    if content_sha256(sol[every], clue[every], rat[every]) != index['full_all_content_sha256']:
+        raise ValueError("full-all.npz differs from the paper's test order")
+
     wide = dict(solutions='int64', clue_mask='int64', ratings='int64')
     order, start = {}, 0
     for name, idx in shards.items():
         save(DATA / f'full-test/{name}.npz', sol[idx], clue[idx], rat[idx], wide)
         order[name] = [start, len(idx)]
         start += len(idx)
-    every = np.concatenate(list(shards.values()))
-    assert start == len(sol) == len(set(every.tolist()))
-    assert content_sha256(sol[every], clue[every], rat[every]) == index['full_all_content_sha256'], 'full-all.npz differs from the paper\'s test order'
     save(DATA / 'full-test/full-all.npz', sol[every], clue[every], rat[every], wide)
     (DATA / 'full-test/index.json').write_text(json.dumps(dict(
         dataset=index['dataset'], revision=index['revision'], n_official=len(sol), full_all_order=order,
@@ -140,15 +147,22 @@ def maze_hard():
 
 @dataclasses.dataclass
 class MultiSolution:
-    gram_src: Path  # a clone of https://github.com/ahn-ml/gram-release at commit f2e32b9
+    gram_src: Path  # a clean clone of https://github.com/ahn-ml/gram-release at commit f2e32b9
     python: str = sys.executable  # an interpreter with GRAM's dataset dependencies (see baselines/README.md)
 
 
 def multi_solution(a: MultiSolution):
     """Build GRAM's N-Queens (8x8, 10x10) and graph-coloring (8, 10 vertices) sets with GRAM's own builders, run in the
-    clone `a.gram_src` (which must be at GRAM_COMMIT). Writes `data/gram/`; a set whose test labels exist is skipped."""
-    head = subprocess.run(['git', '-C', str(a.gram_src), 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True).stdout.strip()
-    assert head == GRAM_COMMIT, f'{a.gram_src} is at {head}, not {GRAM_COMMIT}'
+    clean clone `a.gram_src` at GRAM_COMMIT. Writes `data/gram/`; a set whose test labels exist is skipped."""
+    git = ['git', '--no-optional-locks', '-c', 'core.fsmonitor=false', '-C', str(a.gram_src)]
+    head = subprocess.run([*git, 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True,
+                          stdin=subprocess.DEVNULL).stdout.strip()
+    if head != GRAM_COMMIT:
+        raise ValueError(f'{a.gram_src} is at {head}, not {GRAM_COMMIT}')
+    status = subprocess.run([*git, 'status', '--porcelain=v1', '--untracked-files=normal', '--ignore-submodules=none'],
+                            capture_output=True, check=True, stdin=subprocess.DEVNULL).stdout
+    if status:
+        raise ValueError(f'{a.gram_src}: use a clean GRAM checkout without local changes or untracked files')
     out = DATA / 'gram'
     if 'sudoku' in str(out):
         print(f'warning: GRAM chooses its checker from the data path, and {out} contains "sudoku"; set CRAM_DATA to another '
