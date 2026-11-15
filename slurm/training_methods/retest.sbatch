@@ -16,9 +16,12 @@
 # A run that has test.json is skipped: remove that file to score the run again.
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 METHODS=(pl mpl mpf dsm imp tbptt)
 method=${METHODS[$SLURM_ARRAY_TASK_ID]}
 for s in 0 1 2; do
   CUDA_VISIBLE_DEVICES=$s python -u training_methods.py test --run runs/ALT/final/sudoku-$method-s$s &
+  pids+=("$!")
 done
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}

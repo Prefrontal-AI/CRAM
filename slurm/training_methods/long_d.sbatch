@@ -19,6 +19,8 @@
 # `longD` in the run folder name is only a label.
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 METHODS=(bptt bptt5 eqp imp)
 LRS=(6 20 60)
 i=$SLURM_ARRAY_TASK_ID
@@ -29,5 +31,6 @@ read -r knob l1 <<< "$choice"
 for s in 0 1 2; do
   CUDA_VISIBLE_DEVICES=$s python -u training_methods.py train --task sudoku --method $m --lr $lr --knob $knob \
     --l1 $l1 --updates 60000 --seed $s --out runs/ALT/longD/sudoku-$m-lr$lr-s$s &
+  pids+=("$!")
 done
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}

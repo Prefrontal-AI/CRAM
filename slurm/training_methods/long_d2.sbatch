@@ -17,6 +17,8 @@
 # A finished run is skipped and an unfinished one resumes from its rolling checkpoint, so a requeued job resumes.
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 ARMS=("bptt 2 480000" "bptt 6 480000" "eqp 6 240000" "eqp 60 240000")
 read -r m lr updates <<< "${ARMS[$SLURM_ARRAY_TASK_ID]}"
 choice=$(python3 -c "import json; c = json.load(open('runs/ALT/tune/sudoku-$m/choice.json'))['choice']; print(c['knob'], c['l1'])")
@@ -24,5 +26,6 @@ read -r knob l1 <<< "$choice"
 for s in 0 1 2; do
   CUDA_VISIBLE_DEVICES=$s python -u training_methods.py train --task sudoku --method $m --lr $lr --knob $knob \
     --l1 $l1 --updates $updates --seed $s --out runs/ALT/longD2/sudoku-$m-lr$lr-s$s &
+  pids+=("$!")
 done
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}

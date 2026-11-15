@@ -21,6 +21,8 @@ set -euo pipefail
 export ALT_MAZE_KERNEL=free ALT_MAZE_OPT=sgd-cosine
 STAGE=$1
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 PY=python
 R=runs/ALT-sgd
 METHODS=(pl mpl mpf dsm cd pcd chl eqp imp bptt1 bptt5 bptt)
@@ -33,9 +35,10 @@ case $STAGE in
     g=0
     while read -r line; do
       CUDA_VISIBLE_DEVICES=$((g % 3)) $PY -u training_methods.py $line &
+      pids+=("$!")
       g=$((g + 1))
     done < $R/plan-tune-maze-$m.txt
-    wait
+    wait_for_jobs ${pids[@]+"${pids[@]}"}
     $PY training_methods.py select --task maze --method $m ;;
   final)
     m=${METHODS[$i]}
@@ -44,8 +47,9 @@ case $STAGE in
     while read -r line; do
       run=$(echo "$line" | sed 's/.*--out //')
       (CUDA_VISIBLE_DEVICES=$g $PY -u training_methods.py $line && CUDA_VISIBLE_DEVICES=$g $PY -u training_methods.py test --run $run) &
+      pids+=("$!")
       g=$((g + 1))
     done < $R/plan-final-maze-$m.txt
-    wait ;;
+    wait_for_jobs ${pids[@]+"${pids[@]}"} ;;
 esac
 echo "end $(date -u)"

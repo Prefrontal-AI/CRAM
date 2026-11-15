@@ -21,6 +21,8 @@
 # `runs/ALT` is the run folder of this study; the name is only a label.
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 METHODS=(pl mpf cd bptt1 bptt)
 i=$SLURM_ARRAY_TASK_ID
 task=$([ $i -lt 5 ] && echo sudoku || echo maze)
@@ -28,6 +30,7 @@ method=${METHODS[$((i % 5))]}
 g=0
 while read -r line; do
   (CUDA_VISIBLE_DEVICES=$g python -u training_methods.py $line) &
+  pids+=("$!")
   g=$((g + 1))
 done < runs/ALT/plan-dense-$task-$method.txt
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}
