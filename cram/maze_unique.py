@@ -49,6 +49,7 @@ Training: `pl_loss`, the pseudolikelihood at the labeled solution. It needs no s
 """
 
 import hashlib
+import io
 import os
 from pathlib import Path
 
@@ -72,9 +73,11 @@ WALL, OPEN, S_TOK, G_TOK = 0, 1, 2, 3  # input tokens
 def _read(rel):
     """The array of the data file `rel` (a key of SHA256), after its hash check."""
     path = EQR / rel
-    h = hashlib.sha256(path.read_bytes()).hexdigest()
-    assert h == SHA256[rel], f'{path}: sha256 {h} is not the pinned file'
-    return np.load(path)
+    contents = path.read_bytes()
+    digest = hashlib.sha256(contents).hexdigest()
+    if digest != SHA256[rel]:
+        raise ValueError(f'{path}: sha256 {digest} is not the pinned file')
+    return np.load(io.BytesIO(contents), allow_pickle=False)
 
 
 def dev_split(n=1000, size=100, seed=0):
