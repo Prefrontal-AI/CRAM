@@ -18,6 +18,8 @@
 # The paper's Maze-Unique arms come from sgd.sbatch, not from array indices 10-19 of this script (see tune.sbatch).
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 METHODS=(${ALT_METHODS:-pl mpl mpf dsm cd pcd chl eqp imp tbptt})  # ALT_METHODS: a subset, indexed by the array (i % 10)
 i=$SLURM_ARRAY_TASK_ID
 task=$([ $i -lt 10 ] && echo sudoku || echo maze)
@@ -28,6 +30,7 @@ while read -r line; do
   run=$(echo "$line" | sed 's/.*--out //')
   (CUDA_VISIBLE_DEVICES=$g python -u training_methods.py $line && \
    CUDA_VISIBLE_DEVICES=$g python -u training_methods.py test --run $run) &
+  pids+=("$!")
   g=$((g + 1))
 done < runs/ALT/plan-final-$task-$method.txt
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}

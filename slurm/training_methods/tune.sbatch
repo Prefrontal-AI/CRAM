@@ -19,6 +19,8 @@
 # does not report. For the methods bptt1, bptt5 and bptt, set ALT_METHODS (10 names, indexed by i % 10).
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 METHODS=(${ALT_METHODS:-pl mpl mpf dsm cd pcd chl eqp imp tbptt})  # ALT_METHODS: a subset, indexed by the array (i % 10)
 i=$SLURM_ARRAY_TASK_ID
 task=$([ $i -lt 10 ] && echo sudoku || echo maze)
@@ -27,7 +29,8 @@ python training_methods.py plan --stage tune --tasks $task --methods $method > r
 g=0
 while read -r line; do
   CUDA_VISIBLE_DEVICES=$((g % 3)) python -u training_methods.py $line &
+  pids+=("$!")
   g=$((g + 1))
 done < runs/ALT/plan-tune-$task-$method.txt
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}
 python training_methods.py select --task $task --method $method

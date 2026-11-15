@@ -16,8 +16,11 @@
 # (training_methods.train), so a requeued job resumes.
 set -euo pipefail
 REPO=${SLURM_SUBMIT_DIR:?submit from the repository root}; cd "$REPO/experiments"; export PATH="$REPO/.venv/bin:$PATH"
+source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+pids=()
 for s in 0 1 2; do
   CUDA_VISIBLE_DEVICES=$s python -u training_methods.py train --task sudoku --method bptt --lr 2 --knob 10 \
     --l1 0.1 --updates 3840000 --cap-s 36000 --seed $s --out runs/ALT/longD3/sudoku-bptt-lr2-s$s &
+  pids+=("$!")
 done
-wait
+wait_for_jobs ${pids[@]+"${pids[@]}"}

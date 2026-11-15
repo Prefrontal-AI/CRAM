@@ -28,12 +28,17 @@ case "$1" in
     done < $d/plan-train-g$i.txt
     ;;
   probe)
+    source "$REPO/slurm/training_methods/wait_for_jobs.sh"
+    pids=()
     p=${PROBES_PER_GPU:-3}
     n=$((SLURM_ARRAY_TASK_COUNT * p))
     for j in $(seq 0 $((p - 1))); do
       runs=$(awk -v k=$((i * p + j)) -v n=$n '(NR - 1) % n == k' $d/plan-probe.txt)
-      [ -n "$runs" ] && python -u training_curves.py probe --runs $runs &
+      if [ -n "$runs" ]; then
+        python -u training_curves.py probe --runs $runs &
+        pids+=("$!")
+      fi
     done
-    wait
+    wait_for_jobs ${pids[@]+"${pids[@]}"}
     ;;
 esac
