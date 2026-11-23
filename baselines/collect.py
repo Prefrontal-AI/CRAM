@@ -1,12 +1,12 @@
-"""Collect every timed fit into tracked records: baselines/records/<method>-<task>.json and baselines/records/table.md.
+"""Summarize current timed fits and save available fit records under baselines/records/.
 
 Reads the run folders under baselines/runs/ (gitignored) and copies, per cell, the fit records, the test scores and the
 SHA-256 of each source file into one small JSON file that git tracks. Python standard library only.
 A cell is one (method, task, seed) fit. A cell is `done` when its fit records and its scores exist; the table shows
 the state of every expected cell. The fit records come from the wrappers `<baseline>/fit.py` (clock: baselines/clock.py)
-and the scores from each baseline's scorer. The script also writes results/baseline-fit-times.json, a summary of the
-records. It calls no baseline code.
-Usage: python3 baselines/collect.py   (safe to run while jobs are running; it only reads runs/ and rewrites records/)
+and the scores from each baseline's scorer. The Markdown table and results/baseline-fit-times.json both describe
+the current collection; per-cell JSON files for not-submitted cells are left untouched. It calls no baseline code.
+Usage: python3 baselines/collect.py   (safe to run while jobs are running; does not change runs/)
 """
 
 import glob
@@ -132,6 +132,7 @@ def collect():
     RECORDS.mkdir(exist_ok=True)
     jobs = queue()
     rows = []
+    export_cells = {}
     for method, task, folder, fits, score_globs, job, seed in CELLS:
         run = RUNS / folder
         fit_records = {f: json.loads((run / f).read_text()) for f in fits if (run / f).exists()}
@@ -155,9 +156,18 @@ def collect():
                    source_sha256=SOURCE,
                    slurm=jobs.get(job), collected_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
         slug = f"{method.lower()}-{task.lower().replace('-', '')}-s{seed}"
+        record = None
         if state != 'not submitted':
-            (RECORDS / f'{slug}.json').write_text(json.dumps(rec, indent=1, default=str) + '\n')
-        acc = '; '.join(a for p, s in scores.items() if (a := accuracy(method, p, s))) or '-'
+            path = RECORDS / f'{slug}.json'
+            path.write_text(json.dumps(rec, indent=1, default=str) + '\n')
+            record = f'baselines/records/{path.name}'
+        test_scores = {p: accuracy(method, p, s) for p, s in rec['scores'].items()}
+        export_cells[slug] = {
+            k: rec[k] for k in ('method', 'task', 'seed', 'state', 'fit_seconds', 'cold', 'gpu')
+        } | dict(record=record, test_scores=test_scores,
+                 numerics=sorted({r.get('numerics') for r in fit_records.values()} - {None}),
+                 gpus=max((r.get('gpus', 1) for r in fit_records.values()), default=1))
+        acc = '; '.join(a for a in test_scores.values() if a) or '-'
         fit = f'{fit_seconds:,.0f} s ({fit_seconds / 3600:.2f} h)' if fit_seconds is not None else '-'
         flags = [] if rec['cold'] or not fit_done else ['RESUMED, not cold']
         slurm = ' '.join(jobs[job][:2]) if job in jobs else ''
@@ -167,19 +177,13 @@ def collect():
              'baselines/clock.py.', '',
              '| Method | Task | Seed | State | Fit time | Test solved | Slurm | Flags |', '|---|---|---|---|---|---|---|---|', *rows]
     (RECORDS / 'table.md').write_text('\n'.join(table) + '\n')
-    export_cells = []
-    for f in sorted(RECORDS.glob('*.json')):
-        r = json.loads(f.read_text())
-        export_cells.append({k: r.get(k, 0) if k == 'seed' else r[k] for k in ('method', 'task', 'seed', 'state', 'fit_seconds', 'cold', 'gpu')}
-                            | dict(record=f'baselines/records/{f.name}',
-                                   test_scores={p: accuracy(r['method'], p, s) for p, s in r['scores'].items()},
-                                   numerics=sorted({x.get('numerics') for x in r['fit_records'].values()} - {None}),
-                                   gpus=max((x.get('gpus', 1) for x in r['fit_records'].values()), default=1)))  # 1 for every reported fit; >1 only for a data-parallel fit
+    # These fields describe the collector checkout, not the revision used to train any model.
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=HERE, capture_output=True, text=True).stdout.strip()
     dirty = bool(subprocess.run(['git', 'status', '--porcelain', '--', '.'], cwd=HERE, capture_output=True,
                                 text=True).stdout.strip())
-    out = dict(description='Cold complete fits of the baselines, one seed, one H200 (baselines/clock.py).',
-               writer='baselines/collect.py', code_commit=commit, code_dirty=dirty, cells=export_cells)
+    out = dict(description='Current baseline fit and score status (baselines/clock.py).',
+               writer='baselines/collect.py', code_commit=commit, code_dirty=dirty,
+               cells=[export_cells[slug] for slug in sorted(export_cells)])
     export = HERE.parent / 'results' / 'baseline-fit-times.json'
     text = json.dumps(out, indent=1) + '\n'
     if not export.exists() or json.loads(export.read_text()) != out:
