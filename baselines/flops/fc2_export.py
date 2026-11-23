@@ -108,19 +108,28 @@ def main():
         for k in ('segment', 'measure', 'energy'):
             assert d['ops'][k]['classes']['matmul'] == o[k + '_flop']
     B['EBR'] = E
-    s = E['sudoku']
     # Sudoku-Extreme: the authors' stopped setting (arXiv 2611.08977 App. C): each of 5 samples stops at the first
-    # segment end with |grad_M E| < 0.2, at most 64 segments. Its flop depends on the samples' segment counts s_i
-    # (ebr/report.py: sum_i s_i x (segment + measure) + 5 x energy), so the mean total of segments per puzzle, S, comes from
-    # each seed's report under the convention (report-fc2.json) and the old and with-compare counts use the same S.
-    # Maze-Unique: fixed 16 segments, its protocol.
+    # segment end with |grad_M E| < 0.2, at most 64 segments. The stop measurement supplies each sample's terminal
+    # energy, so mean flop is the mean total segment count S times (segment + measure) under each convention.
     e = E['sudoku']
-    reps = [jl(ROOT / f'baselines/runs/ebr/sudoku-s{k}/report-fc2.json')['unseen']['gtan0.2-cap64-N5'] for k in range(3)]
-    S = statistics.fmean((r['mean_flop'] - 5 * e['energy']['new']) / (e['segment']['new'] + e['measure']['new']) for r in reps)
-    f = lambda k: S * (e['segment'][k] + e['measure'][k]) + 5 * e['energy'][k]
+    flops = ROOT / 'baselines/runs/ebr/flops-full/sudoku.json'
+    flops_sha256 = sha(flops)
+    reports = [ROOT / f'baselines/runs/ebr/sudoku-s{k}/report-fc2.json' for k in range(3)]
+    regenerate = 'Restore the archived score shards and full counts, then run `sbatch ebr/report_fc2.sbatch` from baselines/.'
+    segments = []
+    for p in reports:
+        if not p.is_file():
+            raise FileNotFoundError(f'Missing EBR Sudoku report {p}. {regenerate}')
+        r = jl(p)
+        if r.get('adaptive_energy_in_measure') is not True or r.get('flops_sha256') != flops_sha256:
+            raise ValueError(f'{p} must include adaptive_energy_in_measure: true and match the SHA-256 of {flops}. {regenerate}')
+        segments.append(r['unseen']['gtan0.2-cap64-N5']['mean_flop'] / (e['segment']['new'] + e['measure']['new']))
+    S = statistics.fmean(segments)
+    f = lambda k: S * (e['segment'][k] + e['measure'][k])
     cells.append(cell('sudoku-extreme', 'ebr', 'EBR', f('old'), f('new'), f('new_with_compare'),
-                      [ROOT / 'baselines/runs/ebr/flops-full/sudoku.json'] + [ROOT / f'baselines/runs/ebr/sudoku-s{k}/report-fc2.json' for k in range(3)],
+                      [flops, *reports],
                       note=f'lowest energy of 5 samples, each stopped at |grad_M E| < 0.2, at most 64 segments; {S:.2f} segments per puzzle over the 5 samples (three-seed mean)'))
+    # Maze-Unique: fixed 16 segments, its protocol.
     e = E['mazeunique']
     f = lambda k: 5 * 16 * e['segment'][k] + 5 * e['energy'][k]
     cells.append(cell('maze-unique', 'ebr', 'EBR', f('old'), f('new'), f('new_with_compare'), ROOT / 'baselines/runs/ebr/flops-full/mazeunique.json',

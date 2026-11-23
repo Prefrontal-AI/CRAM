@@ -19,8 +19,8 @@ criterion and flop convention (flop per network call or step x calls; a multiply
   halting head).
 - EBR, knob "depth x samples" or "tau x samples": the lowest energy among the first N sampled trajectories, each run D
   segments, or stopped at the first segment end with tangential gradient norm |grad_M E| < tau (at most 64 segments);
-  flop = segments x (one segment, + one gradient measure under the tau rule) per trajectory, + N
-  energy evaluations when N > 1 (baselines/runs/ebr/flops/sudoku.json, baselines/ebr/report.py).
+  fixed depth charges segments x one segment per trajectory, plus N energy evaluations when N > 1. The tau rule charges
+  segments x (one segment + one gradient measure) per trajectory; the measure already returns the terminal energy.
 - TRMP-fast (the TRMP lattice model, baselines/trmp/lattice.py), knobs "budget" (steps per puzzle at 64 chains) and
   "chains" (at budget 1,000): each setting is its own run of the chain search (sweep/trmp_lattice_sweep.py); answer = the
   first chain on a solved board, a puzzle unsolved within the budget is wrong; flop per puzzle = a_K + b_K x steps run on
@@ -30,8 +30,7 @@ Operation counts: every per-unit cost above is the arithmetic-only count of resu
 (baselines/flops/fc2_export.py; convention in baselines/flops/fullcount.py). The older matmul-only counts of
 FlopCounterMode (results/flop-counts.json and files next to the checkpoints) are only compared with the `*_old` fields of op-counts.json to check
 that both files describe the same model. TRMP adds the counted noise arithmetic per continuing step and the input
-check; EqR the top1_conv selection over B; EBR scales its precomputed per-setting flop by the segment's count ratio
-(measure and energy ratios agree to 3e-4).
+check; EqR the top1_conv selection over B. EBR uses the per-puzzle full counts from ebr/report_fc2.sbatch.
 Puzzles: Sudoku-Extreme full-all rows 10,000-19,999 (official rows from data/full-test/index.json).
 Dimensions: p = puzzles, k = steps or rollouts, d = depths, b = trajectories.
 
@@ -40,12 +39,16 @@ This script calls no model code; the passes it reads come from sweep/submit.sh a
 """
 import hashlib
 import json
+import sys
 import time
 from pathlib import Path
 
 import numpy as np
 
 CODE = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(CODE))
+from baselines.ebr.report import checked_sudoku_report, checked_sudoku_subset, sudoku_fullcount_digest  # noqa: E402
+
 T = CODE / 'baselines'
 R = T / 'runs'  # outputs of the baseline fits and scorers
 S = R / 'compute-sweep'
@@ -318,29 +321,27 @@ def gram_rows(rows):
 
 def ebr_rows(task, rows):
     """EBR: fixed depth and the gradient-norm stop, from the per-puzzle flags of ebr/report.py over the official test order."""
-    name = 'sudoku'
-    flops = R / f'ebr/flops/{name}.json'
-    e = UNITS['EBR'][name]
-    assert jload(flops)['segment_flop'] == e['segment']['old']
-    seg_ratio = e['segment']['new'] / e['segment']['old']
+    flops = R / 'ebr/flops-full/sudoku.json'
+    flops_sha256 = sudoku_fullcount_digest(flops)
     scripts = [T / 'ebr/report.py']
     out = []
+    table_key = 'gtan0.2-cap64-N5'
     for k in SEEDS:
-        run = R / f'ebr/{name}-s{k}'
-        rep = jload(run / 'report.json')
-        z = np.load(run / 'report.flags.npz')
-        sets = {key: (z[key][rows], z[f'flop_{key}'][rows].astype(float) * seg_ratio, rep['all'][key]['knobs']) for key in rep['all']}
-        ckpt, sources, table_key = rep['checkpoint'], [run / 'report.json', run / 'report.flags.npz', flops], 'D64-N5'
-        for key, (ok, flop, knobs) in sets.items():
-            out.append(row('EBR', key, k, ok, flop, knobs, ckpt, scripts, sources, table1=(key == table_key),
-                           knob='tau x samples' if key.startswith('gtan') else 'depth x samples',
-                           note='published setting (lowest energy of 5 samples)' if key == table_key else None))
+        report = R / f'ebr/sudoku-s{k}/report-fc2.json'
+        flags = report.with_suffix('.flags.npz')
+        rep = checked_sudoku_report(report, flops, flops_sha256)
+        with np.load(flags) as z:
+            for key, setting in rep['all'].items():
+                solved, flop = checked_sudoku_subset(rep, z, key, rows, report)
+                out.append(row('EBR', key, k, solved, flop, setting['knobs'], rep['checkpoint'],
+                               scripts, [report, flags, flops], table1=(key == table_key),
+                               knob='tau x samples' if key.startswith('gtan') else 'depth x samples',
+                               note='Table-2 setting: lowest energy of 5 samples stopped at |grad_M E| < 0.2 (cap 64)' if key == table_key else None))
     return out
 
 
 def trmp_lattice_rows():
     """TRMP-fast (the TRMP lattice model): one row per (chains, budget) setting and seed, or none until all 51 settings exist."""
-    import sys
     sys.path.insert(0, str(T / 'sweep'))
     from trmp_lattice_sweep import GRID, N
     runs = {0: R / 'trmp-lattice/warm-s0/cold', 1: R / 'trmp-lattice/sudoku-extreme-s1', 2: R / 'trmp-lattice/sudoku-extreme-s2'}
@@ -409,8 +410,7 @@ def main():
     rs = act_rows('HRM', task, rows) + act_rows('TRM', task, rows) + eqr_rows(task) + frm_rows(task, rows) + trmp_rows(task)
     rs += gram_rows(rows)
     rs += trmp_lattice_rows()
-    if all((R / f"ebr/sudoku-s{k}/report.json").exists() for k in SEEDS):
-        rs += ebr_rows(task, rows)
+    rs += ebr_rows(task, rows)
     doc = dict(description=f'{bench}: solve rate against inference flop per puzzle for the looped baselines of the main table, rescored from the '
                            'Table-2 checkpoints at fixed grids of their inference settings (the compute sweep, baselines/sweep/). No retraining; '
                            'no setting chosen on test.',

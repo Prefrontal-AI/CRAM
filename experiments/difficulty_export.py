@@ -1,4 +1,4 @@
-"""Per-puzzle compute and accuracy against Sudoku-Extreme difficulty, for CRAM and the Table 2 baselines.
+"""Per-puzzle compute and accuracy against Sudoku-Extreme difficulty, for CRAM and selected baselines.
 
   python difficulty_export.py      (from experiments/; reads about 0.5 GB of records)
 
@@ -13,8 +13,9 @@ shard full-00), which every saved baseline score covers. Difficulty: the dataset
   EqR    baselines/runs/eqr/sudoku-s{k}/score-*.npz              top1_conv (Table 2's metric); depth D x breadth B network evaluations
   FRM    baselines/runs/frm-compiled{,-s1,-s2}/sudoku/score-unseen.solved.npz; 4,097 calls
   TRMP   baselines/runs/trmp/sudoku-extreme-s{k}/score/test/*.npz  64 rollouts, counted per rollout step
-  EBR    baselines/runs/ebr/sudoku-s{k}/report-fc2.flags.npz      per-puzzle solved and flop of gtan0.2-cap64-N8, the compute
-         sweep's most accurate EBR setting (8 samples, each stopped at |grad_M E| < 0.2 or 64 segments); official order
+  EBR    baselines/runs/ebr/sudoku-s{k}/report-fc2.{json,flags.npz}  per-puzzle solved and flop of gtan0.2-cap64-N8,
+         the archived sweep's highest-accuracy EBR setting (8 samples stopped at |grad_M E| < 0.2 or 64 segments); official order
+         Requires the matching full-count input at baselines/runs/ebr/flops-full/sudoku.json.
 Operation counts: the cost of each unit (ACT step, network evaluation, call, rollout step) is the count of
 results/op-counts.json (cram/opcount.py) under the operation-count convention of baselines/flops/fullcount.py, and
 CRAM's per-puzzle counts are rebuilt from its records (opcount.cram0_sudoku).
@@ -23,6 +24,7 @@ Writes results/difficulty/sudoku-difficulty.json. Dimensions: p = puzzles of the
 """
 import glob
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -31,11 +33,14 @@ from cram import opcount
 from cram.paths import DATA
 
 CODE = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(CODE))
+from baselines.ebr.report import checked_sudoku_report, checked_sudoku_subset, sudoku_fullcount_digest  # noqa: E402
+
 T = CODE / 'baselines/runs'
 LO, N = 10000, 10000  # the subset: full-all rows LO .. LO + N - 1
 BINS = [0, 1, 2, 4, 8, 16, 32, 64, 10**9]  # rating edges: bin b holds lo <= rating < hi; the last bin holds every rating >= 64
 BUDGETS = np.logspace(6, 12, 121)  # per-puzzle operation budgets of the solved-within-budget curves
-EBR_KEY = 'gtan0.2-cap64-N8'  # EBR's most accurate point in the compute sweep
+EBR_KEY = 'gtan0.2-cap64-N8'  # fixed difficulty-figure setting, not the N5 Table 2 setting
 
 
 def full_all_to_official():
@@ -103,13 +108,16 @@ def main():
         shift = 0 if pred.min() == sol.min() else int(sol.min() - pred.min())
         models['TRMP'].append({'solved': np.all(pred + shift == sol, 1), 'flop': tp['input_check'] + 64 * tp['per_rollout'] + steps.sum(1) * tp['per_step'] + (steps.sum(1) - 64) * tp['noise_per_continuing_step']})
 
-    # EBR: per-puzzle records of its most accurate compute-sweep setting, official test order
+    # EBR: per-puzzle records of the fixed difficulty-figure setting, in official test order
+    flops = T / 'ebr/flops-full/sudoku.json'
+    flops_sha256 = sudoku_fullcount_digest(flops)
     models['EBR'] = []
     for s in range(3):
-        z = np.load(T / f'ebr/sudoku-s{s}/report-fc2.flags.npz')
-        models['EBR'].append({'solved': z[EBR_KEY].astype(bool)[official], 'flop': z[f'flop_{EBR_KEY}'].astype(float)[official]})
-        sweep = json.loads((T / f'ebr/sudoku-s{s}/report-fc2.json').read_text())['sweep10k'][EBR_KEY]
-        assert models['EBR'][-1]['solved'].sum() == sweep['solved'], 'EBR rows differ from its sweep10k subset'
+        report = T / f'ebr/sudoku-s{s}/report-fc2.json'
+        rep = checked_sudoku_report(report, flops, flops_sha256)
+        with np.load(report.with_suffix('.flags.npz')) as z:
+            solved, flop = checked_sudoku_subset(rep, z, EBR_KEY, official, report)
+        models['EBR'].append({'solved': solved, 'flop': flop})
 
     out = {'subset': {'full_all_rows': [LO, LO + N], 'n': N, 'rating_mean': float(rating.mean())},
            'bins': [[BINS[b], BINS[b + 1]] for b in range(len(BINS) - 1)],

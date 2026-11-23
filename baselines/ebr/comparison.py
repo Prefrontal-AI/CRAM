@@ -53,9 +53,18 @@ def ebr_params(bench):
     return read(RUNS / f'flops/{bench}.json')['params']
 
 
+def _adaptive_reports(bench):
+    paths = [RUNS / f'{bench}-s{k}/{REPORT}' for k in range(3)]
+    reports = [read(p) for p in paths]
+    for p, report in zip(paths, reports):
+        if report.get('adaptive_energy_in_measure') is not True:
+            raise ValueError(f'{p}: regenerate this report with ebr/report_fc2.sbatch')
+    return reports
+
+
 def ebr_sudoku():
     """EBR on Sudoku-Extreme: percent solved and flop per puzzle at four inference settings, over three seeds."""
-    reps = [read(RUNS / f'sudoku-s{k}/{REPORT}') for k in range(3)]
+    reps = _adaptive_reports('sudoku')
     cell = lambda key, f: stats([f(r['unseen'][key]) for r in reps])
     rate = lambda c: 100 * c['solved'] / c['n']
     return dict(
@@ -69,7 +78,7 @@ def ebr_sudoku():
 
 def ebr_maze(bench, recipe):
     """EBR on a maze benchmark: percent solved (exact label, and any shortest path) and flop per maze, over three seeds."""
-    reps = [read(RUNS / f'{bench}-s{k}/{REPORT}') for k in range(3)]
+    reps = _adaptive_reports(bench)
     out = dict(params=ebr_params(bench), recipe=recipe, test='1,000 test mazes')
     out['fit_s'] = ebr_fit(bench)
     for metric in ('exact', 'shortest'):
