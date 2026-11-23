@@ -61,15 +61,15 @@ Maze-Hard (`experiments/maze_hard_latent.py`, model class `cram.cram_maze_hard_g
 
 ## Evaluate
 
-`checkpoints/evaluate.py` scores each model on its test set and compares the score with the recorded one in `manifest.json`.
-It builds each model from its checkpoint as the task's evaluation script does, and calls the same search with the same settings and seeds:
+`checkpoints/evaluate.py` compares each model's scores with the recorded run metrics in `manifest.json`. For graph coloring, it also checks the Table 3 minimum-energy conflict count.
+It builds each model from its checkpoint and uses the recorded search settings and seeds:
 
 | Model | Built and searched as in | Search | Compared with |
 |---|---|---|---|
 | `sudoku-extreme` | `experiments/sudoku.py`, `search` | focused Gibbs search, 4 chains, fitted stopping threshold | `experiments/runs/CRAM-S/full/dev/` and `test/`, `cram0-hb-fit-s<seed>.json` |
 | `maze-unique` | `experiments/maze_unique.py`, `score` | focused Gibbs search at temperature 0 | `score-test-gibbs.json` of the run |
-| `nqueens-8`, `nqueens-10` | `experiments/nqueens_offset.py`, `run_final` | 20 chains per test row, local stopping test | `final.json` of the run |
-| `graph-coloring-8`, `-10` | `experiments/graph_coloring.py`, `test` | 20 samples per test graph | `final.json` of each search seed |
+| `nqueens-8`, `nqueens-10` | `experiments/nqueens_offset.py`, `run_final` | 20 chains per test row, local stopping test | Legacy metrics in the run's `final.json` |
+| `graph-coloring-8`, `-10` | `experiments/graph_coloring.py`, `test` | 20 samples per test graph on CPU | Each seed's legacy `final.json` and Table 3 `conflicts_n20` in `results/multi-solution-table.json` |
 | `maze-hard` | `experiments/maze_hard_latent.py`, `score` | hidden layer settled, then damped descent | `test-scores.json` of the run |
 
 Run it on one GPU, from the repository root:
@@ -78,6 +78,8 @@ Run it on one GPU, from the repository root:
 uv run python checkpoints/evaluate.py --seeds 0 1 2
 ```
 
+With no flags, the script evaluates every model at seed 0. Both `--tasks` and `--seeds` require at least one value: choose task names from the model list above and seeds from 0, 1 and 2. Invalid selections fail before any checkpoint or dataset is loaded.
+
 - Maze-Unique, Maze-Hard, N-Queens and graph coloring score their whole test set, and each score must equal its record exactly.
 - Sudoku-Extreme has 412,786 test puzzles (about 1.5 GPU hours for each seed).
   By default the script scores the 10,000 development puzzles (about 5 minutes for each seed), and the score must equal the development record in every field, the mean operation count included.
@@ -85,3 +87,7 @@ uv run python checkpoints/evaluate.py --seeds 0 1 2
   The search draws its random numbers for the whole batch, so a batch that differs from the recorded run takes other draws; for N below 412,786 the script compares only the solve rate.
 - The datasets are read from `data/`, which `scripts/prepare_data.py` writes (`REPRODUCING.md`, "Data").
 
+### Table 3 coverage
+
+- **Graph coloring:** `conflicts_majority_20` and `coverage_20` still check the legacy run records. `conflicts_min_energy_20` instead chooses the lowest-energy sample for each graph from the same 20 samples, sums its conflicting edges across the test graphs, and checks the corresponding seed in the `CRAM (free pair tables)` row. The bundled model is from the CUDA fit; the original Table 3 search used the CPU-fitted model. Agreement verifies the scores from the shipped weights, not that the two fits are identical.
+- **N-Queens:** The evaluator checks legacy `acc_majority20` (majority vote) and `cov20` (mean per-row coverage), among other run diagnostics. These are not full Table 3 verification: the CRAM N = 20 accuracy there uses the lowest-energy board, and the main coverage metric pools valid solutions per puzzle across its test rows.
