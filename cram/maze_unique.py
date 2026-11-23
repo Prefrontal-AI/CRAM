@@ -87,7 +87,9 @@ def dev_split(n=1000, size=100, seed=0):
 def load(split):
     """split: train | test | train900 | dev100. Returns a dict of arrays, each (N, 900) in row-major order:
     'inputs' int64 tokens (0 wall, 1 open, 2 S, 3 G), 'targets' int64 (1 on the path, S and G included), 'free' bool
-    (True at open cells)."""
+    (True at open cells). Unknown split names raise ValueError before any data file is read."""
+    if split not in ('train', 'test', 'train900', 'dev100'):
+        raise ValueError(f"Unknown Maze-Unique split {split!r}; expected train, test, train900 or dev100")
     base = 'test' if split == 'test' else 'train'
     X = _read(f'{base}/all__inputs.npy').astype(np.int64)
     Y = _read(f'{base}/all__labels.npy').astype(np.int64)

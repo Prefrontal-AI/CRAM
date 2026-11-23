@@ -42,6 +42,7 @@ import math
 import statistics
 import time
 from pathlib import Path
+from typing import Literal
 
 import numpy as np
 import torch
@@ -52,6 +53,7 @@ from cram import cram_maze as C
 from cram import maze_unique as M
 
 HERE = Path(__file__).resolve().parent
+ScoreSplit = Literal['train', 'test', 'train900', 'dev100']
 
 
 @dataclasses.dataclass
@@ -59,7 +61,7 @@ class Train:
     """The settings of one fit. Each run folder stores them in config.json, and `load_run` and the checkpoint loader
     rebuild the model from that file, so the field names are part of the record format.
     The paper's recipe sets kernel free, opt sgd, momentum 0.5, cosine, lr 1, updates 20, l1 0 (module docstring)."""
-    split: str = 'train900'  # train900 (fit on 900 mazes; the other 100 are dev100) | train (all 1,000 training mazes: final runs)
+    split: Literal['train900', 'train'] = 'train900'  # fit on 900 mazes (holding out dev100), or all 1,000 training mazes
     seed: int = 0  # torch seed of the initialization and numpy seed of the batch order
     R: int = 1  # separable kernel: relations
     de: int = 2  # separable kernel: width of the state-kernel factors P, Q
@@ -78,7 +80,7 @@ class Train:
     n_train: int = 0  # train on this many mazes of the split, a nested subset in a seeded order (0: all)
     device: str = 'cuda'  # cuda | cpu
     out: str = ''  # run directory, relative to experiments/
-    score: tuple[str, ...] = ('dev100',)  # splits scored after training, with gibbs (T 0) and descend
+    score: tuple[ScoreSplit, ...] = ('dev100',)  # splits scored after training, with gibbs (T 0) and descend
 
 
 def batches(n, size, rng):
@@ -281,7 +283,7 @@ def main_train(cfg: Train, searches: tuple[str, ...] = ('gibbs', 'descend')):
     save({'train': {k: v for k, v in info.items() if k != 'loss'}, 'scores': scores}, out / 'final.json')
 
 
-def main_score(run: str, split: str = 'dev100', sc: Search = Search(), tag: str = '', device: str = 'cuda'):
+def main_score(run: str, split: ScoreSplit = 'dev100', sc: Search = Search(), tag: str = '', device: str = 'cuda'):
     """Score one run. A test score is refused if the file exists (the test is scored once per final run)."""
     path = HERE / run / f"score-{split}-{sc.search}{('-' + tag) if tag else ''}.json"
     if split == 'test' and path.exists():
