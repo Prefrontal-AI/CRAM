@@ -70,7 +70,10 @@ The other baselines of the Maze-Hard appendix table are reported with their publ
 
 - `clock.py` is the fit clock.
   It starts when the training data are in host memory and stops when the inference-ready model exists; it excludes evaluation, saving and disk reads.
-- `collect.py` copies the fit records from `runs/` into `records/` (one JSON file per method, task and seed, and `records/table.md`) and writes `results/baseline-fit-times.json`.
+- `collect.py` summarizes the current `runs/` files and Slurm status for every expected cell in `records/table.md` and `results/baseline-fit-times.json`.
+  For cells with no current run outputs or job, the manifest shows `not submitted` with `record: null`, `fit_seconds: null` and empty `test_scores`.
+  The collector writes per-cell JSON for cells that are not `not submitted`; if a cell is `not submitted`, any older per-cell JSON stays on disk as an archive and does not feed the current summaries.
+  `code_commit` is the collector checkout's Git HEAD, not a fit's training revision; `code_dirty` reflects changes under `baselines/` when checked, including generated records.
 - `flops/fullcount.py` is the operation counter used for every method.
   `flops/cram_kernels.py` and `flops/cram_kernels_extra.py` count CRAM's own search under the same convention.
   `flops/fc2_export.py` reads every count and writes `results/op-counts.json`.
@@ -84,6 +87,6 @@ The other baselines of the Maze-Hard appendix table are reported with their publ
 
 ## What was run
 
-Every record in `records/` and every file in `results/` comes from runs in the earlier layout.
+The checked-in records in `records/` and exports in `results/` come from runs in the earlier layout.
 After the move, each Python file was checked with `python -m py_compile` and each shell file with `bash -n`.
 No fit, score or count was repeated from this layout.
