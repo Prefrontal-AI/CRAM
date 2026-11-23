@@ -26,7 +26,7 @@
   🔖 <a href="#citation"><b>Cite</b></a>
 </p>
 
-**Big reasoning speedups: 1,000× faster training and 280× less compute than any looped model.**
+**On Sudoku-Extreme and Maze-Unique, CRAM fits at least 1,000× faster than the Table 2 looped baselines. On the 10,000-puzzle Sudoku-Extreme sweep, CRAM uses about 280× fewer inference FLOPs at or above EBR’s best observed solve rate ([Figure 2](https://arxiv.org/html/2611.17309v2#S4.F2)).**
 
 CRAM (Compact Reasoning Associative Memory) is a fully trainable energy-based model from the 1980s: the energy of Hopfield and Tank, with its weights learned from solved puzzles.
 Reasoning is descent on that energy, and the energy tells the search when to stop.
@@ -37,6 +37,8 @@ Reasoning is descent on that energy, and the energy tells the search when to sto
 | --- | --- | --- | --- |
 | Sudoku-Extreme | 99.996% | 263,169 (about 7,700 nonzero) | 42 ms |
 | Maze-Unique | 100% | 18 | 132 ms |
+
+Training times are warm fits on one NVIDIA H200. The paper compares them with cold baseline fits and reports both timing conventions in [Appendix C.2](https://arxiv.org/html/2611.17309v2#A3.SS2).
 
 Paper: "Classical Energies Learn to Reason 1,000× Faster than Looped Models", Benjamin Hoover, Hugh Blayney and James C. R. Whittington (Prefrontal), arXiv 2611.17309.
 
