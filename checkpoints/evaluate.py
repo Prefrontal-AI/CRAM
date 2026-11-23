@@ -1,5 +1,5 @@
-"""Score the trained CRAM models in checkpoints/ on their test sets, with the search code and the settings of the paper's
-evaluations, and compare each score with the recorded one in manifest.json.
+"""Score the trained CRAM models in checkpoints/ and compare with the records in manifest.json. Also verify
+the Graph Coloring Table 3 minimum-energy N = 20 conflict totals against results/multi-solution-table.json.
 
 Each task's function builds the model from the checkpoint the way its evaluation script does, and calls the same search:
 
@@ -13,6 +13,8 @@ Run on one GPU, from the repository root:
 
     uv run python checkpoints/evaluate.py                                             # every model, seed 0
     uv run python checkpoints/evaluate.py --tasks maze-unique nqueens-8 --seeds 0 1 2
+
+Task and seed lists must be nonempty. Seeds are 0, 1 or 2; tasks must be named in the manifest.
 
 The datasets are read from data/, which scripts/prepare_data.py writes (REPRODUCING.md, "Data").
 Sudoku-Extreme has 412,786 test puzzles (about 1.5 GPU hours on one H200). By default the script scores the 10,000
@@ -100,7 +102,7 @@ def maze(seed):
 
 
 def nqueens(n, seed):
-    """As nqueens_offset.run_final: 20 chains per test row, the selected stopping test and temperature."""
+    """Reproduce the legacy metrics from nqueens_offset.run_final, not the Table 3 N = 20 accuracy or coverage."""
     import nqueens_free as N
     from cram import cram_nqueens as Q
     e = entry(f'nqueens-{n}', seed)
@@ -113,18 +115,27 @@ def nqueens(n, seed):
 
 
 def graph_coloring(n, seed):
-    """As graph_coloring.py test: 20 samples per test graph. `seed` is the seed of the search (one fitted model)."""
+    """Score 20 samples per test graph against both the legacy run and the Table 3 N = 20 conflict records."""
     from cram import cram_graph_coloring as G
     e = entry(f'graph-coloring-{n}', 0)
     exp = next(x for x in e['expected'] if x['seed'] == seed)
+    table = json.loads((ROOT / 'results' / 'multi-solution-table.json').read_text())
+    row = next(row for row in table['rows'] if row['method'] == 'CRAM (free pair tables)')
     model = dict(np.load(path(f'graph-coloring-{n}')))
     model.update(json.loads((ROOT / e['folder'] / 'model.json').read_text()))
     x, y = G.load_split(n, 'test')
     tokens, _ = G.convert(x, y, n)
-    r = G.score(G.adjacency(tokens, n), G.solve(model, tokens, seed=seed, **exp['search']))
+    adjacency = G.adjacency(tokens, n)
+    res = G.solve(model, tokens, seed=seed, **exp['search'])
+    r = G.score(adjacency, res)
     keys = ('graphs', 'conflicts_1', 'conflicts_majority_20', 'coverage_20', 'wrong_stops_all')
     got, want = {k: r[k] for k in keys}, {k: exp[k] for k in keys}
-    return got, want, all(abs(got[k] - want[k]) <= 1e-9 for k in keys)
+    # Table 3 selects one sample per graph by minimum energy, independently of the legacy majority vote.
+    pick = np.argmin(res['energy'], axis=1)
+    got['conflicts_min_energy_20'] = int(G.conflicts(adjacency, res['boards'][np.arange(len(pick)), pick]).sum())
+    want['conflicts_min_energy_20'] = row['cells'][f'gc{n}']['conflicts_n20']['per_seed'][seed]
+    same = all(abs(got[k] - want[k]) <= 1e-9 for k in keys)
+    return got, want, same and got['conflicts_min_energy_20'] == want['conflicts_min_energy_20']
 
 
 def maze_hard(seed):
@@ -146,6 +157,16 @@ def maze_hard(seed):
 
 
 def main(a: Args):
+    if not a.tasks:
+        raise SystemExit('--tasks must contain at least one task')
+    if not a.seeds:
+        raise SystemExit('--seeds must contain at least one seed')
+    unknown = [name for name in a.tasks if name not in MANIFEST]
+    if unknown:
+        raise SystemExit(f'unknown --tasks: {", ".join(unknown)}')
+    if any(seed not in (0, 1, 2) for seed in a.seeds):
+        raise SystemExit('--seeds must be 0, 1 or 2')
+
     failed = 0
     for name in a.tasks:
         for seed in a.seeds:
