@@ -12,8 +12,8 @@ depth). The settings scored here:
 - stopping at |grad_M E| < tau (EBR's adaptive stop, as its N-Queens / Graph Coloring protocol gtan_stop_index): each
   sample answers at its first segment end with |grad_M E| < tau, else at the cap d; then the same pick.
 Flop per puzzle (ebr/flops.py components, one sample): fixed depth: N x (d x segment) + (N > 1) x N x energy;
-adaptive: sum over the N samples of s_i x (segment + measure) + (N > 1) x N x energy, where s_i is the sample's
-segment count (the stop test needs E and grad E at every segment end: one measure, forward + backward).
+adaptive: sum over the N samples of s_i x (segment + measure), where s_i is the sample's segment count.
+The stop test measures E and grad E (forward + backward) at every segment end, so the terminal E is already available.
 
   python ebr/report.py sudoku <score dir> <flops.json> <out.json>     # dir of shard_<i>_of_16.{npz,json}
   python ebr/report.py maze <score npz> <flops.json> <out.json>
@@ -25,21 +25,60 @@ import hashlib
 import json
 import os
 import sys
+from math import isclose
 from pathlib import Path
 
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / 'trm'))
 
 DEPTHS = (1, 2, 4, 8, 16, 32, 64)
 NS = (1, 2, 5, 8)
 TAUS = (0.05, 0.1, 0.2, 0.3, 0.5, 1.0)
+REGENERATE_SUDOKU = 'Restore the archived score shards, checkpoints, dataset indices and full counts, then run `sbatch ebr/report_fc2.sbatch` from baselines/.'
 
 
 def digest(path):
     """SHA-256 of a file, as a hexadecimal string."""
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    h = hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b''):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def sudoku_fullcount_digest(flops):
+    """SHA-256 of the full-count input shared by the three seed reports."""
+    if not flops.is_file():
+        raise FileNotFoundError(f'Missing full-count input {flops}. {REGENERATE_SUDOKU}')
+    return digest(flops)
+
+
+def checked_sudoku_report(report, flops, flops_sha256):
+    """Read the report and verify its count convention and exact NPZ companion."""
+    flags = report.with_suffix('.flags.npz')
+    for p in (report, flags):
+        if not p.is_file():
+            raise FileNotFoundError(f'Missing EBR Sudoku report artifact {p}. {REGENERATE_SUDOKU}')
+    rec = json.loads(report.read_text())
+    if rec.get('adaptive_energy_in_measure') is not True or rec.get('flops_sha256') != flops_sha256:
+        raise ValueError(f'{report} must include adaptive_energy_in_measure: true and match the SHA-256 of {flops}. {REGENERATE_SUDOKU}')
+    flags_sha256 = rec.get('flags_sha256')
+    if not flags_sha256 or flags_sha256 != digest(flags):
+        raise ValueError(f'{report} must include flags_sha256 matching {flags}. {REGENERATE_SUDOKU}')
+    return rec
+
+
+def checked_sudoku_subset(rec, z, key, rows, report):
+    """Read one setting on official rows and reconcile it with the sweep10k summary."""
+    solved = z[key][rows].astype(bool, copy=False)
+    flop = z[f'flop_{key}'][rows].astype(float, copy=False)
+    summary = rec.get('sweep10k', {}).get(key, {})
+    # NPZ counts are float32; report means are calculated before that downcast.
+    if (flop.shape != solved.shape or solved.size != summary.get('n') or solved.sum() != summary.get('solved')
+            or not isclose(float(flop.mean()), summary.get('mean_flop', float('nan')), rel_tol=1e-6)):
+        raise ValueError(f'{report}: selected official rows for {key} disagree with sweep10k (n, solved or mean_flop). {REGENERATE_SUDOKU}')
+    return solved, flop
 
 
 def pick(exact, energy, n):
@@ -76,7 +115,7 @@ def settings(exact, energy, gtan, f, depths=DEPTHS, ns=NS, taus=TAUS):
                 if n > B:
                     continue
                 ok = pick(ex, en, n)
-                flop = (stop[:, :n] + 1).sum(1) * (seg + mea) + (n > 1) * n * ene
+                flop = (stop[:, :n] + 1).sum(1) * (seg + mea)
                 out[f'gtan{tau}-cap{d}-N{n}'] = (ok, flop.astype(float), dict(depth=d, samples=n, stop=f'|grad_M E| < {tau}', tau=tau))
     return out
 
@@ -106,6 +145,7 @@ def summarize(sets, mask):
 
 def sudoku(folder, flops, out):
     """Sudoku-Extreme: score the 16 shards in `folder`; write `out` (JSON) and the per-puzzle flags beside it (.flags.npz)."""
+    sys.path.insert(0, str(HERE.parent / 'trm'))
     from unseen import unseen_mask  # baselines/trm/unseen.py: official test rows outside dev10k
     exact, energy, gtan, metas, shards = load_sudoku(folder)
     f = json.loads(Path(flops).read_text())
@@ -115,9 +155,11 @@ def sudoku(folder, flops, out):
     sweep_rows = sweep_official_rows()
     sub = np.zeros_like(mask)
     sub[sweep_rows] = True
-    np.savez_compressed(Path(out).with_suffix('.flags.npz'), **{k: ok for k, (ok, _, _) in sets.items()},
+    flags = Path(out).with_suffix('.flags.npz')
+    np.savez_compressed(flags, **{k: ok for k, (ok, _, _) in sets.items()},
                         **{f'flop_{k}': fl.astype(np.float32) for k, (_, fl, _) in sets.items()})
     rec = dict(method='EBR', checkpoint=metas[0]['checkpoint'], checkpoint_sha256=digest(metas[0]['checkpoint']),
+               adaptive_energy_in_measure=True, flags_sha256=digest(flags),
                breadth=metas[0]['breadth'], depth=metas[0]['depth'], flops=flops, flops_sha256=digest(flops),
                shards={str(p): digest(p) for p in shards}, script=str(Path(__file__)), script_sha256=digest(__file__),
                unseen=summarize(sets, mask), sweep10k=summarize(sets, sub), all=summarize(sets, np.ones_like(mask)))
@@ -146,7 +188,8 @@ def maze(npz, flops, out):
     D, R = a['exact'].shape
     M = R // n
     f = json.loads(Path(flops).read_text())
-    rec = dict(method='EBR', npz=str(npz), npz_sha256=digest(npz), meta=meta, flops=flops, script=str(Path(__file__)), script_sha256=digest(__file__))
+    rec = dict(method='EBR', npz=str(npz), npz_sha256=digest(npz), meta=meta, flops=flops,
+               adaptive_energy_in_measure=True, script=str(Path(__file__)), script_sha256=digest(__file__))
     for key in ('exact', 'shortest'):
         ex = a[key].reshape(D, M, n).astype(bool)
         en = a['energy'].reshape(D, M, n).astype(np.float64)
