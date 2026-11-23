@@ -465,18 +465,25 @@ def fitcpu(a: FitCPU):
 
 # --- the single test scoring ----------------------------------------------------------------------------------------------
 
+PAPER_SEEDS = (0, 1, 2)
+PAPER_TEST_SIZE = 1000
+
+
 @dataclasses.dataclass
 class Score:
     name: str  # frozen recipe with final fits in runs/CRAM-HE/<final_dir>/<name>
-    seeds: tuple[int, ...] = (0, 1, 2)  # training seeds to score
+    seeds: tuple[int, ...] = PAPER_SEEDS  # all three paper seeds, in any order
     final_dir: str = 'final'  # 'final' (PyTorch kernels) or 'final-triton' (fits with the fused kernels)
     row: str = 'cram-latent-zmu'  # table row written after scoring (runs/table/maze-hard__<row>.json)
     require_warm: bool = True  # refuse models without 7 bitwise-checked warm repeats (False: accept fits made with --warm 0)
 
 
 def score(a: Score):
-    """Score the final models of a frozen recipe on the 1,000 test mazes, once. Refuses a second scoring, and refuses any
-    model whose SHA-256 differs from final/<name>/models.json and its fit record, before the test file is opened."""
+    """Score seeds 0, 1 and 2 once on exactly 1,000 test mazes. Check the hashes and requested warm fits before
+    opening the test file, and check both test arrays before constructing a model."""
+    if (len(a.seeds) != len(PAPER_SEEDS) or any(type(seed) is not int for seed in a.seeds)
+            or set(a.seeds) != set(PAPER_SEEDS)):
+        raise ValueError(f'expected exactly seeds {PAPER_SEEDS}, got {a.seeds}')
     fin = ROOT / a.final_dir / a.name
     dest = fin / 'test-scores.json'
     if dest.exists():
@@ -484,13 +491,17 @@ def score(a: Score):
     selected = json.loads((ROOT / f'selected-{a.name}.json').read_text())
     models = json.loads((fin / 'models.json').read_text())
     recs = {}
-    for seed in a.seeds:
+    for seed in PAPER_SEEDS:
         rec = json.loads((fin / f'final-s{seed}.json').read_text())
         h = sha256(fin / f'final-s{seed}.pt')
-        assert str(seed) in models and h == models[str(seed)]['sha256'] == rec['sha256'], f'seed {seed}: model hash mismatch'
-        assert not a.require_warm or (len(rec['warm']) >= 7 and all(w['bitwise_equal_to_cold'] for w in rec['warm'])), f'seed {seed}: warm fits'
+        if str(seed) not in models or not (h == models[str(seed)]['sha256'] == rec['sha256']):
+            raise ValueError(f'seed {seed}: model hash mismatch')
+        if a.require_warm and (len(rec['warm']) < 7 or not all(w['bitwise_equal_to_cold'] for w in rec['warm'])):
+            raise ValueError(f'seed {seed}: warm fits')
         recs[seed] = rec
     ttok, ty = m3.load('test')  # the first and only read of the test file for this recipe
+    if len(ttok) != PAPER_TEST_SIZE or len(ty) != PAPER_TEST_SIZE:
+        raise ValueError(f'expected {PAPER_TEST_SIZE} test rows each, got {len(ttok)} tokens and {len(ty)} labels')
     out = {'name': a.name, 'final_dir': a.final_dir, 'row': a.row, 'selected': selected,
            'scored_utc': time.strftime('%Y-%m-%d %H:%M', time.gmtime()), 'seeds': {}}
     for seed, rec in recs.items():
@@ -516,10 +527,19 @@ class Row:
     final_dir: str = 'final'  # as Score
 
 
+def _score_receipt_object(pairs):
+    obj = {}
+    for key, value in pairs:
+        if key in obj:
+            raise ValueError(f'duplicate key {key!r} in test-scores.json')
+        obj[key] = value
+    return obj
+
+
 def row(a: Row):
-    """Rewrite the table record from test-scores.json, adding the CPU fit times when their records exist."""
+    """Rewrite the table record for seeds 0, 1 and 2 (1,000 mazes each), adding CPU fit times when available."""
     fin = ROOT / a.final_dir / a.name
-    out = json.loads((fin / 'test-scores.json').read_text())
+    out = json.loads((fin / 'test-scores.json').read_text(), object_pairs_hook=_score_receipt_object)
     cpu = fin / 'cpu-s0-t1.json'
     if out.get('cpu_seed0') is None and cpu.exists():
         out['cpu_seed0'] = json.loads(cpu.read_text())
@@ -529,22 +549,33 @@ def row(a: Row):
 
 
 def write_test_row(out):
-    """Write runs/table/maze-hard__<row>.json from the content of test-scores.json (`out`)."""
+    """Publish the complete three-seed, 1,000-maze cohort in seed order from live or JSON score records."""
     from cram.table import write_row
     recipe = out['selected']['recipe']
     seeds = out['seeds']
-    res = [s['result'] for s in seeds.values()]
+    keys = []
+    for seed in PAPER_SEEDS:
+        matches = [key for key in seeds if (type(key) is int and key == seed) or (type(key) is str and key == str(seed))]
+        if len(matches) != 1:
+            raise ValueError(f'expected exactly one record for seed {seed}')
+        keys.append(matches[0])
+    if len(seeds) != len(PAPER_SEEDS):
+        raise ValueError(f'expected only seeds {PAPER_SEEDS}, got {list(seeds)}')
+    records = [seeds[key] for key in keys]
+    res = [record['result'] for record in records]
+    for seed, result in zip(PAPER_SEEDS, res):
+        if result.get('n') != PAPER_TEST_SIZE:
+            raise ValueError(f"seed {seed}: expected {PAPER_TEST_SIZE} test rows, got {result.get('n')}")
     cpu = out['cpu_seed0']
     cpu_warm = out.get('cpu_seed0_warm')
-    ks = sorted(seeds, key=int)
-    cold = [seeds[k]['train_gpu_cold_s'] for k in ks]
-    warm = [seeds[k]['train_gpu_warm_median_s'] for k in ks]
+    cold = [record['train_gpu_cold_s'] for record in records]
+    warm = [record['train_gpu_warm_median_s'] for record in records]
     path = write_row(
         'maze-hard', out.get('row', 'cram-latent-zmu'),
         label='CRAM + linear latent with its input at G (pseudolikelihood alone, adjoint at the fixed point / damped descent)',
-        per_seed=[r['solved'] / r['n'] for r in res], n_test=1000,
+        per_seed=[r['solved'] / r['n'] for r in res], n_test=PAPER_TEST_SIZE,
         test_set='Maze-Hard test (sapientinc/maze-30x30-hard-1k @ 549754de), all 1,000 mazes, scored once per seed',
-        params=seeds[ks[0]]['params']['params'], flop_per_puzzle=statistics.fmean(r['flop_mean'] for r in res),
+        params=records[0]['params']['params'], flop_per_puzzle=statistics.fmean(r['flop_mean'] for r in res),
         train_gpu_s=warm[0] if warm[0] is not None else cold[0], train_cpu_s=(cpu_warm['warm_median_total_s'] if cpu_warm else None if cpu is None else cpu['times']['total_s']),
         provenance=(f"recipe {out['name']} (experiments/recipes/maze-hard-latent.json); maze_hard_latent.py fit/score; "
                     f"runs/CRAM-HE/selected-{out['name']}.json, runs/CRAM-HE/{out.get('final_dir', 'final')}/{out['name']}/"),
@@ -563,10 +594,10 @@ def write_test_row(out):
         extra={'fit_gpu_cold_s': cold, 'fit_gpu_warm_s': warm,
                'fit_cpu_cold_s': [None if cpu is None else cpu['times']['total_s']],
                'fit_cpu_warm_s': [cpu_warm['warm_median_total_s'] if cpu_warm else None],
-               'cuda_context_s': [seeds[k]['cuda_context_s'] for k in ks],
+               'cuda_context_s': [record['cuda_context_s'] for record in records],
                'wrong_stops': [r['wrong_stops'] for r in res], 'budget_failures': [r['budget_failures'] for r in res],
                'flop_p99': [r['flop_p99'] for r in res], 'flop_max': [r['flop_max'] for r in res],
-               'stored_params': seeds[ks[0]]['params']['stored_floats']})
+               'stored_params': records[0]['params']['stored_floats']})
     print('wrote', path)
 
 
