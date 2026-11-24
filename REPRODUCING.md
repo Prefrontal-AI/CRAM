@@ -227,12 +227,14 @@ Training never differentiates through either relaxation.
 ```sh
 mkdir -p runs/CRAM-HE && cp recipes/maze-hard-latent.json runs/CRAM-HE/selected-CHE8-mu.json
 python maze_hard_latent.py fit --name CHE8-mu --seed 0 --warm 0 --triton     # about 30 s per fit; writes runs/CRAM-HE/final-triton/CHE8-mu/
+python maze_hard_latent.py fitcpu --name CHE8-mu --seed 0 --final-dir final-triton   # optional: record one cold fit on one CPU thread
 python maze_hard_latent.py score --name CHE8-mu --final-dir final-triton --row cram-latent-zmu --no-require-warm   # the 1,000 test mazes, once, after seeds 0-2
 python maze_hard_figure_export.py --maze 0 --snapshots 0 16 18 32 64         # ../results/maze-hard-figure.json
 ```
 
 Expected: 999 of 1,000 test mazes for every seed.
 The paper's fit time for this model (25.6 s) is one cold fit of seed 0 (`--warm 0`); `--warm 7` adds seven warm repeats, which `score` requires unless `--no-require-warm` is given.
+For `fitcpu`, `--final-dir` selects where to write the CPU timing receipt and look for the same-seed GPU checkpoint, if present. It defaults to `final`; `final-triton` matches `fit --triton` without enabling Triton for the CPU fit.
 
 ### Training methods (Figure 4 and its appendix table)
 
