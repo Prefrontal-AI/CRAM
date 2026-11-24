@@ -6,7 +6,7 @@ The paper's recipe is recipes/maze-hard-latent.json. Its name, CHE8-mu, is only 
   python maze_hard_latent.py train --name <run> --seed 0 --recipe.<field> <value> ...   # development: fit on 900 training mazes, score the other 100
   python maze_hard_latent.py summary                                          # table of every development run in runs/CRAM-HE
   python maze_hard_latent.py fit --name CHE8-mu --seed 0 --warm 7 --triton    # final fit on all 1,000 training mazes
-  python maze_hard_latent.py fitcpu --name CHE8-mu --seed 0                   # one cold fit on one CPU thread
+  python maze_hard_latent.py fitcpu --name CHE8-mu --seed 0 --final-dir final-triton   # one cold fit on one CPU thread
   python maze_hard_latent.py score --name CHE8-mu --final-dir final-triton --row cram-latent-zmu   # the test set, once
   python maze_hard_latent.py row --name CHE8-mu --final-dir final-triton      # rewrite the table record from test-scores.json
 
@@ -52,6 +52,7 @@ import hashlib
 import json
 import math
 import os
+import platform
 import statistics
 import time
 from pathlib import Path
@@ -428,14 +429,31 @@ class FitCPU:
     seed: int = 0  # training seed
     threads: int = 1  # CPU threads
     warm: int = 0  # further full fits in the same process for the warm time (median); 0: the cold fit only
+    final_dir: str = 'final'  # 'final' (PyTorch GPU fits) or 'final-triton' (fused GPU fits); the CPU fit is unchanged
+
+
+def _cpu_label():
+    """Use the Linux model name when available, otherwise report what the platform exposes."""
+    if platform.system() == 'Linux':
+        try:
+            with Path('/proc/cpuinfo').open(encoding='utf-8') as cpuinfo:
+                for line in cpuinfo:
+                    key, _, model = line.partition(':')
+                    if key.strip() == 'model name' and model.strip():
+                        return model.strip()
+        except (OSError, UnicodeError):
+            pass
+    return platform.processor() or platform.machine() or None
 
 
 def fitcpu(a: FitCPU):
-    """One cold fit on all 1,000 training mazes on the CPU. Saves the times and the largest weight difference to the GPU
-    model of the same seed; no model is saved. The test file is never opened."""
+    """Time a cold CPU fit on all 1,000 training mazes and any requested warm repeats.
+
+    Write the receipt and logs to the selected final directory and compare against its same-seed GPU model if present.
+    No CPU model is saved, and the test file is never opened."""
     torch.set_num_threads(a.threads)
     recipe = Recipe(**json.loads((ROOT / f'selected-{a.name}.json').read_text())['recipe'])
-    out = ROOT / 'final' / a.name
+    out = ROOT / a.final_dir / a.name
     out.mkdir(parents=True, exist_ok=True)
     dest = out / (f'cpu-s{a.seed}-t{a.threads}.json' if a.warm == 0 else f'cpu-s{a.seed}-t{a.threads}-warm{a.warm}.json')
     if dest.exists():
@@ -445,7 +463,7 @@ def fitcpu(a: FitCPU):
     model, times, curve = fit_recipe(tok, y, a.seed, recipe, device='cpu', ckpt=out / f'ckpt-cpu-s{a.seed}.pt',
                                      log=out / f'log-cpu-s{a.seed}.jsonl')
     rec = {'name': a.name, 'seed': a.seed, 'threads': a.threads, 'times': times, 'end_curve': curve[-1],
-           'cpu': open('/proc/cpuinfo').read().split('model name')[1].split('\n')[0].strip(': ')}
+           'cpu': _cpu_label()}
     if a.warm:  # the warm protocol: the cold fit above, then `warm` further fits in this process (each checked against it)
         rec['warm'] = []
         for _ in range(a.warm):
