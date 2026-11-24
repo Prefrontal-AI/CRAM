@@ -93,14 +93,15 @@ def module(name, file):
 
 def majority(P, q):
     """GRAM's vote per row over the samples axis. P (rows, n, L) tokens, q (rows, n) sigmoid(q_halt) as float64.
-    Returns the index of the earliest sample of the winning sequence: most votes, then highest mean q, then earliest."""
+    Among sequences with the most votes, choose the highest mean q; on an exact tie, return the earliest sample."""
     out = np.empty(len(P), np.int64)
     for a in range(0, len(P), 2048):
         p = P[a:a + 2048]
         same = (p[:, :, None, :] == p[:, None, :, :]).all(-1)  # (rows, n, n)
         votes = same.sum(-1)
         mean_q = (same * q[a:a + 2048, None, :]).sum(-1) / votes
-        out[a:a + 2048] = np.argmax(2 * votes + mean_q, 1)  # 0 <= mean_q <= 1, so votes decide first; argmax: earliest
+        mean_q[votes != votes.max(axis=1, keepdims=True)] = -np.inf
+        out[a:a + 2048] = np.argmax(mean_q, axis=1)
     return out
 
 

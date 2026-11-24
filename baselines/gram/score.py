@@ -96,11 +96,12 @@ def run(out, checkpoint, first, last, steps, overrides):
 
 def majority(hashes, q):
     """Majority vote per puzzle over the samples axis: index of a sample of the chosen answer. hashes, q: (puzzles, n).
-    The key is (votes, mean q_halt of those votes), compared in that order: 2 * votes + mean, as 0 <= mean <= 1."""
+    Among answers with the most votes, choose the highest mean q; on an exact tie, return the earliest sample."""
     same = hashes[:, :, None] == hashes[:, None, :]  # (puzzles, n, n)
     votes = same.sum(-1)
     mean_q = (same * q.astype(np.float64)[:, None, :]).sum(-1) / votes
-    return np.argmax(2 * votes + mean_q, 1)
+    mean_q[votes != votes.max(axis=1, keepdims=True)] = -np.inf
+    return np.argmax(mean_q, axis=1)
 
 
 def merge(out, shards, ns=(1, 2, 5, 10, 20)):
