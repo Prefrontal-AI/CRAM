@@ -22,10 +22,10 @@ Energy: E(y) = P(y) - sum_i B[x_i, y_i] with the pair energy P(y) = y.A y = 1/2 
 S = A + A^T (`cram_sudoku`). Each chain keeps the fields G[i, a] = sum_j S_ij [y_j = a] (h, n, d), so the energy change
 of setting cell i to digit a is G[i, a] - B[x_i, a] less a constant.
 
-A move (the Triton kernel `_moves`, one program per chain): pick a cell (focused: a random free cell whose own-digit
-field G[i, y_i] exceeds ebar, a training-solution cell's mean own-digit field, by more than theta; else a random free
-cell), draw its digit from softmax(-(G[cell] - B[x_cell]) / T), update the fields G = S Y of every cell (one column of
-S), the pair energy P = y.A y and, for the per-term test, the count Q of same-digit pairs that block it.
+A move (the Triton kernel in `_sudoku_moves`, one program per chain): pick a cell (focused: a random free cell whose
+own-digit field G[i, y_i] exceeds ebar, a training-solution cell's mean own-digit field, by more than theta; else a
+random free cell), draw its digit from softmax(-(G[cell] - B[x_cell]) / T), update the fields G = S Y of every cell (one
+column of S), the pair energy P = y.A y and, for the per-term test, the count Q of same-digit pairs that block it.
 Stopping tests (a chain is frozen at its first passing move, and its puzzle stops at the first check after it):
   pair   P <= tau + tol, tau the highest pair energy of the training solutions (the fitted threshold of the paper).
   term   Q = 0: every same-digit pair on the board has S_ij < -1e-6 (no fitted threshold; sound for PL from a zero
@@ -46,85 +46,9 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn.functional as F
-import triton
-import triton.language as tl
 
 N, V = 81, 9  # cells, digits
 FL_PRODUCT = 2 * N * N * V  # flop of one exact field product G = S Y
-
-
-# The move kernel: one program per chain runs `nmoves` moves. Arguments (flattened tensors): S (n, n) symmetric
-# couplings; M (n, n) the blocking mask of the per-term test; B (t, d) input biases; x (h, n) tokens; y (h, n) the
-# board; G (h, n, d) fields; P (h,) pair energy; Q (h,) blocking-pair count; free (h, n) the free cells first (a
-# stable sort); fmask (h, n) 1 at free cells; nfree (h,) number of free cells; temp, theta (h,) temperature and focus
-# threshold; found (h,) the move at which the chain first passed its test, or -1; ycert (h, n) the board at that move;
-# seed (1,); move0 the number of moves already made; ebar the focus reference; tau the threshold of the pair test.
-# MODE 2: focused cell choice, 0: uniform. TERM: per-term test instead of the pair test. NB, VB: block sizes (powers of
-# two that cover n and d). Random numbers come from tl.rand, keyed by (seed, move) and offset by the chain.
-@triton.jit
-def _moves(S_ptr, M_ptr, B_ptr, x_ptr, y_ptr, G_ptr, P_ptr, Q_ptr, free_ptr, fmask_ptr, nfree_ptr, temp_ptr, theta_ptr,
-           found_ptr, ycert_ptr, seed_ptr, nmoves, move0, ebar, tau,
-           MODE: tl.constexpr, TERM: tl.constexpr, N: tl.constexpr, V: tl.constexpr, NB: tl.constexpr, VB: tl.constexpr):
-    pid = tl.program_id(0).to(tl.int64)
-    rows = tl.arange(0, NB)
-    cols = tl.arange(0, VB)
-    rmask = rows < N
-    cmask = cols < V
-    gbase = G_ptr + pid * N * V
-    y = tl.load(y_ptr + pid * N + rows, mask=rmask, other=-1)
-    fm = tl.load(fmask_ptr + pid * N + rows, mask=rmask, other=0) != 0
-    e = tl.load(gbase + rows * V + tl.maximum(y, 0), mask=rmask, other=0.0)
-    P = tl.load(P_ptr + pid)
-    Q = tl.load(Q_ptr + pid)
-    T = tl.load(temp_ptr + pid)
-    nf = tl.load(nfree_ptr + pid)
-    th = tl.load(theta_ptr + pid)
-    found = tl.load(found_ptr + pid)
-    sd = tl.load(seed_ptr)
-    for k in range(nmoves):
-        sk = sd * 65536 + k
-        base = (pid * 512).to(tl.int32)
-        u0 = tl.rand(sk, base)
-        idx = tl.minimum((u0 * nf).to(tl.int32), nf - 1)
-        cell = tl.load(free_ptr + pid * N + idx)
-        if MODE == 2:
-            conf = fm & ((e - ebar) > th)
-            score = tl.where(conf, tl.rand(sk, base + 64 + rows), -1.0)
-            cc = tl.argmax(score, 0)
-            cell = tl.where(tl.max(score, 0) >= 0.0, cc, cell)
-        Gi = tl.load(gbase + cell * V + cols, mask=cmask, other=0.0)
-        xc = tl.load(x_ptr + pid * N + cell)
-        Li = Gi - tl.load(B_ptr + xc * V + cols, mask=cmask, other=0.0)
-        uu = tl.rand(sk, base + 16 + cols)
-        lg = tl.where(cmask, -Li / T - tl.log(-tl.log(tl.maximum(uu, 1e-20))), float('-inf'))
-        new = tl.argmax(lg, 0)
-        old = tl.sum(tl.where(rows == cell, y, 0), 0)
-        new = tl.where(found >= 0, old, new)
-        d = (new != old).to(tl.float32)
-        col = tl.load(S_ptr + cell * N + rows, mask=rmask, other=0.0) * d
-        po = gbase + rows * V + old
-        tl.store(po, tl.load(po, mask=rmask, other=0.0) - col, mask=rmask)
-        pn = gbase + rows * V + new
-        tl.store(pn, tl.load(pn, mask=rmask, other=0.0) + col, mask=rmask)
-        tl.debug_barrier()
-        gnew = tl.sum(tl.where(cols == new, Gi, 0.0), 0)
-        P = P + (gnew - tl.sum(tl.where(cols == old, Gi, 0.0), 0)) * d
-        if TERM:
-            mrow = tl.load(M_ptr + cell * N + rows, mask=rmask, other=0.0) * d
-            Q = Q + tl.sum(mrow * ((y == new).to(tl.float32) - (y == old).to(tl.float32)), 0)
-        e = e - tl.where(y == old, col, 0.0) + tl.where(y == new, col, 0.0)
-        y = tl.where(rows == cell, new, y)
-        e = tl.where(rows == cell, gnew, e)
-        if TERM:
-            cert = (found < 0) & (Q < 0.5)
-        else:
-            cert = (found < 0) & (P <= tau)
-        tl.store(ycert_ptr + pid * N + rows, y, mask=rmask & cert)
-        found = tl.where(cert, move0 + k + 1, found)
-    tl.store(y_ptr + pid * N + rows, y, mask=rmask)
-    tl.store(P_ptr + pid, P)
-    tl.store(Q_ptr + pid, Q)
-    tl.store(found_ptr + pid, found)
 
 
 def load_puzzles(split, lo=0, n=None):
@@ -266,6 +190,9 @@ class Search:
         temp = torch.full((H,), self.current_temp(), device=self.dev)
         theta = torch.full((H,), self.theta, device=self.dev)
         M = self.Mblk if self.Mblk is not None else self.S
+        # Only the dense move launch needs Triton, not data loading or Search construction.
+        from ._sudoku_moves import _moves
+
         _moves[(H,)](self.S, M, self.B, self.x, self.y, self.G, self.P, self.Q, self.freelist, self.fmask, self.nfree,
                      temp, theta, self.found, self.ycert, seed_t, nmoves, self.t, self.ebar, self.tau + self.tol,
                      MODE=2 if self.focused else 0, TERM=self.test == 'term', N=N, V=V, NB=128, VB=16, num_warps=1)
