@@ -218,7 +218,8 @@ def hand_sudoku(out_dir, seeds=(0, 1, 2)):
                    '(2 d + 1) + 4, whose focus comparisons are not counted now.',
                    'Steps are stop_t, the first passing move; the chains run on to the next check (up to 4,095 more moves '
                    'each). The old formula and this rebuild both charge stop_t only.'])
-    rec.update(meta([EXP / 'hand_set.py', EXP.parent / 'cram/cram_sudoku_sparse.py', EXP.parent / 'cram/cram_sudoku_search.py']))
+    rec.update(meta([EXP / 'hand_set.py', EXP.parent / 'cram/cram_sudoku_sparse.py', EXP.parent / 'cram/cram_sudoku_search.py',
+                     EXP.parent / 'cram/_sudoku_moves.py']))
     dump(out_dir, 'hand-sudoku', rec)
 
 
