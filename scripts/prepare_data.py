@@ -165,4 +165,6 @@ def multi_solution(a: MultiSolution):
 
 
 if __name__ == '__main__':
-    tyro.extras.subcommand_cli_from_dict({'sudoku': sudoku, 'maze-unique': maze_unique, 'maze-hard': maze_hard, 'multi-solution': multi_solution})
+    tyro.extras.subcommand_cli_from_dict(
+        {'sudoku': sudoku, 'maze-unique': maze_unique, 'maze-hard': maze_hard, 'multi-solution': multi_solution},
+        config=(tyro.conf.OmitArgPrefixes,))
